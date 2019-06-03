@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClothRepository")
@@ -15,51 +16,61 @@ class Cloth
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"cloth_read", "user_cloths"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"cloth_read", "user_cloths"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cloth_read", "user_cloths"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"cloth_read"})
      */
     private $without_pants;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"cloth_read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"cloth_read"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="cloths")
+     * @Groups({"cloth_read"})
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="cloths")
+     * @Groups({"user_cloths"})
      */
     private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Style", inversedBy="cloths")
+     * @Groups({"user_cloths"})
      */
     private $styles;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Outfit", inversedBy="cloths")
+     * @Groups({"cloth_read"})
      */
     private $outfits;
 
@@ -67,6 +78,7 @@ class Cloth
     {
         $this->styles = new ArrayCollection();
         $this->outfits = new ArrayCollection();
+        $this->without_pants = false;
     }
 
     public function getId(): ?int

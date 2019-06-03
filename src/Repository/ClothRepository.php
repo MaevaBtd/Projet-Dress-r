@@ -19,6 +19,17 @@ class ClothRepository extends ServiceEntityRepository
         parent::__construct($registry, Cloth::class);
     }
 
+
+    // retourne un vêtement filtré par l'id
+    public function findById($id) {
+
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Cloth[] Returns an array of Cloth objects
     //  */
