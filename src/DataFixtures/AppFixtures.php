@@ -60,7 +60,7 @@ class AppFixtures extends Fixture
 
         $populator->addEntity(Cloth::class, 20, array(
             'name' => function () use ($generator) {
-                return $generator->clothName();
+                return $generator->cloths();
             },
             'image' => function () use ($generator) {
                 return $generator->imageCloths();

@@ -84,7 +84,7 @@ class MyProvider extends Base
     ];
 
 
-    public static function clothName()
+    public static function cloths()
     {
         return static::randomElement(self::$cloths);
     }
