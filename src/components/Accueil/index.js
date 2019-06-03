@@ -11,6 +11,7 @@ const Accueil = () => (
   <div>
     <Welcome />
     <About />
+    
   </div>
 );
 
