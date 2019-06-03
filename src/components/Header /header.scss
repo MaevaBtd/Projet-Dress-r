@@ -1,0 +1,20 @@
+@import 'src/styles/vars';
+
+nav {
+  background-color: $brownish;
+}
+.nav-title {
+  color : $main-color;
+  font-family: $main-font; 
+  font-size: 2.5em;
+}
+.nav-item {
+  color: $main-color;
+  font-family: $main-font;
+  font-size: 1.2em;
+  margin-left: .5em;
+}
+
+
+
+
