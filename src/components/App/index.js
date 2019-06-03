@@ -3,18 +3,20 @@ import React from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
-
 // == Import : local
 import './app.scss';
-import Accueil from 'src/components/Accueil';
+
 import Footer from 'src/components/Footer';
+// import AddCloth from '../AddCloth';
+import Signup from '../Sign/Signup';
+import FormAddCloth from '../AddCloth/FormAddCloth';
+import Signin from '../Sign/Signin';
 
 
-library.add(fab);
 // == Composant
 const App = () => (
   <div id="app">
-    <Accueil />
+    <FormAddCloth />
     <Footer />
   </div>
 );
