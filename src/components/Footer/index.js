@@ -11,9 +11,9 @@ import './footer.scss';
 const Footer = () => (
   <div id="footer">
     <p id="footer-title">- &copy; Copyright - Dress'R 2019 </p>
-    <a href="#"><FontAwesomeIcon size="2x" className="icon" icon={['fab', 'facebook']} /></a>
-    <a href="#"><FontAwesomeIcon size="2x" className="icon" icon={['fab', 'twitter']} /></a>
-    <a href="#"><FontAwesomeIcon size="2x" className="icon" icon={['fab', 'instagram']} /></a>
+    <a href="#"><FontAwesomeIcon size="2x" className="icon-footer" icon={['fab', 'facebook']} /></a>
+    <a href="#"><FontAwesomeIcon size="2x" className="icon-footer" icon={['fab', 'twitter']} /></a>
+    <a href="#"><FontAwesomeIcon size="2x" className="icon-footer" icon={['fab', 'instagram']} /></a>
   </div>
 );
 

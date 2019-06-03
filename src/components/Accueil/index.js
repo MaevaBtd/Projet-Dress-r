@@ -5,13 +5,14 @@ import React from 'react';
 import './Accueil.scss';
 import Welcome from './Welcome';
 import About from './About';
+import Footer from '../Footer';
 
 // == Code
 const Accueil = () => (
-  <div>
+  <div id="accueil">
     <Welcome />
     <About />
-    
+    <Footer />
   </div>
 );
 

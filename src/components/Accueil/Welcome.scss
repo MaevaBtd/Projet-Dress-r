@@ -7,38 +7,54 @@
   flex-wrap: wrap;
   justify-content: center;
   #logo {
-    height: 40%;
-    margin-top: 2%;
+    height: 25%;
+    margin-top: 2em;
   }
   h1 {
     width: 100%;
     font-family: $main-font;
-    font-size: 3em;
-    margin: 0;
+    font-size: 5em;
+    margin: 0 auto;
   }
   h2 {
-    margin: 0;
+    font-size: 2em;
+    margin: 0 auto;
   }
   
   #button {
     width: 100%;
     .log {
-      height:50px;
-      margin: 0.5em 10% 0;
+      height: 2em;
+      margin: 0.5em 1em 0;
       background-color: $main-color;
       border-color: $main-color;
       font-family: $main-font;
-      font-size: 1.5em;
+      font-size: 2em;
+      text-decoration: none;
+      color: $brownish;
+
+      &:hover {
+        background-color: $brownish;
+        color: $main-color;
+      }
     }
+    
     
   }
   .about {
-    height:50px;
+    height: 2em;
     background-color: $brownish;
     border-color: $brownish;
     color: $main-color;
     font-family: $main-font;
     font-size: 1.5em;
+    text-decoration: none;
+    margin: .5em auto;
+
+    &:hover {
+      background-color: $main-color;
+      color: $brownish;
+    }
   }
   
 }

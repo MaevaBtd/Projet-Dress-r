@@ -1,15 +1,17 @@
+@import "./src/styles/vars";
+
 #footer {
-  background-color: #2b2b28;
+  background-color: $brownish;
   padding: 2em 0;
 
   &-title {
-    color: #ebe2c1;
+    color: $main-color;
     padding: 1em 0;
     font-size: 1.5em;
   }
 }
-.icon {
-  color: #ebe2c1;
+.icon-footer {
+  color: $main-color;
   margin: 1em;
   text-align: right;
 
