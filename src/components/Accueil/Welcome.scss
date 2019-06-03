@@ -1,0 +1,45 @@
+@import 'src/styles/vars';
+
+#welcome {
+  height: 100vh;
+  background-color: $mustard;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  #logo {
+    height: 40%;
+    margin-top: 2%;
+  }
+  h1 {
+    width: 100%;
+    font-family: $main-font;
+    font-size: 3em;
+    margin: 0;
+  }
+  h2 {
+    margin: 0;
+  }
+  
+  #button {
+    width: 100%;
+    .log {
+      height:50px;
+      margin: 0.5em 10% 0;
+      background-color: $main-color;
+      border-color: $main-color;
+      font-family: $main-font;
+      font-size: 1.5em;
+    }
+    
+  }
+  .about {
+    height:50px;
+    background-color: $brownish;
+    border-color: $brownish;
+    color: $main-color;
+    font-family: $main-font;
+    font-size: 1.5em;
+  }
+  
+}
+
