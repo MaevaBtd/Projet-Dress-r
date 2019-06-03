@@ -1,5 +1,17 @@
-@import 'src/styles/vars';
+@import "./src/styles/vars";
 
 #about {
-  height: 100vh;
+  background-color: $main-color;
+  padding: 0 2em;
+  height: auto;
 }
+.icon {
+  margin: 1em;
+  color: $brownish;
+}
+p {
+  width: 50%;
+  margin: auto;
+  padding-bottom: 2em;
+}
+
