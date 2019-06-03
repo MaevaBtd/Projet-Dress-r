@@ -1,14 +1,19 @@
 @import 'src/styles/vars';
 
+$break-small: 790px;
+
 #welcome {
   height: 100vh;
+  @media screen and (max-height: $break-small) {
+    height: 790px;
+  }
   background-color: $mustard;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   #logo {
     height: 25%;
-    margin-top: 2em;
+    margin-top: 7em;
   }
   h1 {
     width: 100%;
@@ -32,6 +37,7 @@
       font-size: 2em;
       text-decoration: none;
       color: $brownish;
+      position: static;
 
       &:hover {
         background-color: $brownish;
@@ -50,7 +56,8 @@
     font-size: 1.5em;
     text-decoration: none;
     margin: .5em auto;
-
+    position: static;
+    
     &:hover {
       background-color: $main-color;
       color: $brownish;
