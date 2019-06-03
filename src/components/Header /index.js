@@ -6,9 +6,15 @@ import './index.scss';
 
 // == Composant
 const Header = () => (
-  <div id="Header">
-    Header
-  </div>
+  <nav>
+    <div className="nav-wrapper">
+      <a href="#" className="brand-logo">Logo</a>
+      <ul id="nav">
+        <li><a href="#">Connexion</a></li>
+        <li><a href="#">Inscription</a></li>
+      </ul>
+    </div>
+  </nav>
 );
 
 // == Export
