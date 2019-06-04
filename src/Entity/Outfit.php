@@ -111,10 +111,10 @@ class Outfit
 
     public function addCloth(Cloth $cloth): self
     {
-        if (!$this->cloths->contains($cloth)) {
+        // if (!$this->cloths->contains($cloth)) {
             $this->cloths[] = $cloth;
             $cloth->addOutfit($this);
-        }
+        // }
 
         return $this;
     }
