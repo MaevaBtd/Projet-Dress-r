@@ -1,0 +1,56 @@
+@import "./src/styles/vars";
+
+$break-small: 790px;
+
+.addcloth {
+  background-color: $main-color;
+  padding: 0 2em;
+  height: 80vh;
+  //overflow: auto;
+  @media screen and (max-height: $break-small) {
+    height: 790px;
+  }
+}
+.input-add-cloth {
+  width: 75%;
+}
+.category-add-cloth {
+  width: 75%;
+  margin: auto;
+}
+
+#title-formaddcloth {
+  padding-top: 3em;
+  font-family: $main-font;
+  font-size: 3em;
+}
+.radio-add-cloth {
+  margin-left: 3em;
+}
+.radio-left {
+  margin-right: 3em;
+}
+.label-add-cloth{
+  font-family: $main-font;
+  font-size: 150px;
+}
+
+
+
+#button-add-cloth {
+    height: 2em;
+    margin: 0.5em 1em 0;
+    background-color: $brownish;
+    border-color: $brownish;
+    font-family: $main-font;
+    font-size: 2em;
+    text-decoration: none;
+    color: $main-color;
+    position: static;
+
+    &:hover {
+      background-color: $mustard;
+      color: $brownish;
+    }
+}
+

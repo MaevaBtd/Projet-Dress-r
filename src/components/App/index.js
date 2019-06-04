@@ -5,12 +5,16 @@ import React from 'react';
 import './app.scss';
 
 import Accueil from 'src/components/Accueil';
-// import Footer from 'src/components/Footer';
+import Footer from 'src/components/Footer';
+import Header from '../Header ';
+import FormAddCloth from '../AddCloth/FormAddCloth';
 
 // == Composant
 const App = () => (
   <div id="app">
-    <Accueil />
+    <Header />
+    <FormAddCloth />
+    <Footer />
   </div>
 );
 
