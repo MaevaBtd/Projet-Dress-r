@@ -12,12 +12,13 @@ import AddCloth from '../AddCloth';
 import Clothlist from '../Cloth/ClothList';
 import Cloth from '../Cloth';
 import Main from '../Main';
+import Changemdp from '../Profil/ChangeMdp';
 
 // == Composant
 const App = () => (
   <div id="app">
     <Header />
-    <Main />
+    <Changemdp />
     <Footer />
   </div>
 );

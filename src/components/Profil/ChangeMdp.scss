@@ -1,0 +1,52 @@
+@import 'src/styles/vars';
+
+.change-pwd-form {
+  width: 100%;
+  background-color: $main-color;
+  padding-bottom: 3em;
+  height: 52.4em;
+
+  .input-pwn-change {
+    margin-top: 3em;
+  }
+  h1 {
+    font-family: $main-font;
+    font-size: 1.6em;
+    padding-top: 6em;
+  }
+  .valider {
+    height: 2em;
+    margin: 0.5em 1em 0;
+    background-color: $brownish;
+    border-color: $brownish;
+    font-family: $main-font;
+    font-size: 2em;
+    text-decoration: none;
+    color: $main-color;
+    position: static;
+    margin-top: 3em;
+
+    &:hover {
+      background-color: $mustard;
+      color: $brownish;
+    }
+  }
+  #annuler {
+    height: 2em;
+    margin: 0.5em 1em 0;
+    border-color: $brownish;
+    font-family: $main-font;
+    font-size: 2em;
+    text-decoration: none;
+    color: $brownish;
+    position: static;
+
+    &:hover {
+      color: $mustard;
+    }
+  }
+}
+
+.input-pwn-change{
+  width: 75%;
+}
