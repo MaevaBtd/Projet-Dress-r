@@ -9,12 +9,15 @@ import Footer from 'src/components/Footer';
 import Header from '../Header ';
 import FormAddCloth from '../AddCloth/FormAddCloth';
 import AddCloth from '../AddCloth';
+import Clothlist from '../Cloth/ClothList';
+import Cloth from '../Cloth';
+import Main from '../Main';
 
 // == Composant
 const App = () => (
   <div id="app">
     <Header />
-    <AddCloth />
+    <Main />
     <Footer />
   </div>
 );
