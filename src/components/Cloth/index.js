@@ -5,7 +5,18 @@ import React from 'react';
 import './Cloth.scss';
 
 // == Code
-const Cloth = () => ();
+const Cloth = () => (
+  <a id="clothcard">
+    <div>
+      <p> Nom du vêtement</p>
+      <p>Catégorie</p>
+      <p>Type</p>
+    </div>
+    <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="" />
+
+  </a>
+  
+);
 
 // == Export
 export default Cloth;
