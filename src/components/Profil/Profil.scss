@@ -1,0 +1,44 @@
+@import 'src/styles/vars';
+
+#profil {
+  background-color: $main-color;
+  padding-top: 10em;
+  height: 52em;
+
+  h1 {
+    font-family: $main-font;
+    font-size: 1.6em;
+  }
+  p {
+    font-family: $main-font;
+  }
+  h2 {
+    font-family: $main-font;
+  }
+  #date {
+    padding-bottom: 3em;
+  }
+  .button {
+    height: 2em;
+    margin: 0.5em 1em 0;
+    background-color: $brownish;
+    border-color: $brownish;
+    font-family: $main-font;
+    font-size: 1em;
+    text-decoration: none;
+    color: $main-color;
+    position: static;
+    margin-bottom: 2em;
+
+    &:hover {
+      background-color: $mustard;
+      color: $brownish;
+    }
+  }
+}
+.stats {
+  width: 70%;
+  margin: 2em auto;
+  border: 1px solid $brownish;
+  padding-top: 2em;
+}

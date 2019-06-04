@@ -19,11 +19,11 @@ const Profil = () => (
       <p>J'ai utilisé l'outil Tenues Aléatoires x fois</p>
     </div>
     <h2>Mon adresse mail: <span>toto@email.com</span></h2>
-    <h2>Date d'inscription: <span>28/05/19</span></h2>
-    <Button>
+    <h2 id="date">Date d'inscription: <span>28/05/19</span></h2>
+    <Button className="button">
       <Icon type="unlock" /> Modifier mon Mot de passe
     </Button>
-    <Button>
+    <Button className="button">
       <Icon type="user" /> Modifier mes informations personnelles
     </Button>
   </div>

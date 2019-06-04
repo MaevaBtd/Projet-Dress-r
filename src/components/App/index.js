@@ -13,12 +13,13 @@ import Clothlist from '../Cloth/ClothList';
 import Cloth from '../Cloth';
 import Main from '../Main';
 import Changemdp from '../Profil/ChangeMdp';
+import Profil from '../Profil';
 
 // == Composant
 const App = () => (
   <div id="app">
     <Header />
-    <Changemdp />
+    <Profil />
     <Footer />
   </div>
 );

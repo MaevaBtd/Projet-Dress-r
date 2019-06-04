@@ -8,6 +8,7 @@
 
   .input-pwn-change {
     margin-top: 3em;
+    width: 75%;
   }
   h1 {
     font-family: $main-font;
@@ -45,8 +46,4 @@
       color: $mustard;
     }
   }
-}
-
-.input-pwn-change{
-  width: 75%;
 }
