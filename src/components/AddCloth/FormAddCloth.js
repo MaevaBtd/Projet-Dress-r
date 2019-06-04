@@ -46,7 +46,8 @@ const FormAddCloth = () => (
         </Button>
       </Upload>
     </Form.Item>
-    <Form.Item className="label-add-cloth" label="Votre vêtement est-il d'un seul tenant? ">
+    <Form.Item>
+      <h2 className="label-add-cloth">Votre vêtement est-il d'un seul tenant? (Robe, combinaison, tunique ...) </h2>
       <Radio.Group className="radio-add-cloth">
         <Row>
           <Col span={8}>

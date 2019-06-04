@@ -8,12 +8,13 @@ import Accueil from 'src/components/Accueil';
 import Footer from 'src/components/Footer';
 import Header from '../Header ';
 import FormAddCloth from '../AddCloth/FormAddCloth';
+import AddCloth from '../AddCloth';
 
 // == Composant
 const App = () => (
   <div id="app">
     <Header />
-    <FormAddCloth />
+    <AddCloth />
     <Footer />
   </div>
 );

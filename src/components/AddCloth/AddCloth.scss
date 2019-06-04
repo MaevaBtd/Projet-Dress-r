@@ -1,0 +1,45 @@
+@import 'src/styles/vars';
+
+$break-small: 1100px;
+
+#addcloth {
+  background-color: $main-color;
+  height: 90vh;
+  @media screen and (max-height: $break-small) {
+    height: 100vh;
+  }
+}
+// #full-babouche-man {
+//   position: relative;
+//   margin: auto;
+//   width: 15em;
+// }
+#babouche-man {
+  width: 20em;
+  display: block;
+  margin: auto;
+}
+#title-add-cloth {
+  padding-top: 3em;
+  font-family: $main-font;
+  font-size: 3em;
+}
+#desc-add-cloth {
+  font-family: $main-font;
+  font-size: 1.5em;
+}
+#hat {
+  
+}
+#tshirt {
+  
+}
+#vest {
+  
+}
+#pants {
+  
+}
+#shoes {
+  
+}
