@@ -4,7 +4,7 @@ namespace App\DataFixtures\Faker;
 
 use Faker\Provider\Base;
 
-class MyProvider extends Base
+class DressrProvider extends Base
 {
 
     protected static $cloths = [
@@ -69,9 +69,13 @@ class MyProvider extends Base
         'chaussures'
     ];
 
-    protected static $pass = [
-        'pass'
+    protected static $outfits =[
+        'Tenue de ville',
+        'Tenue des champs',
+        'Tenue tranquille',
+        'Tenue soirée'
     ];
+
 
     protected static $imageCloths = [
         'https://www.apc.fr/media/catalog/product/cache/1/thumbnail/632x733/9df78eab33525d08d6e5fb8d27136e95/apc/imedia/ACAAT-F08302_IAK_00.jpg',
@@ -101,9 +105,9 @@ class MyProvider extends Base
         return static::randomElement(self::$styles);
     }
 
-    public static function pass()
+    public static function outfits()
     {
-        return static::randomElement(self::$pass);
+        return static::randomElement(self::$outfits);
     }
 
     public static function imageCloths()

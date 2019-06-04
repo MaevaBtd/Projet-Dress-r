@@ -31,7 +31,7 @@ class Cloth
     /**
      * @ORM\Column(type="boolean")
      */
-    private $without_pants;
+    private $withoutPants;
 
     /**
      * @ORM\Column(type="datetime")
@@ -100,12 +100,12 @@ class Cloth
 
     public function getWithoutPants(): ?bool
     {
-        return $this->without_pants;
+        return $this->withoutPants;
     }
 
-    public function setWithoutPants(bool $without_pants): self
+    public function setWithoutPants(bool $withoutPants): self
     {
-        $this->without_pants = $without_pants;
+        $this->withoutPants = $withoutPants;
 
         return $this;
     }
@@ -168,9 +168,10 @@ class Cloth
 
     public function addStyle(Style $style): self
     {
-        if (!$this->styles->contains($style)) {
+        // if (!$this->styles->contains($style)) {
             $this->styles[] = $style;
-        }
+            
+        // }
 
         return $this;
     }
@@ -194,9 +195,9 @@ class Cloth
 
     public function addOutfit(Outfit $outfit): self
     {
-        if (!$this->outfits->contains($outfit)) {
+        // if (!$this->outfits->contains($outfit)) {
             $this->outfits[] = $outfit;
-        }
+        // }
 
         return $this;
     }
