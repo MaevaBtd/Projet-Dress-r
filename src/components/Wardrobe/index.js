@@ -9,9 +9,7 @@ import ClothList from '../Cloth/ClothList';
 // == Code
 const Wardrobe = () => (
   <div id="wardrobe">
-    <h1>Toutes mes tenues</h1>
     <OutfitList />
-    <h1>Tous mes vêtements</h1>
     <ClothList />
   </div>
 );

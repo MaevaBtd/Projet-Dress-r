@@ -9,27 +9,29 @@ import './app.scss';
 import Accueil from 'src/components/Accueil';
 import Footer from 'src/components/Footer';
 import Header from '../Header ';
-// btn submit display none mobile
 import FormAddCloth from '../AddCloth/FormAddCloth';
-// à faire
-import AddCloth from '../AddCloth';
-// à refaire
-import Clothlist from '../Cloth/ClothList';
-// à faire
 import Cloth from '../Cloth';
+import ClothList from '../Cloth/ClothList';
 import Main from '../Main';
 import Changemdp from '../Profil/ChangeMdp';
 import Profil from '../Profil';
-// today
 import Signin from '../Sign/Signin';
 import Signup from '../Sign/Signup';
+import Outfit from '../Outfit';
+import OutfitCard from '../Outfit/OutfitCard';
+import OutfitList from '../Outfit/OutfitList';
+import Wardrobe from '../Wardrobe';
+import AddCloth from '../AddCloth';
+// gerer le dé (png pour le moment)
+import Random from '../Random';
 //  import Sign from '../Sign';
+
 
 // == Composant
 const App = () => (
   <div id="app">
     <Header />
-    <Signup />
+    <Random />
     <Footer />
   </div>
 );

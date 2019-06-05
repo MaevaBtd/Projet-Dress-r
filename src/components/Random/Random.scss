@@ -1,0 +1,23 @@
+@import 'src/styles/vars';
+
+#random {
+  h1 {
+    font-family: $main-font;
+    font-size: 2em;
+    padding-top: 5em;
+    padding-bottom: 1em;
+  }
+  h2 {
+    font-family: $main-font;
+    font-size: 1.5em;
+    padding-bottom: 1em;
+  }
+  .random-form {
+    width: 75%;
+    margin: auto;
+  }
+  #dice {
+    width: 35%;
+    padding-bottom: 2em;
+  }
+}

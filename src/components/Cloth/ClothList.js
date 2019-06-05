@@ -17,7 +17,7 @@ const ClothList = () => (
   <div id="clothlist">
     <Form>
       <h1 id="title-cloth-list">Liste de vos vêtements</h1>
-      <Button id="button-add-cloth" type="primary" htmlType="submit">
+      <Button id="button-cloth-list" type="primary" htmlType="submit">
         Ajouter un nouveau vêtement
       </Button>
       <Form.Item>
@@ -36,42 +36,12 @@ const ClothList = () => (
       </Form.Item>
     </Form>
     <div id="cloth-list">
-      <div className="unique-cloth">
-        <Cloth />
-        <Button shape="circle">
-          <Icon type="delete" theme="filled" />
-        </Button>
-      </div>
-      <div className="unique-cloth">
-        <Cloth />
-        <Button shape="circle">
-          <Icon type="delete" theme="filled" />
-        </Button>
-      </div>
-      <div className="unique-cloth">
-        <Cloth />
-        <Button shape="circle">
-          <Icon type="delete" theme="filled" />
-        </Button>
-      </div>
-      <div className="unique-cloth">
-        <Cloth />
-        <Button shape="circle">
-          <Icon type="delete" theme="filled" />
-        </Button>
-      </div>
-      <div className="unique-cloth">
-        <Cloth />
-        <Button shape="circle">
-          <Icon type="delete" theme="filled" />
-        </Button>
-      </div>
-      <div className="unique-cloth">
-        <Cloth />
-        <Button shape="circle">
-          <Icon type="delete" theme="filled" />
-        </Button>
-      </div>
+      <Cloth />
+      <Cloth />
+      <Cloth />
+      <Cloth />
+      <Cloth />
+      <Cloth />
     </div>
   </div>
 );
