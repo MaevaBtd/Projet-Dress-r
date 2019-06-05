@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from './reducer';
 
-import ajaxMiddleware from './ajaxMiddleware';
+//import ajaxMiddleware from './ajaxMiddleware';
 
 // const appliedMiddlewares = applyMiddleware(ajaxMiddleware);
 

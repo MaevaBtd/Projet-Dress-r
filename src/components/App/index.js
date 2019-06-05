@@ -12,6 +12,9 @@ import Signin from '../Sign/Signin';
 import Signup from '../Sign/Signup';
 import Wardrobe from '../Wardrobe';
 import Profil from '../Profil';
+import Random from '../Random';
+import AddCloth from '../AddCloth';
+import Main from '../Main';
 
 // == Composant
 const App = () => (
@@ -38,6 +41,23 @@ const App = () => (
           path="/profil"
           component={Profil}
         />
+        <Route
+          path="/random"
+          component={Random}
+        />
+        <Route
+          path="/add-new-cloth"
+          component={AddCloth}
+        />
+        <Route
+          path="/profil"
+          component={Profil}
+        />
+        <Route
+          path="/user-page"
+          component={Main}
+        />
+
       </Switch>
     </main>
     <footer>
