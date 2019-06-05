@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClothRepository")
@@ -15,51 +18,77 @@ class Cloth
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"cloth_read", "user_cloths"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * 
+     * @Groups({"cloth_read", "user_cloths"})
      */
     private $name;
 
     /**
+     * @Assert\File(
+     * maxSize = "1024k", 
+     * mimeTypes={ "image/gif", "image/jpeg", "image/png" },
+     * mimeTypesMessage = "Please valid image format : gif, png, jpeg"
+     * )
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"cloth_read", "user_cloths"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="boolean")
+     * 
+     * @Groups({"cloth_read"})
      */
     private $withoutPants;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups({"cloth_read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups({"cloth_read"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="cloths")
+     * 
+     * @Groups({"cloth_read"})
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="cloths")
+     * 
+     * @Groups({"user_cloths"})
      */
     private $type;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Style", inversedBy="cloths")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Style", inversedBy="cloths", cascade={"persist"})
+     * 
+     * @Groups({"user_cloths"})
      */
     private $styles;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Outfit", inversedBy="cloths")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Outfit", inversedBy="cloths", cascade={"persist"})
+     * 
+     * @Groups({"cloth_read"})
      */
     private $outfits;
 
@@ -67,6 +96,7 @@ class Cloth
     {
         $this->styles = new ArrayCollection();
         $this->outfits = new ArrayCollection();
+        $this->without_pants = false;
     }
 
     public function getId(): ?int
@@ -105,7 +135,9 @@ class Cloth
 
     public function setWithoutPants(bool $withoutPants): self
     {
+
         $this->withoutPants = $withoutPants;
+
 
         return $this;
     }
@@ -170,7 +202,7 @@ class Cloth
     {
         // if (!$this->styles->contains($style)) {
             $this->styles[] = $style;
-            
+
         // }
 
         return $this;
@@ -211,4 +243,8 @@ class Cloth
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
