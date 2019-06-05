@@ -1,0 +1,25 @@
+@import 'src/styles/vars';
+
+#clothcard {
+  position: relative;
+  background-color: $brownish;
+  margin: auto;
+  padding: 1em; 
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  border: 1px solid $brownish;
+  justify-content: space-around;
+  align-items: center;
+  color: $main-color;
+  font-family: $main-font;
+  font-size: 1.2em;
+  margin-bottom: 1em;
+
+  #close-button {
+    position: absolute;
+    right: -15px;
+
+  }
+  
+}

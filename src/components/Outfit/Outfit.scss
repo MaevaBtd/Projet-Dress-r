@@ -1,0 +1,16 @@
+@import 'src/styles/vars';
+
+#outfit {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  h1 {
+    font-family: $main-font;
+    font-size: 2em;
+    padding-top: 5em;
+    padding-bottom: 1em;
+  }
+  
+}

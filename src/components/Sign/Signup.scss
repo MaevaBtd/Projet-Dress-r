@@ -1,24 +1,19 @@
 @import 'src/styles/vars';
 
-#profil {
+.login-form {
   background-color: $main-color;
-  padding-top: 10em;
-  height: 52em;
+  min-height: 55em;
 
   h1 {
+    padding-top: 5em;
     font-family: $main-font;
-    font-size: 1.6em;
+    font-size: 2em;
   }
-  p {
-    font-family: $main-font;
+  .input-signup {
+    width: 75%;
+    margin-top: 2em;
   }
-  h2 {
-    font-family: $main-font;
-  }
-  #date {
-    padding-bottom: 3em;
-  }
-  .button {
+  .login-form-button {
     height: 2em;
     margin: 0.5em 1em 0;
     background-color: $brownish;
@@ -28,17 +23,12 @@
     text-decoration: none;
     color: $main-color;
     position: static;
-    margin-bottom: 2em;
+    margin-bottom: 5em;
+    margin-top: 4em;
 
     &:hover {
       background-color: $mustard;
       color: $brownish;
     }
   }
-}
-.stats {
-  width: 70%;
-  margin: 2em auto;
-  border: 1px solid $brownish;
-  padding-top: 2em;
 }

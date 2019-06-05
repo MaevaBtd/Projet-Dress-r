@@ -1,0 +1,29 @@
+@import 'src/styles/vars';
+
+ #clothlist {
+   background-color: $main-color;
+   
+   h1 {
+     font-family: $main-font;
+     font-size: 2em;
+     padding-top: 5em;
+     padding-bottom: 1em;
+   }
+   #button-cloth-list {
+    height: 2em;
+    margin: auto;
+    background-color: $brownish;
+    border-color: $brownish;
+    font-family: $main-font;
+    font-size: 1.5em;
+    text-decoration: none;
+    color: $main-color;
+    position: static;
+    margin-bottom: 1em;
+
+    &:hover {
+      background-color: $mustard;
+      color: $brownish;
+    }
+   }
+ }

@@ -1,0 +1,71 @@
+@import 'src/styles/vars';
+
+$lg-screen: 1024px;
+$test:1920px;
+$sm-screen: 812px;
+
+
+#addcloth {
+  background-color: $main-color;
+  min-height: 91vh;
+   @media screen and (max-height: $lg-screen) and (max-width: $test) {
+     min-height: 90vh;
+   }
+    @media screen and (max-height: $sm-screen) {
+     min-height: 150vh;
+   }
+
+}
+ #full-babouche-man {
+   position: relative;
+   margin: auto;
+   width: 15em;
+ }
+#babouche-man {
+  position: absolute;
+  width: 20em;
+  left: -40px;
+}
+#title-add-cloth {
+  padding-top: 5em;
+  font-family: $main-font;
+  font-size: 2em;
+}
+#desc-add-cloth {
+  font-family: $main-font;
+  font-size: 1.5em;
+  padding-bottom: 2em;
+}
+#hat {
+  position: absolute;
+  top: 10px;
+  left: 110px;
+  background-color: $mustard;
+  
+}
+#tshirt {
+  position: absolute;
+  top: 170px;
+  left: 110px;
+  background-color: $mustard;
+  
+}
+#vest {
+  position: absolute;
+  top: 150px;
+  left: 190px;
+  background-color: $mustard;
+  
+}
+#pants {
+  position: absolute;
+  top: 350px;
+  left: 150px;
+  background-color: $mustard;
+}
+#shoes {
+  position: absolute;
+  top: 480px;
+  left: 160px;
+  background-color: $mustard;
+}
