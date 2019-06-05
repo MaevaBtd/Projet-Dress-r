@@ -64,23 +64,26 @@ const App = () => (
           component={AddCloth}
         />
         <Route
-          path="/profil"
-          component={Profil}
+          path="/form-new-cloth"
+          component={FormAddCloth}
+        />
+        <Route
+          path="/outfit-id"
+          component={Outfit}
         />
         <Route
           path="/user-page"
           component={Main}
         />
-
+        <Route
+          path="/change-mdp"
+          component={Changemdp}
+        />
       </Switch>
     </main>
     <footer>
       <Footer />
     </footer>
-
-    <Header />
-    <Random />
-    <Footer />
   </div>
 );
 

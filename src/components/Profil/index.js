@@ -1,5 +1,6 @@
 // == Import: Yarn
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import {
   Button,
   Icon,
@@ -20,9 +21,12 @@ const Profil = () => (
     </div>
     <h2>Mon adresse mail: <span>toto@email.com</span></h2>
     <h2 id="date">Date d'inscription: <span>28/05/19</span></h2>
-    <Button className="button">
-      <Icon type="unlock" /> Modifier mon Mot de passe
-    </Button>
+    <NavLink to="/change-mdp">
+      <Button className="button">
+        <Icon type="unlock" /> Modifier mon Mot de passe
+      </Button>
+    </NavLink>
+    
     <Button className="button">
       <Icon type="user" /> Modifier mes informations personnelles
     </Button>
