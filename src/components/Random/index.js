@@ -27,7 +27,7 @@ const Random = () => (
           </div>
         </Form.Item>
       </Form>
-      <img src="src/data/assets/Dice.png" alt="" />
+      <img id="dice" src="src/data/assets/Dice.png" alt="" />
     </div>
     <div id="tenue-random">
       <Cloth />

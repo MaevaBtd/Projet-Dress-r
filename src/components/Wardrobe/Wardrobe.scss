@@ -1,0 +1,10 @@
+@import 'src/styles/vars';
+
+#wardrobe {
+  h1 {
+    font-family: $main-font;
+    font-size: 2em;
+    padding-top: 5em;
+    padding-bottom: 1em;
+  }
+}

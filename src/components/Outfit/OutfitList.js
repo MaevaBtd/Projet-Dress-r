@@ -14,6 +14,7 @@ const OutfitList = () => (
     <OutfitCard />
     <OutfitCard />
     <OutfitCard />
+    <OutfitCard />
   </div>
   
 );

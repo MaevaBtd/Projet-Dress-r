@@ -5,8 +5,7 @@ $break-small: 790px;
 .addcloth {
   background-color: $main-color;
   padding: 0 2em;
-  height: 80vh;
-  //overflow: auto;
+  min-height: 55em;
   @media screen and (max-height: $break-small) {
     height: 790px;
   }
@@ -20,9 +19,10 @@ $break-small: 790px;
 }
 
 #title-formaddcloth {
-  padding-top: 3em;
   font-family: $main-font;
-  font-size: 3em;
+  font-size: 2em;
+  padding-top: 5em;
+  padding-bottom: 1em;
 }
 .radio-add-cloth {
   margin-left: 3em;
@@ -32,7 +32,7 @@ $break-small: 790px;
 }
 .label-add-cloth{
   font-family: $main-font;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 
