@@ -1,5 +1,6 @@
 // == Import: Yarn
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 // == Import: local
 import './Main.scss';
@@ -8,9 +9,9 @@ import './Main.scss';
 const Main = () => (
   <div id="main">
     <div id="main-container">
-      <a href="#"><h1 className="vertical">Ma garde-robe</h1></a>
-      <a href="#"><h1 className="vertical">Random</h1></a>
-      <a href="#"><h1 className="horizontal">Ajouter un vêtement</h1></a>
+      <NavLink to="/wardrobe"><h1 className="vertical">Ma garde-robe</h1></NavLink>
+      <NavLink to="/random"><h1 className="vertical">Random</h1></NavLink>
+      <NavLink to="/add-new-cloth"><h1 className="horizontal">Ajouter un vêtement</h1></NavLink>
     </div>
   </div>
 );

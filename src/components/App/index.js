@@ -1,5 +1,6 @@
 // == Import : npm
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 // == Import : local
 import './app.scss';
@@ -9,6 +10,7 @@ import './app.scss';
 import Accueil from 'src/components/Accueil';
 import Footer from 'src/components/Footer';
 import Header from '../Header ';
+
 import FormAddCloth from '../AddCloth/FormAddCloth';
 import Cloth from '../Cloth';
 import ClothList from '../Cloth/ClothList';
@@ -30,6 +32,52 @@ import Random from '../Random';
 // == Composant
 const App = () => (
   <div id="app">
+
+    <nav>
+      <Header />
+    </nav>
+    <main>
+      <Switch>
+        <Route exact path="/" component={Accueil} />
+        <Route
+          path="/signin"
+          component={Signin}
+        />
+        <Route
+          path="/signup"
+          component={Signup}
+        />
+        <Route
+          path="/wardrobe"
+          component={Wardrobe}
+        />
+        <Route
+          path="/profil"
+          component={Profil}
+        />
+        <Route
+          path="/random"
+          component={Random}
+        />
+        <Route
+          path="/add-new-cloth"
+          component={AddCloth}
+        />
+        <Route
+          path="/profil"
+          component={Profil}
+        />
+        <Route
+          path="/user-page"
+          component={Main}
+        />
+
+      </Switch>
+    </main>
+    <footer>
+      <Footer />
+    </footer>
+
     <Header />
     <Random />
     <Footer />
