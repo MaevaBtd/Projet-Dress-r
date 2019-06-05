@@ -1,0 +1,39 @@
+@import 'src/styles/vars';
+
+#signin {
+  background-color: $main-color;
+  height: 52.4em;
+
+  #email {
+    padding-top: 10em;
+    font-family: $main-font;
+  }
+  .password {
+    font-family: $main-font;
+  }
+  #pseudo {
+    font-family: $main-font;
+  }
+  .input-signin {
+    width: 75%;
+    margin-top: 2em;
+  }
+  #button {
+    height: 2em;
+    margin: 0.5em 1em 0;
+    background-color: $brownish;
+    border-color: $brownish;
+    font-family: $main-font;
+    font-size: 1em;
+    text-decoration: none;
+    color: $main-color;
+    position: static;
+    margin-bottom: 2em;
+    margin-top: 4em;
+
+    &:hover {
+      background-color: $mustard;
+      color: $brownish;
+    }
+  }
+}

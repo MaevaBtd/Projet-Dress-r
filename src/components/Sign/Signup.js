@@ -4,7 +4,7 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import 'antd/dist/antd.css';
 
 // == Import: local
-import './Sign.scss';
+import './Signup.scss';
 
 // == Code
 const Signup = () => (
