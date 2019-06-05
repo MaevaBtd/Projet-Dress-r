@@ -135,7 +135,9 @@ class Cloth
 
     public function setWithoutPants(bool $withoutPants): self
     {
-        $this->without_pants = $withoutPants;
+
+        $this->withoutPants = $withoutPants;
+
 
         return $this;
     }
@@ -200,6 +202,7 @@ class Cloth
     {
         // if (!$this->styles->contains($style)) {
             $this->styles[] = $style;
+
         // }
 
         return $this;

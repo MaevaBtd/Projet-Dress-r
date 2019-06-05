@@ -1,0 +1,17 @@
+@import 'src/styles/vars';
+
+#main-container {
+  margin: 2em 10em;
+  display: flex;
+  flex-wrap: wrap;
+  h1 {
+    background-color: $mustard;
+    margin: 1em;
+  }
+  .vertical {
+    width: 25em;
+  }
+  .horizontal {
+    width: 50em;
+  }
+}

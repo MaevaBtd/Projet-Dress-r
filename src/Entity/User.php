@@ -5,8 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -67,6 +69,7 @@ class User implements UserInterface
     {
         $this->cloths = new ArrayCollection();
         $this->outfits = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -207,9 +210,9 @@ class User implements UserInterface
 
         return $this;
     }
+
     public function getRoles(){}
     
     public function getSalt(){}
 
     public function eraseCredentials(){}
-}

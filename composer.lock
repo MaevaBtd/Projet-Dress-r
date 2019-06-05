@@ -4,7 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d23a2dc935fd1942efd0b6298a778fa",
+
+    "content-hash": "fe4f76ce3386c41bdffe00e84a8f7f4a",
+
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1311,6 +1313,56 @@
             "time": "2016-10-17T18:31:11+00:00"
         },
         {
+            "name": "fzaninotto/faker",
+            "version": "v1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker.git",
+                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/f72816b43e74063c8b10357394b6bba8cb1c10de",
+                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0"
+            },
+            "require-dev": {
+                "ext-intl": "*",
+                "phpunit/phpunit": "^4.8.35 || ^5.7",
+                "squizlabs/php_codesniffer": "^1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "time": "2018-07-12T10:23:15+00:00"
+        },
+        {
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
             "source": {
@@ -1899,6 +1951,35 @@
                 "psr-3"
             ],
             "time": "2018-11-20T15:27:04+00:00"
+        },
+        {
+            "name": "rauwebieten/php-faker-clothing",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rauwebieten/php-faker-clothing.git",
+                "reference": "f8ee08131448fb16b77986f7081bc23e03c33a1f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rauwebieten/php-faker-clothing/zipball/f8ee08131448fb16b77986f7081bc23e03c33a1f",
+                "reference": "f8ee08131448fb16b77986f7081bc23e03c33a1f",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "^1.7"
+            },
+            "require-dev": {
+                "symfony/var-dumper": "^3.3.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RauweBieten\\PhpFakerClothing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2017-12-09T10:44:40+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
