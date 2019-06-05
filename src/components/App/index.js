@@ -4,6 +4,8 @@ import React from 'react';
 // == Import : local
 import './app.scss';
 
+// peaufiner toute les size dès que toute l'inté est faite
+
 import Accueil from 'src/components/Accueil';
 import Footer from 'src/components/Footer';
 import Header from '../Header ';
@@ -27,7 +29,7 @@ import Signup from '../Sign/Signup';
 const App = () => (
   <div id="app">
     <Header />
-    <Signin />
+    <Signup />
     <Footer />
   </div>
 );

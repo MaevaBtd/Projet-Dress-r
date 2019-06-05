@@ -1,1 +1,34 @@
 @import 'src/styles/vars';
+
+.login-form {
+  background-color: $main-color;
+  height: 52.4em;
+
+  h1 {
+    padding-top: 5em;
+    font-family: $main-font;
+    font-size: 2em;
+  }
+  .input-signup {
+    width: 75%;
+    margin-top: 2em;
+  }
+  .login-form-button {
+    height: 2em;
+    margin: 0.5em 1em 0;
+    background-color: $brownish;
+    border-color: $brownish;
+    font-family: $main-font;
+    font-size: 1em;
+    text-decoration: none;
+    color: $main-color;
+    position: static;
+    margin-bottom: 5em;
+    margin-top: 4em;
+
+    &:hover {
+      background-color: $mustard;
+      color: $brownish;
+    }
+  }
+}
