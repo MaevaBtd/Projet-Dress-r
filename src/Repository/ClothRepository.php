@@ -30,6 +30,26 @@ class ClothRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    // // Recuperer les cloths d'un type donné
+    // public function findByTypeAndStyleDQL() {
+
+    //     // $parameters = array(
+    //     //     'type' => 'pantalon',
+    //     //     'style' => 'printemps'
+    //     // );
+
+    //     $query = $this->getEntityManager()->createQuery('
+    //         SELECT c
+    //         FROM App\Entity\Cloth c
+    //     ');
+    //     // ->setParameter($parameters);
+
+    //     return $query->getResult();
+
+    // }
+
+
     // /**
     //  * @return Cloth[] Returns an array of Cloth objects
     //  */

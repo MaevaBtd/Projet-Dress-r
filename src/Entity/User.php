@@ -6,11 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -52,7 +53,7 @@ class User
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cloth", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Cloth", mappedBy="user", cascade={"persist", "remove"})
      * @Groups({"user_cloths"})
      */
     private $cloths;
@@ -206,4 +207,9 @@ class User
 
         return $this;
     }
+    public function getRoles(){}
+    
+    public function getSalt(){}
+
+    public function eraseCredentials(){}
 }
