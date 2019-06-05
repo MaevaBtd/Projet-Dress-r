@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Cloth;
 use App\Entity\Outfit;
-use App\Form\ClothType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

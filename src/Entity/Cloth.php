@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClothRepository")
@@ -15,16 +17,19 @@ class Cloth
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user_cloths","outfit_cloths"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"user_cloths","outfit_cloths"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_cloths","outfit_cloths"})
      */
     private $image;
 
@@ -35,6 +40,7 @@ class Cloth
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"user_cloths","outfit_cloths"})
      */
     private $createdAt;
 
@@ -50,11 +56,13 @@ class Cloth
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="cloths")
+     * @Groups({"outfit_cloths"})
      */
     private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Style", inversedBy="cloths")
+     * @Groups({"outfit_cloths"})
      */
     private $styles;
 

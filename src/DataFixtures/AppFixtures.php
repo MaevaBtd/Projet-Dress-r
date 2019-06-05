@@ -54,17 +54,21 @@ class AppFixtures extends Fixture
         $user->setEmail('user@user.user');
         $user->setRole($roleUser);
 
+       
         $manager->persist($roleAdmin);
         $manager->persist($roleUser);
         
         $manager->persist($user);
         $manager->persist($admin);
-       
+
+    
+
         $populator->addEntity(Type::class, 5, array(
             'name' => function () use ($generator) {
                 return $generator->types();
             }
         ));
+
         $populator->addEntity(Style::class, 10, array(
             'name' => function () use ($generator) {
                 return $generator->styles();
