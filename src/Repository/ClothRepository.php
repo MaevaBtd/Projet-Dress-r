@@ -21,6 +21,7 @@ class ClothRepository extends ServiceEntityRepository
 
 
     // retourne un vêtement filtré par l'id
+
     public function findById($id) {
 
         return $this->createQueryBuilder('c')

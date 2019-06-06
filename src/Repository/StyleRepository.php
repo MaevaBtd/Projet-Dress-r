@@ -19,6 +19,7 @@ class StyleRepository extends ServiceEntityRepository
         parent::__construct($registry, Style::class);
     }
 
+    
     // /**
     //  * @return Style[] Returns an array of Style objects
     //  */

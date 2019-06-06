@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClothRepository")
  */
@@ -19,14 +20,14 @@ class Cloth
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"cloth_read", "user_cloths"})
+     * @Groups({"cloth_read", "user_cloths", "outfit_cloths"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * 
-     * @Groups({"cloth_read", "user_cloths"})
+     * @Groups({"cloth_read", "user_cloths", "outfit_cloths"})
      */
     private $name;
 
@@ -39,7 +40,7 @@ class Cloth
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"cloth_read", "user_cloths"})
+     * @Groups({"cloth_read", "user_cloths", "outfit_cloths"})
      */
     private $image;
 
@@ -53,7 +54,7 @@ class Cloth
     /**
      * @ORM\Column(type="datetime")
      * 
-     * @Groups({"cloth_read"})
+     * @Groups({"cloth_read", "outfit_cloths"})
      */
     private $createdAt;
 
@@ -74,14 +75,14 @@ class Cloth
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="cloths")
      * 
-     * @Groups({"user_cloths"})
+     * @Groups({"user_cloths", "outfit_cloths"})
      */
     private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Style", inversedBy="cloths", cascade={"persist"})
      * 
-     * @Groups({"user_cloths"})
+     * @Groups({"user_cloths", "outfit_cloths"})
      */
     private $styles;
 

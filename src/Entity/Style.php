@@ -16,13 +16,15 @@ class Style
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user_cloths"})
+     *
+     * @Groups({"user_cloths", "styles_read", "outfit_cloths"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"user_cloths"})
+     *
+     * @Groups({"user_cloths", "styles_read","outfit_cloths"})
      */
     private $name;
 

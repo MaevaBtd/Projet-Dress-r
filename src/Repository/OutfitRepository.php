@@ -19,6 +19,19 @@ class OutfitRepository extends ServiceEntityRepository
         parent::__construct($registry, Outfit::class);
     }
 
+
+    // retourne un vêtement filtré par l'id
+    public function findById($id)
+    {
+
+        return $this->createQueryBuilder('o')
+        ->andWhere('o.id = :val')
+        ->setParameter('val', $id)
+        ->getQuery()
+        ->getResult();
+    }
+
+  
     // /**
     //  * @return Outfit[] Returns an array of Outfit objects
     //  */

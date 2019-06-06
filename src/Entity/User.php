@@ -19,13 +19,15 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user_cloths"})
+     *
+     * @Groups({"user_cloths", "user_outfits"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"cloth_read", "user_cloths"})
+     *
+     * @Groups({"cloth_read", "user_cloths", "user_outfits"})
      */
     private $username;
 
@@ -62,6 +64,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Outfit", mappedBy="user")
+     * @Groups({"user_outfits"})
      */
     private $outfits;
 
