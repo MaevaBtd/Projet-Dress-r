@@ -46,7 +46,7 @@ class UserController extends AbstractController {
 
         // TODO
 
-        $form = $this->createForm(SubscribeType::class, $user);
+        // $form = $this->createForm(SubscribeType::class, $user);
 
         // Retrieving data send from REACT ( don't know if we really need to decode )
         $data = json_decode($request->getContent(), true);
