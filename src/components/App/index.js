@@ -37,15 +37,6 @@ class App extends Component {
     return (
       <div id="app">
 
-<<<<<<< HEAD
-      </Switch>
-    </main>
-    <footer>
-      <Footer />
-    </footer>
-  </div>
-);
-=======
         <nav>
           <Header />
         </nav>
@@ -105,7 +96,6 @@ class App extends Component {
 App.propTypes = {
   fetchClothContent: PropTypes.func.isRequired,
 };
->>>>>>> c3c63bf496063edeef4e44bd4a8764c004b522a4
 
 // == Export
 export default App;
