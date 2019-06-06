@@ -9,14 +9,16 @@ import './AddCloth.scss';
 // == Code
 const AddCloth = () => (
   <div id="addcloth">
-    <h1>Ajouter un Vêtement</h1>
-    <h2>Cliquez sur la partie du corps pour laquelle vous souhaitez ajouter un vêtement</h2>
-    <img src="src/data/assets/baboucheman.png" alt="" />
-    <Button id="hat" shape="round" icon="plus" />
-    <Button id="tshirt" shape="circle" icon="plus" />
-    <Button id="vest" shape="circle" icon="plus" />
-    <Button id="pants" shape="circle" icon="plus" />
-    <Button id="shoes" shape="circle" icon="plus" />
+    <h1 id="title-add-cloth">Ajouter un Vêtement</h1>
+    <h2 id="desc-add-cloth">Cliquez sur la partie du corps pour laquelle vous souhaitez ajouter un vêtement</h2>
+    <div id="full-babouche-man">
+      <img id="babouche-man" src="src/data/assets/baboucheman.png" alt="" />
+      <Button id="hat" shape="round" icon="plus" />
+      <Button id="tshirt" shape="circle" icon="plus" />
+      <Button id="vest" shape="circle" icon="plus" />
+      <Button id="pants" shape="circle" icon="plus" />
+      <Button id="shoes" shape="circle" icon="plus" />
+    </div>
   </div>
 );
 

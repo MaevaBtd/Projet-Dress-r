@@ -24,40 +24,45 @@ import './FormAddCloth.scss';
 // == Code
 const FormAddCloth = () => (
   <Form className="addcloth">
+    <h1 id="title-formaddcloth">Ajouter un vêtement</h1>
     <Form.Item>
       <Input
+        className="input-add-cloth"
         prefix={<Icon type="skin" style={{ color: 'rgba(0,0,0,.25)' }} />}
         placeholder="Nom du vêtement"
       />
     </Form.Item>
     <Form.Item>
-      <Select
-        placeholder="Catégorie (sport, soirée, décontracté...)"
-      />
+      <div className="category-add-cloth">
+        <Select
+          placeholder="Catégorie (sport, soirée, décontracté...)"
+        />
+      </div>
     </Form.Item>
-    <Form.Item label="Ajouter une photo">
+    <Form.Item>
       <Upload name="logo" action="/upload.do" listType="picture">
         <Button>
           <Icon type="upload" /> Cliquez pour uploader une photo
         </Button>
-      </Upload>,
-    </Form.Item>
-    <Form.Item label="Votre vêtement est-il d'un seul tenant? ">
-      <Checkbox.Group >
-        <Row>
-          <Col span={8}>
-            <Checkbox value="Oui">Oui</Checkbox>
-          </Col>
-          <Col span={8}>
-            <Checkbox value="Non">
-             Non
-            </Checkbox>
-          </Col>
-        </Row>
-      </Checkbox.Group>,
+      </Upload>
     </Form.Item>
     <Form.Item>
-      <Button type="primary" htmlType="submit">
+      <h2 className="label-add-cloth">Votre vêtement est-il d'un seul tenant? (Robe, combinaison, tunique ...) </h2>
+      <Radio.Group className="radio-add-cloth">
+        <Row>
+          <Col span={8}>
+            <Radio className="radio-left" value="Oui">Oui</Radio>
+          </Col>
+          <Col span={8}>
+            <Radio className="radio-right" value="Non">
+             Non
+            </Radio>
+          </Col>
+        </Row>
+      </Radio.Group>
+    </Form.Item>
+    <Form.Item>
+      <Button id="button-add-cloth" type="primary" htmlType="submit">
         Valider
       </Button>
     </Form.Item>

@@ -20,14 +20,14 @@ class UserRepository extends ServiceEntityRepository
     }
 
     // retourne un user filtré par l'id
-    public function findById($id)
-    {
+    public function findById($id) {
 
         return $this->createQueryBuilder('u')
             ->andWhere('u.id = :val')
             ->setParameter('val', $id)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+            ;
     }
 
     // /**

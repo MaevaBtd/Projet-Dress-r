@@ -4,22 +4,31 @@ import { Button, Icon } from 'antd';
 import 'antd/dist/antd.css';
 
 // == Import: local
-import './Cloth.scss';
+import './OutfitCard.scss';
 
 // == Code
-const Cloth = () => (
-  <a id="clothcard">
+const OutfitCard = () => (
+  <a id="outfitcard">
     <div>
-      <p>Nom du vêtement:</p>
+      <p> Nom de la tenue:</p>
       <p>Catégorie:</p>
-      <p>Type:</p>
+      <h3>Liste des vêtements :</h3>
+      <ul>
+        <li>Vêtement 1</li>
+        <li>Vêtement 2</li>
+        <li>Vêtement 3</li>
+        <li>Vêtement 4</li>
+        <li>Vêtement 5</li>
+      </ul>
     </div>
     <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="" />
     <Button id="close-button" shape="circle">
       <Icon type="close" theme="outlined" />
     </Button>
+
   </a>
+  
 );
 
 // == Export
-export default Cloth;
+export default OutfitCard;

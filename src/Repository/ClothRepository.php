@@ -21,16 +21,34 @@ class ClothRepository extends ServiceEntityRepository
 
 
     // retourne un vêtement filtré par l'id
-    public function findById($id)
-    {
+
+    public function findById($id) {
 
         return $this->createQueryBuilder('c')
-        ->andWhere('c.id = :val')
-        ->setParameter('val', $id)
-        ->getQuery()
-        ->getResult();
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
+    // // Recuperer les cloths d'un type donné
+    // public function findByTypeAndStyleDQL() {
+
+    //     // $parameters = array(
+    //     //     'type' => 'pantalon',
+    //     //     'style' => 'printemps'
+    //     // );
+
+    //     $query = $this->getEntityManager()->createQuery('
+    //         SELECT c
+    //         FROM App\Entity\Cloth c
+    //     ');
+    //     // ->setParameter($parameters);
+
+    //     return $query->getResult();
+
+    // }
 
 
     // /**

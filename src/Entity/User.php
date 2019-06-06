@@ -5,8 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\UserInterface;
+
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
@@ -18,15 +19,15 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user_outfits"})
-     * 
+     *
+     * @Groups({"user_cloths", "user_outfits"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"user_outfits"})
-     * 
+     *
+     * @Groups({"cloth_read", "user_cloths", "user_outfits"})
      */
     private $username;
 
@@ -56,7 +57,8 @@ class User implements UserInterface
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cloth", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Cloth", mappedBy="user", cascade={"persist", "remove"})
+     * @Groups({"user_cloths"})
      */
     private $cloths;
 
@@ -212,10 +214,10 @@ class User implements UserInterface
         return $this;
     }
 
-
     public function getRoles(){}
     
     public function getSalt(){}
 
     public function eraseCredentials(){}
+    
 }
