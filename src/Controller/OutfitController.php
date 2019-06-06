@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class OutfitController extends AbstractController
 {
     /**
-     * Retourne les Outfits associés à un User 
+     * Retourne les Outfits(id,name) associés à un User(id,username) et les vêtements qui les composent(id,name)
      * 
      * @Route("/user/{id}/outfits", name="user_outfits", methods={"GET"})
      */
@@ -25,7 +25,6 @@ class OutfitController extends AbstractController
     {
 
         $user = $repository->findById($id);
-        
 
         $json = $serializer->serialize($user, 'json',[
             'groups'=>'user_outfits'
@@ -36,31 +35,24 @@ class OutfitController extends AbstractController
         return JsonResponse::fromJsonString($json);
     }
 
-
     /**
-     * Retourne un Outfit et les Cloths associés
+     * Retourne un Outfit(toutes les infos) et les Cloths associés(id,name,type,style,image)
      *
-     * @Route("/outfit/{id}/cloths", name="outfit_cloths", methods={"GET"})
+     * @Route("/outfit/{id}", name="outfit_show", methods={"GET"})
      */
-    public function index_cloths_outfit(OutfitRepository $repository, $id, SerializerInterface $serializer)
+    public function show(OutfitRepository $repository, $id, SerializerInterface $serializer)
     {
 
-        
         $outfit = $repository->findById($id);
-        
-        dump($outfit);
 
-        
         $json = $serializer->serialize($outfit, 'json',[
-            'groups'=>'outfit_cloths'
+            'groups'=>'outfit_read'
         ]);
         
         // outfit_cloths retourne = un  Outfit :id, name, createdAt + les Cloths associés :  id, name, image, createdAt + le Style : id, name + Type : id, name
 
-
         return JsonResponse::fromJsonString($json);
     }
 
-    
 }
 

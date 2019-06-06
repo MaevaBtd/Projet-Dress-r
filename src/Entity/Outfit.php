@@ -16,24 +16,25 @@ class Outfit
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user_outfits","outfit_cloths"})
+     * @Groups({"user_outfits","outfit_read", "cloth_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
-     * @Groups({"cloth_read", "user_outfits", "outfit_cloths"})
+     * @Groups({"cloth_read", "user_outfits", "outfit_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"user_outfits","outfit_cloths"})
+     * @Groups({"outfit_read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"outfit_read"})
      */
     private $updatedAt;
 
@@ -44,7 +45,7 @@ class Outfit
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Cloth", mappedBy="outfits")
-     * @Groups({"outfit_cloths"})
+     * @Groups({"user_outfits", "outfit_read"})
      */
     private $cloths;
 

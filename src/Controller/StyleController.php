@@ -20,11 +20,11 @@ class StyleController extends AbstractController
 
     
     /**
-     * Retourne tout les Styles
+     * Retourne tout les Styles(id,name)
      *
-     * @Route("/styles/", name="all_styles", methods={"GET"})
+     * @Route("/styles", name="index_styles", methods={"GET"})
      */
-    public function allStyles(StyleRepository $repository, SerializerInterface $serializer)
+    public function index(StyleRepository $repository, SerializerInterface $serializer)
     {
 
 
@@ -32,10 +32,10 @@ class StyleController extends AbstractController
 
 
         $json = $serializer->serialize($styles, 'json', [
-            'groups' => 'styles_read',
+            'groups' => 'styles_index',
         ]);
 
-        // styles_read retourne = tout les Styles : id, name
+        // styles_index retourne = tout les Styles : id, name
 
         return JsonResponse::fromJsonString($json);
     }
