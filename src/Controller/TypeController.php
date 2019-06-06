@@ -19,22 +19,20 @@ class TypeController extends AbstractController
 {
 
     /**
-     * Retourne tout les Types
+     * Retourne tout les Types(id,name)
      *
-     * @Route("/types/", name="all_types", methods={"GET"})
+     * @Route("/types", name="index_types", methods={"GET"})
      */
-    public function allTypes(TypeRepository $repository, SerializerInterface $serializer)
+    public function index(TypeRepository $repository, SerializerInterface $serializer)
     {
-
 
         $types = $repository->findAll();
 
-
         $json = $serializer->serialize($types, 'json', [
-            'groups' => 'types_read',
+            'groups' => 'types_index',
         ]);
 
-        // types_read retourne = tout les Types : id, name
+        // types_index retourne = tout les Types : id, name
 
         return JsonResponse::fromJsonString($json);
     }

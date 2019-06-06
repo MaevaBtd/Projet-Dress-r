@@ -20,14 +20,14 @@ class Cloth
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"cloth_read", "user_cloths", "outfit_cloths"})
+     * @Groups({"cloth_read", "user_cloths", "user_outfits", "outfit_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      * 
-     * @Groups({"cloth_read", "user_cloths", "outfit_cloths"})
+     * @Groups({"cloth_read", "user_cloths", "user_outfits", "outfit_read"})
      */
     private $name;
 
@@ -40,21 +40,21 @@ class Cloth
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"cloth_read", "user_cloths", "outfit_cloths"})
+     * @Groups({"cloth_read", "user_cloths", "outfit_read"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="boolean")
      * 
-     * @Groups({"cloth_read"})
+     * @Groups({"cloth_read", "outfit_read"})
      */
     private $withoutPants;
 
     /**
      * @ORM\Column(type="datetime")
      * 
-     * @Groups({"cloth_read", "outfit_cloths"})
+     * @Groups({"cloth_read"})
      */
     private $createdAt;
 
@@ -75,14 +75,14 @@ class Cloth
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="cloths")
      * 
-     * @Groups({"user_cloths", "outfit_cloths"})
+     * @Groups({"user_cloths", "outfit_read", "cloth_read"})
      */
     private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Style", inversedBy="cloths", cascade={"persist"})
      * 
-     * @Groups({"user_cloths", "outfit_cloths"})
+     * @Groups({"user_cloths", "outfit_read", "cloth_read"})
      */
     private $styles;
 

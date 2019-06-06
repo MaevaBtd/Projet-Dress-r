@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -20,19 +19,20 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      *
-     * @Groups({"user_cloths", "user_outfits"})
+     * @Groups({"user_cloths", "user_outfits", "cloth_read", "user_show"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      *
-     * @Groups({"cloth_read", "user_cloths", "user_outfits"})
+     * @Groups({"cloth_read", "user_cloths", "user_outfits", "user_show"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_show"})
      */
     private $email;
 
@@ -43,6 +43,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"user_show"})
      */
     private $createdAt;
 
@@ -53,6 +54,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="users")
+     * @Groups({"user_show"})
      */
     private $role;
 
@@ -63,7 +65,7 @@ class User implements UserInterface
     private $cloths;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Outfit", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Outfit", mappedBy="user", cascade={"persist", "remove"})
      * @Groups({"user_outfits"})
      */
     private $outfits;

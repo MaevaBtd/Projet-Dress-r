@@ -17,14 +17,14 @@ class Type
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      *
-     * @Groups({"user_cloths", "types_read", "outfit_cloths"})
+     * @Groups({"user_cloths", "types_index", "outfit_read", "cloth_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
      *
-     * @Groups({"user_cloths", "types_read", "outfit_cloths"})
+     * @Groups({"user_cloths", "types_index", "outfit_read", "cloth_read"})
      */
     private $name;
 
