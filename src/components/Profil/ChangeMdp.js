@@ -1,5 +1,6 @@
 // == Import: Yarn
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Form, Icon, Input, Button } from 'antd';
 import 'antd/dist/antd.css';
 
@@ -9,7 +10,7 @@ import './ChangeMdp.scss';
 // == Code
 const ChangeMdp = () => (
   <Form className="change-pwd-form">
-    <h1>Bonjour pseudo</h1>
+    <h1>Modifiez votre mot de passe</h1>
     <Form.Item>
       <Input
         className="input-pwn-change"
@@ -37,7 +38,7 @@ const ChangeMdp = () => (
       <Button type="primary" htmlType="submit" className="valider">
         Valider
       </Button>
-      <a id="annuler" href="">Annuler</a>
+      <NavLink to="/profil" id="annuler">Annuler</NavLink>
     </Form.Item>
   </Form>
 );

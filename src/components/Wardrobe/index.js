@@ -7,7 +7,7 @@ import OutfitList from '../Outfit/OutfitList';
 import ClothList from '../Cloth/ClothList';
 
 // == Code
-const Wardrobe = () => (
+const Wardrobe = ({ userCloth }) => (
   <div id="wardrobe">
     <OutfitList />
     <ClothList />
