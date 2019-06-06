@@ -1,25 +1,24 @@
 import axios from 'axios';
-import { FETCH_DATAS, receivedDatas } from './reducer';
+import { FETCH_CLOTH_CONTENT, receivedDatas } from './reducer';
 
 const ajaxMiddleware = store => next => (action) => {
+
   switch (action.type) {
-    case FETCH_DATAS: {
-      // JE suis concerné par cette action
-      // Je dois lancer uen requête
-      const { letters } = store.getState();
-      axios.post('http://localhost:3000/words', {
-        letters,
-      })
+    case FETCH_CLOTH_CONTENT: {
+      const url = 'https://raw.githubusercontent.com/raywenderlich/recipes/master/Recipes.json';
+      axios.get(url)
         .then((response) => {
-          store.dispatch(receivedDatas(response.data));
+          const { data } = response;
+          console.log(data);
+          store.dispatch(receivedDatas(data));
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(error => console.error);
+
       break;
     }
     default:
       next(action);
+      break;
   }
 };
 
