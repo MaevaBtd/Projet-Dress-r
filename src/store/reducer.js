@@ -1,30 +1,21 @@
 const initialState = {
-
+  userCloth: [],
+  userOutfits: [],
 };
 
 // Action Type
-
-// const KEY_UP = 'KEY_UP';
+export const FETCH_CLOTH_CONTENT = 'FETCH_CLOTH_CONTENT';
+export const RECEIVED_DATAS = 'RECEIVED_DATAS';
 
 // Reducer
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    // case RECEIVED_DATAS:
-    //   return {
-    //     ...state,
-    //     words: [...action.datas],
-    //     status: 'loaded',
-    //   };
-    // case KEY_UP:
-    //   return {
-    //     ...state,
-    //     letters: [...state.letters, action.key],
-    //   };
-    // case CHANGE_STATUS:
-    //   return {
-    //     ...state,
-    //     status: action.status,
-    //   };
+    case RECEIVED_DATAS:
+      return {
+        ...state,
+        userCloth: [...action.content],
+      };
+
     default:
       return state;
   }
@@ -32,9 +23,13 @@ const reducer = (state = initialState, action = {}) => {
 
 // Action creator
 
-// export const handleKeyUp = touche => ({
-//   type: KEY_UP,
-//   key: touche,
-// });
+export const fetchClothContent = () => ({
+  type: FETCH_CLOTH_CONTENT,
+});
+
+export const receivedDatas = content => ({
+  type: RECEIVED_DATAS,
+  content,
+});
 
 export default reducer;

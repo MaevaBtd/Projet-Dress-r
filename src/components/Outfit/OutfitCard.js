@@ -8,7 +8,7 @@ import './OutfitCard.scss';
 
 // == Code
 const OutfitCard = () => (
-  <a id="outfitcard">
+  <div id="outfitcard">
     <div>
       <p> Nom de la tenue:</p>
       <p>Catégorie:</p>
@@ -26,7 +26,7 @@ const OutfitCard = () => (
       <Icon type="close" theme="outlined" />
     </Button>
 
-  </a>
+  </div>
   
 );
 

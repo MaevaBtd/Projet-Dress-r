@@ -14,10 +14,11 @@ const Header = () => (
     </button>
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav ml-auto">
-        <NavLink className="nav-item nav-link" to="/signin">Inscription <span className="sr-only">(current)</span></NavLink>
+        <NavLink className="nav-item nav-link" to="/signin">Inscription</NavLink>
         <NavLink className="nav-item nav-link" to="/signup">Connexion</NavLink>
         <NavLink className="nav-item nav-link" to="/wardrobe">Ma Garde-robe</NavLink>
         <NavLink className="nav-item nav-link" to="/profil">Profil</NavLink>
+        <NavLink className="nav-item nav-link" to="/user-page">Accueil User</NavLink>
       </div>
     </div>
   </nav>
