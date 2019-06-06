@@ -77,10 +77,6 @@ const App = () => (
     <footer>
       <Footer />
     </footer>
-
-    <Header />
-    <Random />
-    <Footer />
   </div>
 );
 
