@@ -198,7 +198,7 @@ class ClothController extends AbstractController
             }
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($newCloth);
+            $em->persist($cloth);
             $em->flush();
 
             // Return a json response that show to the front that the creation is successfull ( flash message )
