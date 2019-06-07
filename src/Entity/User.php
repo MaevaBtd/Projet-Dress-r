@@ -2,29 +2,37 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"user_cloths", "user_outfits", "cloth_read", "user_show"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     *
+     * @Groups({"cloth_read", "user_cloths", "user_outfits", "user_show"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_show"})
      */
     private $email;
 
@@ -35,6 +43,7 @@ class User
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"user_show"})
      */
     private $createdAt;
 
@@ -45,16 +54,19 @@ class User
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="users")
+     * @Groups({"user_show"})
      */
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cloth", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Cloth", mappedBy="user", cascade={"persist", "remove"})
+     * @Groups({"user_cloths"})
      */
     private $cloths;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Outfit", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Outfit", mappedBy="user", cascade={"persist", "remove"})
+     * @Groups({"user_outfits"})
      */
     private $outfits;
 
@@ -62,6 +74,7 @@ class User
     {
         $this->cloths = new ArrayCollection();
         $this->outfits = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -202,4 +215,11 @@ class User
 
         return $this;
     }
+
+    public function getRoles(){}
+    
+    public function getSalt(){}
+
+    public function eraseCredentials(){}
+    
 }

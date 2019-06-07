@@ -18,6 +18,7 @@ import Profil from '../Profil';
 import Signin from '../Sign/Signin';
 import Signup from '../Sign/Signup';
 import Outfit from '../Outfit';
+import NoMatch from '../NoMatch';
 
 
 import AddCloth from '../AddCloth';
@@ -84,6 +85,7 @@ class App extends Component {
               path="/change-mdp"
               component={Changemdp}
             />
+            <Route component={NoMatch} />
           </Switch>
         </main>
         <footer>
