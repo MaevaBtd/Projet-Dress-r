@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OutfitRepository")
@@ -15,21 +16,25 @@ class Outfit
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user_outfits","outfit_read", "cloth_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"cloth_read", "user_outfits", "outfit_read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"outfit_read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"outfit_read"})
      */
     private $updatedAt;
 
@@ -40,6 +45,7 @@ class Outfit
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Cloth", mappedBy="outfits")
+     * @Groups({"user_outfits", "outfit_read"})
      */
     private $cloths;
 
@@ -111,10 +117,10 @@ class Outfit
 
     public function addCloth(Cloth $cloth): self
     {
-        if (!$this->cloths->contains($cloth)) {
+        // if (!$this->cloths->contains($cloth)) {
             $this->cloths[] = $cloth;
             $cloth->addOutfit($this);
-        }
+        // }
 
         return $this;
     }
