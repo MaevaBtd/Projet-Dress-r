@@ -1,0 +1,12 @@
+@import './src/styles/vars';
+
+#notfound {
+  background-color: $main-color;
+  height: 90vh;
+  h1 {
+    font-family: $main-font;
+    font-size: 3em;
+    padding-top: 5em;
+    
+  }
+}

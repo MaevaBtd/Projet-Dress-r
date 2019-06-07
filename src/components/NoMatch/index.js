@@ -6,7 +6,9 @@ import './NoMatch.scss';
 
 // == Code
 const NoMatch = () => (
-  <div id="notfound"> 404 Page not found </div>
+  <div id="notfound">
+    <h1> Error 404 : Page not found</h1>
+  </div>
 );
 
 // == Export
