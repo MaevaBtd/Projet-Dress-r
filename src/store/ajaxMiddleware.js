@@ -5,7 +5,7 @@ const ajaxMiddleware = store => next => (action) => {
 
   switch (action.type) {
     case FETCH_CLOTH_CONTENT: {
-      const url = 'http://127.0.0.1:8001/api/user/1/cloth';
+      const url = 'http://127.0.0.1:8001/api/user/1/cloths';
       axios.get(url)
         .then((response) => {
           const { data } = response;
