@@ -33,6 +33,7 @@ class App extends Component {
     fetchClothContent();
   }
 
+
   render() {
     return (
       <div id="app">
