@@ -1,0 +1,62 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Edit Type
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-3">
+    <h1 class="mb-3">{{type.name}}
+        </h1>
+    {{form_start(form)}}
+        <div class="row">
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h4 class="card-title">Modifier le Type </h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-3">{{form_widget (form)}}</p>
+                        <button class="btn btn-primary" type="submit">
+                            Engregister les modifications
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h4 class="card-title">Infos</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{type.id}}</td>
+                                    <td>{{type.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{form_end(form)}}
+ 
+
+</div>{% endblock %}
+
+
+
+
+       
+
+

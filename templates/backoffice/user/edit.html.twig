@@ -1,0 +1,73 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Hello ClothController!
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+    <h1>Information de
+    {{user.username}}
+        </h1>
+{{form_start(form)}}
+        <div class="row">
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h4 class="card-title">Modifier le Role </h4>
+                    </div>
+                    <div class="card-body">
+                        {{form_widget(form)}}
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-check">Engregister les modifications
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h4 class="card-title">Infos</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Utilisateur</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Date de création</th>
+                                    
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.role.name}}</td>
+                                    <td>{{user.createdAt.date| date('d/m/Y H:i')}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{form_end(form)}}
+ 
+
+</div>{% endblock %}
+
+
+
+
+       
+
+

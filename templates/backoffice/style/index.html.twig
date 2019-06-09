@@ -1,0 +1,48 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Gestions des Styles
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="container-fluid">
+        <h1 class="my-5">Gestion des Styles</h1>
+
+        <a class="btn btn-outline-secondary mb-4" href="{{path("backoffice_new_style") }}"> <h3>Ajouter un style</h3></a>
+           
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>name</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                    {% for style in styles %}
+
+
+                    <tr>
+                        <td>{{style.id}}</td>
+                        <td>{{style.name}}</td>
+                        
+                      
+                        <td>
+                        <a href="{{path("backoffice_edit_style",{'id':style.id}) }}" class="btn btn-primary">Edit</a>
+                        </td>
+                        <td>
+                        <a class="btn btn-danger" href="{{path("backoffice_delete_style",{'id':style.id}) }}">Delete</a>
+                        </td>
+                        
+                    </tr>
+                    
+                {% endfor %}
+            </tbody>
+
+        </thead>
+    </table>
+
+</div>{% endblock %}
+
+

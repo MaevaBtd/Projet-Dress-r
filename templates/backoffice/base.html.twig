@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Dress'R |
+            {% block title %}{% endblock %}
+        </title>
+        <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}"/>
+
+        {% block stylesheets %}{% endblock %}
+        </head>
+        <body>
+        
+             {% include "backoffice/partials/nav.html.twig" %} 
+
+     
+            {% block body %}{% endblock %}
+
+    
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/popper.min.js"></script>
+            <script src="/js/bootstrap.min.js"></script>
+            {% block javascripts %}{% endblock %}
+        </body>
+    </html>
+
