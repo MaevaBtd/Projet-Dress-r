@@ -8,7 +8,7 @@ export const FETCH_CLOTH_CONTENT = 'FETCH_CLOTH_CONTENT';
 export const RECEIVED_DATAS = 'RECEIVED_DATAS';
 
 // Reducer
-const reducer = (state = initialState, action = {}) => {
+const clothReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case RECEIVED_DATAS:
       return {
@@ -32,4 +32,4 @@ export const receivedDatas = content => ({
   content,
 });
 
-export default reducer;
+export default clothReducer;
