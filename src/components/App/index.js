@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import './app.scss';
 
 // peaufiner toute les size dès que toute l'inté est faite
+import Signin from 'src/containers/Signin';
+import Signup from 'src/containers/Signup';
 import Wardrobe from 'src/containers/Wardrobe';
 import Accueil from 'src/components/Accueil';
 import Footer from 'src/components/Footer';
@@ -15,8 +17,7 @@ import FormAddCloth from '../AddCloth/FormAddCloth';
 import Main from '../Main';
 import Changemdp from '../Profil/ChangeMdp';
 import Profil from '../Profil';
-import Signin from '../Sign/Signin';
-import Signup from '../Sign/Signup';
+
 import Outfit from '../Outfit';
 import NoMatch from '../NoMatch';
 

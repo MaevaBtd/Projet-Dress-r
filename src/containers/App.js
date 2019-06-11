@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from 'src/components/App';
-import { fetchClothContent } from '../store/reducer';
+import { fetchClothContent } from '../store/cloth_reducer';
 
 const mapStateToProps = null;
 
