@@ -23,11 +23,12 @@ class OutfitController extends AbstractController
     /**
      * Retourne les Outfits(id,name) associés à un User(id,username) et les vêtements qui les composent(id,name)
      * 
-     * @Route("/user/{id}/outfits", name="user_outfits", methods={"GET"})
+     * @Route("/user/outfits", name="user_outfits", methods={"GET"})
      */
-    public function index_outfit_user(UserRepository $repository, $id, SerializerInterface $serializer)
+    public function index_outfit_user(UserRepository $repository, SerializerInterface $serializer)
     {
-
+        $userToken = $this->getUser();
+        $id = $userToken->getId();
         $user = $repository->findById($id);
 
         $json = $serializer->serialize($user, 'json',[
@@ -61,7 +62,7 @@ class OutfitController extends AbstractController
     /**
      * @Route("/outfit/new", name="new_outfit", methods={"GET", "POST"})
      */
-    public function new(Request $request) {
+    public function new(Request $request, UserRepository $repository) {
 
         $newOutfit = new Outfit();
 
@@ -80,10 +81,11 @@ class OutfitController extends AbstractController
         // Testing
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // On récupère l'utilisateur connecté via le token - TODO
-            // $user = '';
-            // On set l'utilisateur a l'outfit pour lié les deux - TODO
-            // $newOutfit->setUser($user);
+            $userToken = $this->getUser();
+            $id = $userToken->getId();
+            $user = $repository->findById($id);
+
+            $newCloth->setUser($user);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($newOutfit);
