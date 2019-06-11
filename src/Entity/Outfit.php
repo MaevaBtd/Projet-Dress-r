@@ -52,6 +52,7 @@ class Outfit
     public function __construct()
     {
         $this->cloths = new ArrayCollection();
+        
     }
 
     public function getId(): ?int

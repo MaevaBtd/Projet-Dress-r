@@ -97,7 +97,8 @@ class Cloth
     {
         $this->styles = new ArrayCollection();
         $this->outfits = new ArrayCollection();
-        $this->without_pants = false;
+        $this->withoutPants = false;
+        $this->createdAt = new \Datetime();
     }
 
     public function getId(): ?int

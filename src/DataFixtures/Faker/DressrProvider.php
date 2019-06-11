@@ -38,6 +38,7 @@ class DressrProvider extends Base
         'haut de forme',
         'béret',
         'bob'
+        
 
 
     ];

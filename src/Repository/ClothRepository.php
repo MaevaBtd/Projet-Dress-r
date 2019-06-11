@@ -22,15 +22,119 @@ class ClothRepository extends ServiceEntityRepository
 
     // retourne un vêtement filtré par l'id
 
-    public function findById($id) {
+    public function findById($styleId) {
 
         return $this->createQueryBuilder('c')
             ->andWhere('c.id = :val')
-            ->setParameter('val', $id)
+            ->setParameter('val', $styleId)
             ->getQuery()
             ->getResult()
             ;
     }
+
+    public function findHeadByIdAndStyleId($styleId,$clothId){
+        
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 1')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+        
+        
+       
+        ->getQuery()->getResult();
+    }
+   
+    public function findJacketByIdAndStyleId($styleId,$clothId){
+
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 2')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+       
+       
+        ->getQuery()->getResult();
+    }
+    public function findTopByIdAndStyleId($styleId,$clothId){
+
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 3')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+       
+        ->getQuery()->getResult();
+    }
+   
+    public function findBottomByIdAndStyleId($styleId, $clothId){
+
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 4')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+       
+        ->getQuery()->getResult();
+    }
+
+    public function findShoesByIdAndStyleId($styleId, $clothId){
+        
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 5')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+
+       
+        ->getQuery()->getResult();
+    }
+
+
+    // public function testRand($styleId){
+        
+    //     return $this->createQueryBuilder('c')
+    //     ->select('c.id','c.name','c.image')
+    //     ->join('c.styles', 's')
+    //     ->join('c.type', 't')
+    //     ->addSelect('s.id AS style_id','s.name AS style_name')
+    //     ->andWhere('t.id = 1')
+    //     ->andWhere('s.id = :styleId')
+    //     ->setParameter('styleId', $styleId)
+    //     ->andWhere('c.id <= :rand')
+    //     ->setParameter('rand', rand(0,100))
+
+    //     ->setFirstResult('rand')
+        
+       
+    //     ->getQuery()->getResult();
+    // }
+
 
     // // Recuperer les cloths d'un type donné
     // public function findByTypeAndStyleDQL() {
@@ -49,7 +153,7 @@ class ClothRepository extends ServiceEntityRepository
     //     return $query->getResult();
 
     // }
-
+    
 
     // /**
     //  * @return Cloth[] Returns an array of Cloth objects

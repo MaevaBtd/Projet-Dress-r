@@ -54,12 +54,14 @@ class AppFixtures extends Fixture
         $user->setEmail('user@user.user');
         $user->setRole($roleUser);
 
-       
+        
+           
         $manager->persist($roleAdmin);
         $manager->persist($roleUser);
         
         $manager->persist($user);
         $manager->persist($admin);
+
 
     
 
