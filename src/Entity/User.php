@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -24,14 +24,14 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, unique=true)
      *
      * @Groups({"cloth_read", "user_cloths", "user_outfits", "user_show"})
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Groups({"user_show"})
      */
     private $email;
@@ -49,8 +49,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"user_show"})
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="users")
@@ -72,6 +78,7 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $this->isActive = true;
         $this->cloths = new ArrayCollection();
         $this->outfits = new ArrayCollection();
         $this->createdAt = new \DateTime();
@@ -216,10 +223,56 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoles(){}
+    public function getRoles()
+    {
+        return [$this->getRole()->getCode()];
+    }
     
-    public function getSalt(){}
+    public function getSalt()
+    {
+        return null;
+    }
 
-    public function eraseCredentials(){}
+    public function eraseCredentials()
+    {
+    }
     
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ]);
+    }
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+    
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
+    }
 }

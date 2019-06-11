@@ -22,10 +22,12 @@ class UserController extends AbstractController {
     /**
      * Retourne les informations de l'utilisateur(id,username,email,createdAt,role)
      * 
-     * @Route("/user/{id}", name="user_show", methods={"GET"})
+     * @Route("/user/profile", name="user_show", methods={"GET"})
      */
-    public function show(UserRepository $repository, $id, SerializerInterface $serializer) {
+    public function show(UserRepository $repository, SerializerInterface $serializer) {
 
+        $userToken = $this->getUser();
+        $id = $userToken->getId();
         $user = $repository->findById($id);
 
         $json = $serializer->serialize($user, 'json',[
@@ -44,9 +46,7 @@ class UserController extends AbstractController {
 
         $user = new User();
 
-        // TODO
-
-        // $form = $this->createForm(SubscribeType::class, $user);
+        $form = $this->createForm(SubscribeType::class, $user);
 
         // Retrieving data send from REACT ( don't know if we really need to decode )
         $data = json_decode($request->getContent(), true);
@@ -78,6 +78,19 @@ class UserController extends AbstractController {
             return new JsonResponse(array('flash' => 'L\'inscription n\'a pas pu être effectuée !'));
             
         }
+
+    }
+
+    /**
+     * Edit les informations de l'utilisateur(username,email)
+     * 
+     * @Route("/user/edit", name="user_edit", methods={"GET", "POST"})
+     */
+    public function edit(UserRepository $userRepository, Request $request) {
+
+        $userToken = $this->getUser();
+        $id = $userToken->getId();
+        $user = $repository->findById($id);
 
     }
 
