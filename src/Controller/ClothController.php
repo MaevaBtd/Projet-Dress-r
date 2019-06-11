@@ -20,12 +20,15 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class ClothController extends AbstractController
 {
     /**
-     * @Route("/user/{id}/cloths", name="user_cloths", methods={"GET"})
+     * @Route("/user/cloths", name="user_cloths", methods={"GET"})
      */
-    public function index_cloths_user(UserRepository $repository, $id, SerializerInterface $serializer) {
+    public function index_cloths_user(UserRepository $repository, SerializerInterface $serializer) {
 
         // Return all user's cloths
         // Find the user with the repository
+        
+        $userToken = $this->getUser();
+        $id = $userToken->getId();
         $user = $repository->findById($id);
 
         // Handle Circular Reference-> use groups ( in order to select the properties i want to share ) in entities
@@ -54,7 +57,7 @@ class ClothController extends AbstractController
     /**
      * @Route("/cloth/new", name="new_cloth", methods={"GET", "POST"})
      */
-    public function new (Request $request) {
+    public function new (Request $request, UserRepository $repository) {
 
         $newCloth = new Cloth();
 
@@ -72,6 +75,12 @@ class ClothController extends AbstractController
 
         // Testing
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $userToken = $this->getUser();
+            $id = $userToken->getId();
+            $user = $repository->findById($id);
+
+            $newCloth->setUser($user);
 
             $file = $newCloth->getImage();
 
@@ -150,6 +159,8 @@ class ClothController extends AbstractController
      */
     public function edit(Request $request, Cloth $cloth): Response {
 
+        // Faire un voters pour acces a cette page ou pas
+
         $oldImage = $cloth->getImage();
         if(!empty($oldImage)) {
             $cloth->setImage(
@@ -198,7 +209,7 @@ class ClothController extends AbstractController
             }
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($newCloth);
+            $em->persist($cloth);
             $em->flush();
 
             // Return a json response that show to the front that the creation is successfull ( flash message )
