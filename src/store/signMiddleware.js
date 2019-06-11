@@ -3,11 +3,9 @@ import jwt from 'jsonwebtoken';
 import {
   USER_SIGNIN_REQUEST,
   USER_SIGNUP_REQUEST,
-  receivedUserToken,
+  setCurrentUser,
 } from './sign_reducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
-
-
 
 const signMiddleware = store => next => (action) => {
   switch (action.type) {
@@ -24,13 +22,13 @@ const signMiddleware = store => next => (action) => {
       break;
     }
     case USER_SIGNUP_REQUEST: {
-      axios.post('http://localhost:8001/api/login_check', store.getState())
+      axios.post('http://localhost:8001/api/login_check', store.getState().signReducer)
         .then((response) => {
           const userToken = response.data.token;
           //store.dispatch(receivedUserToken(userToken));
           localStorage.setItem('jwtToken', userToken);
           setAuthorizationToken(userToken);
-          console.log(jwt.decode(userToken));
+          store.dispatch(setCurrentUser(jwt.decode(userToken)));
         })
         .catch((error) => {
           console.log(error);

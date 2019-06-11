@@ -14,6 +14,7 @@ export const USER_SIGNIN_REQUEST = 'USER_SIGNIN_REQUEST ';
 export const RECEIVED_USER_TOKEN = 'RECEIVED_USER_TOKEN';
 export const FETCH_CLOTH_CONTENT = 'FETCH_CLOTH_CONTENT';
 export const RECEIVED_DATAS = 'RECEIVED_DATAS';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 
 // Reducer
@@ -71,6 +72,11 @@ export const fetchClothContent = () => ({
 export const receivedDatas = content => ({
   type: RECEIVED_DATAS,
   content,
+});
+
+export const setCurrentUser = user => ({
+  type: SET_CURRENT_USER,
+  user,
 });
 
 export default signupReducer;
