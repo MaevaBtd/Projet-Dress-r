@@ -1,24 +1,34 @@
 import axios from 'axios';
-import { FETCH_CLOTH_CONTENT, receivedDatas } from './cloth_reducer';
+import {
+  FETCH_CLOTH_CONTENT,
+  receivedDatas,
+} from './sign_reducer';
 
 const ajaxMiddleware = store => next => (action) => {
+  const fetchGithub = url => (
+    axios.get(url, {
+      headers: {
+        Bearer: `${store.getState().token}`,
+      },
+    })
+  );
 
   switch (action.type) {
-    case FETCH_CLOTH_CONTENT: {
-      const url = 'http://http://127.0.0.1:8001/api/user/1/cloth/1';
-      axios.get(url)
+    case FETCH_CLOTH_CONTENT:
+      fetchGithub('http://localhost:8001/api/user/cloths')
         .then((response) => {
-          const { data } = response;
-          console.log(data);
-          store.dispatch(receivedDatas(data));
+          console.log('succes fetch repo');
+          const clothList = response.data;
+          store.dispatch(receivedDatas(clothList));
         })
-        .catch(error => console.error);
-
+        .catch(() => {
+          console.log('Error fetch repo');
+        });
       break;
-    }
     default:
+      console.log('last action received: ', action);
+      console.log(store.getState().auth.isAuthenticated);
       next(action);
-      break;
   }
 };
 

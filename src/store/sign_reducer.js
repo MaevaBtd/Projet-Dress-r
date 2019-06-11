@@ -1,6 +1,9 @@
-const initialState = {
+export const initialState = {
   username: '',
   password: '',
+  token: '',
+  userCloth: [],
+  userOutfits: [],
 };
 
 // Action Type
@@ -8,6 +11,10 @@ const CHANGE_USERNAME = 'CHANGE_USERNAME';
 const CHANGE_PWD = 'CHANGE_PWD';
 export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST ';
 export const USER_SIGNIN_REQUEST = 'USER_SIGNIN_REQUEST ';
+export const RECEIVED_USER_TOKEN = 'RECEIVED_USER_TOKEN';
+export const FETCH_CLOTH_CONTENT = 'FETCH_CLOTH_CONTENT';
+export const RECEIVED_DATAS = 'RECEIVED_DATAS';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 
 // Reducer
@@ -22,6 +29,16 @@ const signupReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         password: action.content,
+      };
+    case RECEIVED_USER_TOKEN:
+      return {
+        ...state,
+        token: action.token,
+      };
+    case RECEIVED_DATAS:
+      return {
+        ...state,
+        userCloth: [...action.content],
       };
 
     default:
@@ -43,6 +60,23 @@ export const userSignupRequest = () => ({
 });
 export const userSigninRequest = () => ({
   type: USER_SIGNIN_REQUEST,
+});
+export const receivedUserToken = userToken => ({
+  type: RECEIVED_USER_TOKEN,
+  token: userToken,
+});
+export const fetchClothContent = () => ({
+  type: FETCH_CLOTH_CONTENT,
+});
+
+export const receivedDatas = content => ({
+  type: RECEIVED_DATAS,
+  content,
+});
+
+export const setCurrentUser = user => ({
+  type: SET_CURRENT_USER,
+  user,
 });
 
 export default signupReducer;

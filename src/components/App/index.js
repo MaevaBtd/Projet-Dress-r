@@ -31,8 +31,7 @@ import Random from '../Random';
 // == Composant
 class App extends Component {
   componentDidMount() {
-    const { fetchClothContent } = this.props;
-    fetchClothContent();
+    
   }
 
 
@@ -96,10 +95,6 @@ class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  fetchClothContent: PropTypes.func.isRequired,
-};
 
 // == Export
 export default App;

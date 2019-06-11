@@ -8,8 +8,8 @@ import { changeUsername, changePwd, userSignupRequest } from 'src/store/sign_red
 
 // === data / state
 const mapStateToProps = state => ({
-  username: state.username,
-  password: state.password,
+  username: state.signReducer.username,
+  password: state.signReducer.password,
 });
 
 // actions / dispatch

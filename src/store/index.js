@@ -1,12 +1,25 @@
-import { createStore, applyMiddleware } from 'redux';
-import clothReducer from './cloth_reducer';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+// import clothReducer from './cloth_reducer';
+import jwt from 'jsonwebtoken';
 import ajaxMiddleware from './ajaxMiddleware';
-import signReducer from './sign_reducer';
+import signReducer, { setCurrentUser } from './sign_reducer';
 import signMiddleware from './signMiddleware';
+import setAuthorizationToken from './utils/setAuthorizationToken';
+import auth from './auth';
 
-const middlewares = applyMiddleware(ajaxMiddleware, signMiddleware);
-const reducer = (clothReducer, signReducer);
 
-const store = createStore(reducer, middlewares);
+/* eslint-disable no-underscore-dangle */
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const middlewares = applyMiddleware(signMiddleware, ajaxMiddleware);
+const enhancers = (devTools, middlewares);
+const reducer = combineReducers({ signReducer, auth });
+
+const store = createStore(reducer, enhancers);
+
+if (localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+}
+
 
 export default store;
