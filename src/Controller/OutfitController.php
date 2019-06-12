@@ -7,12 +7,15 @@ use App\Entity\Outfit;
 use App\Form\OutfitType;
 
 use App\Repository\UserRepository;
+use App\Repository\ClothRepository;
 use App\Repository\OutfitRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -62,30 +65,54 @@ class OutfitController extends AbstractController
     /**
      * @Route("/outfit/new", name="new_outfit", methods={"GET", "POST"})
      */
-    public function new(Request $request, UserRepository $repository) {
+    public function new(Request $request, UserRepository $userRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, ClothRepository $clothRepository) {
 
         $newOutfit = new Outfit();
 
         // Using a symfony form
         $form = $this->createForm(OutfitType::class, $newOutfit);
 
-        // Retrieving data send from REACT ( don't know if we really need to decode )
-        $data = json_decode($request->getContent(), true);
+        // Si besoin de décode json
+        // $data = json_decode($request->getContent(), true);
 
-        // Giving the data to the form, a submission
-        $form->submit($data);
+        // Pour les test postman ( post mais infos dans l'url )
+        $form->submit($request->query->all());
 
-        // Do we need to handle the request ?
+        // Pour les vrai test front
+        // $form->submit($request->request->all());
         // $form->handleRequest($request);
 
-        // Testing
-        if ($form->isSubmitted() && $form->isValid()) {
+        $errors = $validator->validate($newOutfit);
+        
+        if (count($errors) > 0) {
+            /*
+            * Uses a __toString method on the $errors variable which is a
+            * ConstraintViolationList object. This gives us a nice string
+            * for debugging.
+            */
+            $errorsString = (string) $errors;
+
+            $json = $serializer->serialize($errorsString, 'json');
+
+            // si il y a des erreurs, on retourne le pourquoi
+            // TODO ajouter un httpresponse code
+            return new JsonResponse($json);
+        }
+        else {
 
             $userToken = $this->getUser();
-            $id = $userToken->getId();
-            $user = $repository->findById($id);
+            // $id = $userToken->getId();
+            // $user = $userRepository->findById($id);
+            $newOutfit->setUser($userToken);
 
-            $newCloth->setUser($user);
+            $cloths = $request->get('cloths');
+
+                foreach ($cloths as $cloth) {
+                $outfitCloth = $clothRepository->findOneBy([
+                    'name' => $cloth,
+                ]);
+                $newOutfit->addCloth($outfitCloth);
+                }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($newOutfit);
@@ -95,14 +122,6 @@ class OutfitController extends AbstractController
             // Doit on retourner d'autres infos ? comme l'id de la tenue ?
             return new JsonResponse(array('flash' => 'La tenue a été ajoutée avec succès !'));
         }
-
-        // Else
-        else {
-
-            // Return a json response that show to the front that the creation was not successfull ( flash message )
-            return new JsonResponse(array('flash' => 'La tenue n\'a pas pu être ajoutée !'));
-        }
-
     }
 
     /**

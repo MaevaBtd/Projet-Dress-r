@@ -28,9 +28,6 @@ class ClothController extends AbstractController
      * @Route("/user/cloths", name="user_cloths", methods={"GET"})
      */
     public function index_cloths_user(UserRepository $repository, SerializerInterface $serializer) {
-
-        // Return all user's cloths
-        // Find the user with the repository
         
         $userToken = $this->getUser();
         $id = $userToken->getId();
@@ -97,8 +94,8 @@ class ClothController extends AbstractController
 
         else {
                 $userToken = $this->getUser();
-                $id = $userToken->getId();
-                $user = $repository->findById($id);
+                // $id = $userToken->getId();
+                // $user = $repository->findById($id);
                 $newCloth->setUser($userToken);
 
                 $type = $request->get('type');
@@ -107,16 +104,13 @@ class ClothController extends AbstractController
                 ]);
                 $newCloth->setType($typeCloth);
 
-                // TODO Faire un array, et boucler en for each dessus
                 $styles = $request->get('styles');
 
                     foreach ($styles as $style) {
-                    // Boucler en foreach ici - début boucle
                     $styleCloth = $stylerepository->findOneBy([
                         'name' => $style,
                     ]);
                     $newCloth->addStyle($styleCloth);
-                    // fin de la boucle
                     }
 
                 $file = $newCloth->getImage();
@@ -158,10 +152,9 @@ class ClothController extends AbstractController
             $entityManager->remove($cloth);
             $entityManager->flush();
 
-            // Return a json response that show to the front that the delete is successfull OR NOT ( flash message )
             return new JsonResponse(array('flash' => 'Le vêtement a été supprimé !'));
-        } else {
 
+        } else {
             return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de ce vêtement !'));
         }
     }
@@ -192,70 +185,98 @@ class ClothController extends AbstractController
     /**
      * @Route("/cloth/{id}/edit", name="edit_cloth", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Cloth $cloth): Response {
+    public function edit(Request $request, Cloth $cloth, TypeRepository $typerepository, UserRepository $repository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, StyleRepository $stylerepository): Response {
 
-        // Faire un voters pour acces a cette page ou pas
+        $userClothId = $cloth->getUser()->getId();
+        
+        $userToken = $this->getUser();
+        $userTokenId = $userToken->getId();
 
-        $oldImage = $cloth->getImage();
-        if(!empty($oldImage)) {
-            $cloth->setImage(
-                new File($this->getParameter('image_directory').'/'.$oldImage)
-            );
-        }
+        if ($userClothId == $userTokenId) {
 
-        // Using a symfony form
-        $form = $this->createForm(ClothType::class, $cloth);
+            // $oldImage = $cloth->getImage();
 
-        // Retrieving data send from REACT ( don't know if we really need to decode )
-        $data = json_decode($request->getContent(), true);
+            // if(!is_null($oldImage)) {
+            //     $cloth->setImage(
+            //         new File($this->getParameter('image_directory').'/'.$oldImage)
+            //     );
+            // }
 
-        // Giving the data to the form, a submission
-        $form->submit($data);
+            $form = $this->createForm(ClothType::class, $cloth);
+            // $data = json_decode($request->getContent(), true);
+            $form->submit($request->query->all());
+            // $form->submit($request->request->all());
+            // $form->handleRequest($request);
 
-        // Do we need to handle the request ?
-        // $form->handleRequest($request);
-
-        // Testing
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            if(!is_null($cloth->getImage())){
-                
-                $file = $cloth->getImage();
+            $errors = $validator->validate($newCloth);
             
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-                try {
-                    $file->move(
-                        $this->getParameter('image_directory'),
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                    dump($e);
-                }
-                
-                $cloth->setImage($fileName);
-                if(!empty($oldImage)){
-                    unlink(
-                        $this->getParameter('image_directory') .'/'.$oldImage
-                    );
-                }
+            if (count($errors) > 0) {
+                /*
+                * Uses a __toString method on the $errors variable which is a
+                * ConstraintViolationList object. This gives us a nice string
+                * for debugging.
+                */
+                $errorsString = (string) $errors;
+
+                $json = $serializer->serialize($errorsString, 'json');
+
+                // si il y a des erreurs, on retourne le pourquoi
+                // TODO ajouter un httpresponse code
+                return new JsonResponse($json);
+
             } else {
+
+                $type = $request->get('type');
+                $typeCloth = $typerepository->findOneBy([
+                    'name' => $type,
+                ]);
+                $cloth->setType($typeCloth);
+
+                $styles = $request->get('styles');
+
+                    foreach ($styles as $style) {
+                    $styleCloth = $stylerepository->findOneBy([
+                        'name' => $style,
+                    ]);
+                    $newCloth->addStyle($styleCloth);
+                    }
+
+                if(!empty($cloth->getImage())){
+                    
+                    $file = $cloth->getImage();
                 
-                $cloth->setImage($oldImage);
+                    $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                    try {
+                        $file->move(
+                            $this->getParameter('image_directory'),
+                            $fileName
+                        );
+                    } catch (FileException $e) {
+                        dump($e);
+                    }
+                    
+                    $cloth->setImage($fileName);
+                    if(!empty($oldImage)){
+                        unlink(
+                            $this->getParameter('image_directory') .'/'.$oldImage
+                        );
+                    }
+                } else {
+                    
+                    $cloth->setImage($oldImage);
+                }
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($cloth);
+                $em->flush();
+
+                // Return a json response that show to the front that the creation is successfull ( flash message )
+                return new JsonResponse(array('flash' => 'Le vêtement a été modifié avec succès !'));
             }
+        } 
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($cloth);
-            $em->flush();
-
-            // Return a json response that show to the front that the creation is successfull ( flash message )
-            return new JsonResponse(array('flash' => 'Le vêtement a été modifié avec succès !'));
-        }
-
-        // Else
         else {
-
-            // Return a json response that show to the front that the creation was not successfull ( flash message )
-            return new JsonResponse(array('flash' => 'Le vêtement n\'a pas pu être modifié !'));
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de ce vêtement !'));
         }
 
     }
