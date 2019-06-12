@@ -8,7 +8,10 @@ import Profil from 'src/components/Profil';
 import { fetchUserInfo } from 'src/store/user_reducer';
 
 // == StateToProps
-const mapStateToProps = () => ({
+const mapStateToProps = state => ({
+  email: state.userReducer.email,
+  user: state.userReducer.username,
+  creationDate: state.userReducer.creation_date,
 });
 
 // == DispatchToProps

@@ -12,6 +12,7 @@ import Signup from 'src/containers/Signup';
 import Profil from 'src/containers/Profil';
 import Wardrobe from 'src/containers/Wardrobe';
 import Accueil from 'src/components/Accueil';
+import ClothList from 'src/containers/ClothList';
 import Footer from 'src/components/Footer';
 import Header from 'src/containers/Header';
 import FormAddCloth from '../AddCloth/FormAddCloth';
@@ -94,6 +95,11 @@ class App extends Component {
               exact
               path="/change-mdp"
               component={Changemdp}
+            />
+            <Route
+              exact
+              path="/cloth-list"
+              component={ClothList}
             />
             <Route component={NoMatch} />
           </Switch>

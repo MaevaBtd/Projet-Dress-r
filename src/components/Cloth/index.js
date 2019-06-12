@@ -7,14 +7,17 @@ import 'antd/dist/antd.css';
 import './Cloth.scss';
 
 // == Code
-const Cloth = () => (
+const Cloth = ({ name, image, styles, type }) => (
   <a id="clothcard">
     <div>
-      <p>Nom du vêtement:</p>
-      <p>Catégorie:</p>
-      <p>Type:</p>
+      <p>Nom du vêtement: {name} </p>
+      <p>Catégorie:{styles.map(style => (
+        <span key={style.id}> {style.name} </span>
+      ))}
+      </p>
+      <p>Type: {type.name} </p>
     </div>
-    <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="" />
+    <img src={image} alt="" />
     <Button id="close-button" shape="circle">
       <Icon type="close" theme="outlined" />
     </Button>

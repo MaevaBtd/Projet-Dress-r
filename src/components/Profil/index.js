@@ -19,16 +19,17 @@ class Profil extends React.Component {
   }
 
   render() {
+    const { user, email, creationDate } = this.props;
     return (
       <div id="profil">
-        <h1>Bonjour Pseudo</h1>
+        <h1>Bonjour {user}</h1>
         <div className="stats">
           <p>J'ai x tenues enregistrées</p>
           <p>J'ai x vêtements enregistrés</p>
           <p>J'ai utilisé l'outil Tenues Aléatoires x fois</p>
         </div>
-        <h2>Mon adresse mail: <span>toto@email.com</span></h2>
-        <h2 id="date">Date d'inscription: <span>28/05/19</span></h2>
+        <h2>Mon adresse mail: <span>{email}</span></h2>
+        <h2 id="date">Date d'inscription: <span>{creationDate}</span></h2>
         <NavLink to="/change-mdp">
           <Button className="button">
             <Icon type="unlock" /> Modifier mon Mot de passe
@@ -45,6 +46,9 @@ class Profil extends React.Component {
 
 Profil.propTypes = {
   fetchUserInfo: PropTypes.func.isRequired,
+  user: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  creationDate: PropTypes.string.isRequired,
 };
 
 // == Export
