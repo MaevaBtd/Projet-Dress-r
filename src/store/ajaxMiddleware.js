@@ -1,11 +1,12 @@
 import axios from 'axios';
 import {
   FETCH_CLOTH_CONTENT,
+  FETCH_USER_INFO,
   receivedDatas,
-} from './sign_reducer';
+} from './user_reducer';
 
 const ajaxMiddleware = store => next => (action) => {
-  const fetchGithub = url => (
+  const fetchAPI = url => (
     axios.get(url, {
       headers: {
         Bearer: `${store.getState().token}`,
@@ -15,7 +16,7 @@ const ajaxMiddleware = store => next => (action) => {
 
   switch (action.type) {
     case FETCH_CLOTH_CONTENT:
-      fetchGithub('http://localhost:8001/api/user/cloths')
+      fetchAPI('http://localhost:8001/api/user/cloths')
         .then((response) => {
           console.log('succes fetch repo');
           const clothList = response.data;
@@ -23,6 +24,15 @@ const ajaxMiddleware = store => next => (action) => {
         })
         .catch(() => {
           console.log('Error fetch repo');
+        });
+      break;
+    case FETCH_USER_INFO:
+      fetchAPI('http://localhost:8001/api/user/profil')
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
         });
       break;
     default:

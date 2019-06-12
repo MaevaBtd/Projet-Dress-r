@@ -8,6 +8,7 @@ import {
 } from 'antd';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 // == Import: local
 import './Signup.scss';
@@ -38,9 +39,12 @@ class Signup extends React.Component {
     onPwdChange(value);
   }
 
+
   render() {
     // Vars
-    const { username, password } = this.props;
+    const { username, password, isAuthenticated } = this.props;
+
+    if (isAuthenticated) return <Redirect to="/profil" />;
 
     return (
       <Form className="login-form" onSubmit={this.handleSubmit}>
@@ -82,6 +86,7 @@ Signup.propTypes = {
   // data : la valeur du champ
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 // == Export

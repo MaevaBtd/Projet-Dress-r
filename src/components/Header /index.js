@@ -1,6 +1,6 @@
 // == Import : npm
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // == Import : local
@@ -15,6 +15,7 @@ class Header extends React.Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
+
 
     const userLinks = (
       <div className="navbar-nav ml-auto">
