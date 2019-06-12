@@ -109,7 +109,7 @@ class ClothController extends AbstractController
 
                 // TODO Faire un array, et boucler en for each dessus
                 $styles = $request->get('styles');
-                
+
                     foreach ($styles as $style) {
                     // Boucler en foreach ici - début boucle
                     $styleCloth = $stylerepository->findOneBy([
@@ -143,16 +143,27 @@ class ClothController extends AbstractController
     }
 
     /**
-     * @Route("/cloth/{id}/delete", name="delete_cloth", methods={"GET"})
+     * @Route("/cloth/{id}/delete", name="delete_cloth", methods={"DELETE"})
      */
     public function delete(Request $request, Cloth $cloth): Response {
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($cloth);
-        $entityManager->flush();
+        $userClothId = $cloth->getUser()->getId();
+        
+        $userToken = $this->getUser();
+        $userTokenId = $userToken->getId();
 
-        // Return a json response that show to the front that the delete is successfull OR NOT ( flash message )
-        return new JsonResponse(array('flash' => 'Le vêtement a été supprimé !'));
+        if ($userClothId == $userTokenId) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($cloth);
+            $entityManager->flush();
+
+            // Return a json response that show to the front that the delete is successfull OR NOT ( flash message )
+            return new JsonResponse(array('flash' => 'Le vêtement a été supprimé !'));
+        } else {
+
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de ce vêtement !'));
+        }
     }
 
     /**
