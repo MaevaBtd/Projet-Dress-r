@@ -109,7 +109,7 @@ class OutfitController extends AbstractController
 
                 foreach ($cloths as $cloth) {
                 $outfitCloth = $clothRepository->findOneBy([
-                    'name' => $cloth,
+                    'id' => $cloth,
                 ]);
                 $newOutfit->addCloth($outfitCloth);
                 }
@@ -127,37 +127,74 @@ class OutfitController extends AbstractController
     /**
      * @Route("/outfit/{id}/edit", name="edit_outfit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Outfit $outfit): Response {
+    public function edit(Request $request, Outfit $outfit, UserRepository $userRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, ClothRepository $clothRepository): Response {
 
-        // Using a symfony form
-        $form = $this->createForm(OutfitType::class, $outfit);
+        $userOutfitId = $outfit->getUser()->getId();
+        
+        $userToken = $this->getUser();
+        $userTokenId = $userToken->getId();
 
-        // Retrieving data send from REACT ( don't know if we really need to decode )
-        $data = json_decode($request->getContent(), true);
+        if ($userOutfitId == $userTokenId) {
 
-        // Giving the data to the form, a submission
-        $form->submit($data);
+            $form = $this->createForm(OutfitType::class, $outfit);
+            // $data = json_decode($request->getContent(), true);
+            $form->submit($request->query->all());
+            // $form->submit($request->request->all());
+            // $form->handleRequest($request);
 
-        // Do we need to handle the request ?
-        // $form->handleRequest($request);
+            $errors = $validator->validate($outfit);
+            
+            if (count($errors) > 0) {
+                /*
+                * Uses a __toString method on the $errors variable which is a
+                * ConstraintViolationList object. This gives us a nice string
+                * for debugging.
+                */
+                $errorsString = (string) $errors;
 
-        // Testing
-        if ($form->isSubmitted() && $form->isValid()) {
+                $json = $serializer->serialize($errorsString, 'json');
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($outfit);
-            $em->flush();
+                // si il y a des erreurs, on retourne le pourquoi
+                // TODO ajouter un httpresponse code
+                return new JsonResponse($json);
 
-            // Return a json response that show to the front that the creation is successfull ( flash message )
-            // idem pour le retour create
-            return new JsonResponse(array('flash' => 'La tenue a été modifiée avec succès !'));
-        }
+            } else {
 
-        // Else
+                $cloths = $request->get('cloths');
+
+                if (!empty($cloths)) {
+
+                    $oldCloths = $outfit->getCloths();
+                    // dd($oldCloths);
+                    foreach ($oldCloths as $oldCloth) {
+                        $outfitOldClothId = $oldCloth->getId();
+                        // dd($outfitOldCloth);
+                         $outfitOldCloth = $clothRepository->findOneBy([
+                             'id' => $outfitOldClothId,
+                         ]);
+                        // dd($outfitOldCloth);
+                         $outfit->removeCloth($outfitOldCloth);
+                    }
+
+                    foreach ($cloths as $cloth) {
+                    $outfitCloth = $clothRepository->findOneBy([
+                        'id' => $cloth,
+                    ]);
+                    $outfit->addCloth($outfitCloth);
+                    }
+                }
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($outfit);
+                $em->flush();
+
+                // Return a json response that show to the front that the creation is successfull ( flash message )
+                return new JsonResponse(array('flash' => 'La tenue a été modifiée avec succès !'));
+            }
+        } 
+
         else {
-
-            // Return a json response that show to the front that the creation was not successfull ( flash message )
-            return new JsonResponse(array('flash' => 'La tenue n\'a pas pu être modifiée !'));
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de cette tenue !'));
         }
 
     }
