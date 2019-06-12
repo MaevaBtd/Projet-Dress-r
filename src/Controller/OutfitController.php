@@ -163,18 +163,28 @@ class OutfitController extends AbstractController
     }
 
     /**
-     * @Route("/outfit/{id}/delete", name="delete_outfit", methods={"GET"})
+     * @Route("/outfit/{id}/delete", name="delete_outfit", methods={"DELETE"})
      */
     public function delete(Request $request, Outfit $outfit): Response {
     
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($outfit);
-        $entityManager->flush();
+        $userOutfitId = $outfit->getUser()->getId();
+        
+        $userToken = $this->getUser();
+        $userTokenId = $userToken->getId();
 
-        // Return a json response that show to the front that the delete is successfull OR NOT ( flash message )
-        return new JsonResponse(array('flash' => 'La tenue a été supprimée !'));
+        if ($userOutfitId == $userTokenId) {
 
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($outfit);
+            $entityManager->flush();
+
+            // Return a json response that show to the front that the delete is successfull OR NOT ( flash message )
+            return new JsonResponse(array('flash' => 'La tenue a été supprimée !'));
+        }
+
+        else {
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de cette tenue !'));
+        }
     }
-
 }
 
