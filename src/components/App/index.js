@@ -12,7 +12,7 @@ import Signup from 'src/containers/Signup';
 import Wardrobe from 'src/containers/Wardrobe';
 import Accueil from 'src/components/Accueil';
 import Footer from 'src/components/Footer';
-import Header from '../Header ';
+import Header from 'src/containers/Header';
 import FormAddCloth from '../AddCloth/FormAddCloth';
 import Main from '../Main';
 import Changemdp from '../Profil/ChangeMdp';
