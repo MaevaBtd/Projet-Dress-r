@@ -138,6 +138,25 @@ class OutfitController extends AbstractController
 
             $form = $this->createForm(OutfitType::class, $outfit);
             // $data = json_decode($request->getContent(), true);
+
+            $cloths = $request->get('cloths');
+
+                if (!empty($cloths)) {
+
+                    $oldCloths = $outfit->getCloths();
+                    // dd($oldCloths);
+                    foreach ($oldCloths as $oldCloth) {
+                        $outfitOldClothId = $oldCloth->getId();
+                        // dd($outfitOldCloth);
+                         $outfitOldCloth = $clothRepository->findOneBy([
+                             'id' => $outfitOldClothId,
+                         ]);
+                        // dd($outfitOldCloth);
+                         $outfit->removeCloth($outfitOldCloth);
+                    }
+                    
+                }
+            
             $form->submit($request->query->all());
             // $form->submit($request->request->all());
             // $form->handleRequest($request);
@@ -160,30 +179,15 @@ class OutfitController extends AbstractController
 
             } else {
 
-                $cloths = $request->get('cloths');
-
-                if (!empty($cloths)) {
-
-                    $oldCloths = $outfit->getCloths();
-                    // dd($oldCloths);
-                    foreach ($oldCloths as $oldCloth) {
-                        $outfitOldClothId = $oldCloth->getId();
-                        // dd($outfitOldCloth);
-                         $outfitOldCloth = $clothRepository->findOneBy([
-                             'id' => $outfitOldClothId,
-                         ]);
-                        // dd($outfitOldCloth);
-                         $outfit->removeCloth($outfitOldCloth);
-                    }
-
-                    foreach ($cloths as $cloth) {
+                foreach ($cloths as $cloth) {
                     $outfitCloth = $clothRepository->findOneBy([
                         'id' => $cloth,
                     ]);
                     $outfit->addCloth($outfitCloth);
-                    }
                 }
 
+                $outfit->setUpdatedAt(new \DateTime());
+                
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($outfit);
                 $em->flush();
