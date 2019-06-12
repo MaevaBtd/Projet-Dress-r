@@ -3,6 +3,7 @@ export const initialState = {
   username: '',
   creation_date: '',
   clothsList: [],
+  outfitsList: [],
 };
 
 // Action Type
@@ -10,6 +11,8 @@ export const FETCH_USER_INFO = 'FETCH_USER_INFO';
 const RECEIVED_USER_DATA = 'RECEIVED_USER_DATA';
 export const FETCH_USER_CLOTH = 'FETCH_USER_CLOTH';
 const RECEIVED_CLOTH = 'RECEIVED_CLOTH';
+export const FETCH_USER_OUTFIT = 'FETCH_USER_OUTFIT';
+const RECEIVED_OUTFITS = 'RECEIVED_OUTFITS';
 
 // Reducer
 const userReducer = (state = initialState, action = {}) => {
@@ -27,7 +30,12 @@ const userReducer = (state = initialState, action = {}) => {
         ...state,
         clothsList: action.cloths[0].cloths,
       };
-
+    case RECEIVED_OUTFITS:
+      console.log(action.outfits);
+      return {
+        ...state,
+        outfitsList: action.outfits,
+      };
     default:
       return state;
   }
@@ -47,6 +55,13 @@ export const fetchUserCloth = () => ({
 export const receivedCloths = cloths => ({
   type: RECEIVED_CLOTH,
   cloths,
+});
+export const fetchUserOutfits = () => ({
+  type: FETCH_USER_OUTFIT,
+});
+export const receivedOutfits = outfits => ({
+  type: RECEIVED_OUTFITS,
+  outfits,
 });
 
 export default userReducer;

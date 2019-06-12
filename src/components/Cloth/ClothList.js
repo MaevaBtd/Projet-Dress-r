@@ -64,6 +64,7 @@ class ClothList extends React.Component {
 
 ClothList.propTypes = {
   fetchUserCloth: PropTypes.func.isRequired,
+  clothsList: PropTypes.array.isRequired,
 };
 
 

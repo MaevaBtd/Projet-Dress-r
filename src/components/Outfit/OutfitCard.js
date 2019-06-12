@@ -7,18 +7,16 @@ import 'antd/dist/antd.css';
 import './OutfitCard.scss';
 
 // == Code
-const OutfitCard = () => (
+const OutfitCard = ({ name, cloths}) => (
   <div id="outfitcard">
     <div>
-      <p> Nom de la tenue:</p>
+      <p> Nom de la tenue: {name}</p>
       <p>Catégorie:</p>
       <h3>Liste des vêtements :</h3>
       <ul>
-        <li>Vêtement 1</li>
-        <li>Vêtement 2</li>
-        <li>Vêtement 3</li>
-        <li>Vêtement 4</li>
-        <li>Vêtement 5</li>
+        {cloths.map(cloth => (
+          <li key={cloth.id}>{cloth.name}</li>
+        ))}
       </ul>
     </div>
     <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="" />
