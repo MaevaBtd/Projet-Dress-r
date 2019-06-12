@@ -2,9 +2,10 @@
 import React from 'react';
 
 // == Import: local
+import ClothList from 'src/containers/ClothList';
 import './Wardrobe.scss';
-import OutfitList from '../Outfit/OutfitList';
-import ClothList from '../Cloth/ClothList';
+import OutfitList from 'src/containers/OutfitList';
+
 
 // == Code
 const Wardrobe = ({ userCloth }) => (

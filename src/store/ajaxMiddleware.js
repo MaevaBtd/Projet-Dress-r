@@ -1,33 +1,56 @@
 import axios from 'axios';
 import {
-  FETCH_CLOTH_CONTENT,
+  FETCH_USER_CLOTH,
+  FETCH_USER_INFO,
+  FETCH_USER_OUTFIT,
   receivedDatas,
-} from './sign_reducer';
+  receivedCloths,
+  receivedOutfits,
+} from './user_reducer';
 
 const ajaxMiddleware = store => next => (action) => {
-  const fetchGithub = url => (
+  const fetchAPI = url => (
     axios.get(url, {
       headers: {
-        Bearer: `${store.getState().token}`,
+        Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
       },
     })
   );
 
   switch (action.type) {
-    case FETCH_CLOTH_CONTENT:
-      fetchGithub('http://localhost:8001/api/user/cloths')
+    case FETCH_USER_CLOTH:
+      fetchAPI('http://localhost:8001/api/user/cloths')
         .then((response) => {
-          console.log('succes fetch repo');
+          // console.log(response);
           const clothList = response.data;
-          store.dispatch(receivedDatas(clothList));
+          store.dispatch(receivedCloths(clothList));
         })
-        .catch(() => {
-          console.log('Error fetch repo');
+        .catch((error) => {
+          console.log('Error fetch cloths', error);
+        });
+      break;
+    case FETCH_USER_INFO:
+      fetchAPI('http://localhost:8001/api/user/profile')
+        .then((response) => {
+          // console.log(response.data);
+          const userData = response.data;
+          store.dispatch(receivedDatas(userData));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      break;
+    case FETCH_USER_OUTFIT:
+      fetchAPI('http://localhost:8001/api/user/outfits')
+        .then((response) => {
+          console.log('outfits:', response.data[0].outfits);
+          const outfitsList = response.data[0].outfits;
+          store.dispatch(receivedOutfits(outfitsList));
         });
       break;
     default:
       console.log('last action received: ', action);
-      //console.log(store.getState().auth.isAuthenticated);
+      // console.log(store.getState().auth.isAuthenticated);
       next(action);
   }
 };

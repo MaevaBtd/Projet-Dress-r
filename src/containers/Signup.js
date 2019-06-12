@@ -10,6 +10,7 @@ import { changeUsername, changePwd, userSignupRequest } from 'src/store/sign_red
 const mapStateToProps = state => ({
   username: state.signReducer.username,
   password: state.signReducer.password,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 // actions / dispatch

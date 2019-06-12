@@ -9,14 +9,16 @@ import './app.scss';
 // peaufiner toute les size dès que toute l'inté est faite
 import Signin from 'src/containers/Signin';
 import Signup from 'src/containers/Signup';
+import Profil from 'src/containers/Profil';
 import Wardrobe from 'src/containers/Wardrobe';
 import Accueil from 'src/components/Accueil';
+import ClothList from 'src/containers/ClothList';
 import Footer from 'src/components/Footer';
 import Header from 'src/containers/Header';
 import FormAddCloth from '../AddCloth/FormAddCloth';
 import Main from '../Main';
 import Changemdp from '../Profil/ChangeMdp';
-import Profil from '../Profil';
+
 
 import Outfit from '../Outfit';
 import NoMatch from '../NoMatch';
@@ -50,40 +52,54 @@ class App extends Component {
               component={Signin}
             />
             <Route
+              exact
               path="/signup"
               component={Signup}
             />
             <Route
+              exact
               path="/wardrobe"
               component={Wardrobe}
             />
             <Route
+              exact
               path="/profil"
               component={Profil}
             />
             <Route
+              exact
               path="/random"
               component={Random}
             />
             <Route
+              exact
               path="/add-new-cloth"
               component={AddCloth}
             />
             <Route
+              exact
               path="/form-new-cloth"
               component={FormAddCloth}
             />
             <Route
+              exact
               path="/outfit-id"
               component={Outfit}
             />
             <Route
+              exact
               path="/user-page"
               component={Main}
             />
             <Route
+              exact
               path="/change-mdp"
               component={Changemdp}
+            />
+            <Route
+              exact
+              path="/cloth-list"
+              component={ClothList}
             />
             <Route component={NoMatch} />
           </Switch>
