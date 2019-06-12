@@ -52,6 +52,7 @@ class Outfit
     public function __construct()
     {
         $this->cloths = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int

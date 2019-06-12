@@ -3,14 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Cloth;
+use App\Form\ClothType;
+use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
 use App\Repository\ClothRepository;
+use App\Repository\StyleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -57,39 +62,68 @@ class ClothController extends AbstractController
     /**
      * @Route("/cloth/new", name="new_cloth", methods={"GET", "POST"})
      */
-    public function new (Request $request, UserRepository $repository) {
+    public function new (Request $request,TypeRepository $typerepository, UserRepository $repository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, StyleRepository $stylerepository) {
 
         $newCloth = new Cloth();
 
-        // Using a symfony form
         $form = $this->createForm(ClothType::class, $newCloth);
 
-        // Retrieving data send from REACT ( don't know if we really need to decode )
-        $data = json_decode($request->getContent(), true);
+        // Si besoin de décode json
+        // $data = json_decode($request->getContent(), true);
 
-        // Giving the data to the form, a submission
-        $form->submit($data);
+        // Pour les test postman ( post mais infos dans l'url )
+        $form->submit($request->query->all());
 
-        // Do we need to handle the request ?
+        // Pour les vrai test front
+        // $form->submit($request->request->all());
         // $form->handleRequest($request);
 
-        // Testing
-        if ($form->isSubmitted() && $form->isValid()) {
+        $errors = $validator->validate($newCloth);
+        
+        if (count($errors) > 0) {
+            /*
+            * Uses a __toString method on the $errors variable which is a
+            * ConstraintViolationList object. This gives us a nice string
+            * for debugging.
+            */
+            $errorsString = (string) $errors;
 
-            $userToken = $this->getUser();
-            $id = $userToken->getId();
-            $user = $repository->findById($id);
+            $json = $serializer->serialize($errorsString, 'json');
 
-            $newCloth->setUser($user);
+            // si il y a des erreurs, on retourne le pourquoi
+            // TODO ajouter un httpresponse code
+            return new JsonResponse($json);
+        }
 
-            $file = $newCloth->getImage();
+        else {
+                $userToken = $this->getUser();
+                $id = $userToken->getId();
+                $user = $repository->findById($id);
+                $newCloth->setUser($userToken);
+
+                $type = $request->get('type');
+                $typeCloth = $typerepository->findOneBy([
+                    'name' => $type,
+                ]);
+                $newCloth->setType($typeCloth);
+
+                // TODO Faire un array, et boucler en for each dessus
+                $styles = $request->get('styles');
+                
+                    foreach ($styles as $style) {
+                    // Boucler en foreach ici - début boucle
+                    $styleCloth = $stylerepository->findOneBy([
+                        'name' => $style,
+                    ]);
+                    $newCloth->addStyle($styleCloth);
+                    // fin de la boucle
+                    }
+
+                $file = $newCloth->getImage();
 
             if (!is_null($file)) {
-
                 $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
-
                 try {
-
                     $file->move(
                         $this->getParameter('image_directory'),
                         $fileName
@@ -97,25 +131,15 @@ class ClothController extends AbstractController
                 } catch (FileException $e) {
                     dump($e);
                 }
-
                 $newCloth->setImage($fileName);
             }
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($newCloth);
-            $em->flush();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($newCloth);
+            $manager->flush();
 
-            // Return a json response that show to the front that the creation is successfull ( flash message )
             return new JsonResponse(array('flash' => 'Le vêtement a été ajouté avec succès !'));
         }
-
-        // Else
-        else {
-
-            // Return a json response that show to the front that the creation was not successfull ( flash message )
-            return new JsonResponse(array('flash' => 'Le vêtement n\'a pas pu être ajouté !'));
-        }
-
     }
 
     /**
