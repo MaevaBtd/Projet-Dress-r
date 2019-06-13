@@ -15,6 +15,8 @@ export const FETCH_USER_OUTFIT = 'FETCH_USER_OUTFIT';
 const RECEIVED_OUTFITS = 'RECEIVED_OUTFITS';
 export const REMOVE_CLOTH = 'REMOVE_CLOTH';
 export const REMOVE_OUTFIT = 'REMOVE_OUTFIT';
+const DELETE_OUTFIT_FRONT = 'DELETE_OUTFIT_FRONT';
+const DELETE_CLOTH_FRONT = 'DELETE_CLOTH_FRONT';
 
 // Reducer
 const userReducer = (state = initialState, action = {}) => {
@@ -37,6 +39,18 @@ const userReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         outfitsList: action.outfits,
+      };
+    case DELETE_OUTFIT_FRONT:
+      console.log(action.id);
+      return {
+        ...state,
+        outfitsList: state.outfitsList.filter(outfit => outfit.id !== action.id),
+      };
+    case DELETE_CLOTH_FRONT:
+      console.log(`le vêtement à l'id ${action.id} a bien été supprimé en front`);
+      return {
+        ...state,
+        clothsList: state.clothsList.filter(cloth => cloth.id !== action.id),
       };
     default:
       return state;
@@ -71,6 +85,14 @@ export const removeCloth = id => ({
 });
 export const removeOutfit = id => ({
   type: REMOVE_OUTFIT,
+  id,
+});
+export const deleteOutfitFront = id => ({
+  type: DELETE_OUTFIT_FRONT,
+  id,
+});
+export const deleteClothFront = id => ({
+  type: DELETE_CLOTH_FRONT,
   id,
 });
 
