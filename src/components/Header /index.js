@@ -19,6 +19,7 @@ class Header extends React.Component {
 
     const userLinks = (
       <div className="navbar-nav ml-auto">
+        <NavLink className="nav-item nav-link" to="/add-new-cloth">Ajouter un nouveau vêtement</NavLink>
         <NavLink className="nav-item nav-link" to="/wardrobe">Garde-robe</NavLink>
         <NavLink className="nav-item nav-link" to="/profil">Profil</NavLink>
         <NavLink className="nav-item nav-link" to="/random">Random</NavLink>
