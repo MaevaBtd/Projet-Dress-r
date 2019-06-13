@@ -19,60 +19,65 @@ class ClothType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class,[
-                'label' => 'Nom du vêtement',
-                'attr'=>[
-                    'placeholder'=> "Entrez le nom de votre vêtement !"
-                 ] 
-                ],[
-                 'constraints' => [
-                    new NotBlank([
-                        'message'=> 'le nom de votre vêtement ne peut pas être vide'
-                    ]),
-                    new Length([
-                        'min'=> 3,
-                        'max'=> 64,
-                        'minMessage'=> 'Le nom de votre vêtement est trop court (min attendu :{{ limit}})',
-                        'maxMessage'=>'Le nom de votre vêtement est trop long (max attendu : {{ limit }})'
+            ->add('name')
+            ->add('image')
+            ->add('styles')
+            ->add('withoutPants')
+            ->add('type')
+            ;
+            // ,TextType::class,[
+            //     'label' => 'Nom du vêtement',
+            //     'attr'=>[
+            //         'placeholder'=> "Entrez le nom de votre vêtement !"
+            //     ],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message'=> 'le nom de votre vêtement ne peut pas être vide'
+            //         ]),
+            //         new Length([
+            //             'min'=> 3,
+            //             'max'=> 64,
+            //             'minMessage'=> 'Le nom de votre vêtement est trop court (min attendu :{{ limit}})',
+            //             'maxMessage'=>'Le nom de votre vêtement est trop long (max attendu : {{ limit }})'
                         
-                    ]),
-                    'required' => true
-                    
-                ]
-            ])
-                    
-            ->add('image', UrlType::class,[
-            'label' => 'Image du vêtement',
-            'attr' => [
-                'placeholder' => "Entrez l'URL de votre vêtement' !"
-             ]
-            ],[
-                'constraints'=> [
-                    new NotBlank([
-                    'message' => 'l\'URL de votre image ne peut pas être vide'
-                    ]),
-                    new Length([
-                    'min' => 3,
-                    'max' => 255,
-                    'minMessage' => 'L\'URL de votre image est trop court (min attendu :{{ limit}})',
-                    'maxMessage' => 'L\'URL de votre image est trop long (max attendu : {{ limit }})'
+            //         ]),
+            //         'required' => true
+            //     ]
+            // ]
+            
+            // ->add('image', UrlType::class,[
+            //     'label' => 'Image du vêtement',
+            //     'attr' => [
+            //     'placeholder' => "Entrez l'URL de votre vêtement' !"
+            //     ],
+            //     'constraints'=> [
+            //         new NotBlank([
+            //         'message' => 'l\'URL de votre image ne peut pas être vide'
+            //         ]),
+            //         new Length([
+            //         'min' => 3,
+            //         'max' => 255,
+            //         'minMessage' => 'L\'URL de votre image est trop court (min attendu :{{ limit}})',
+            //         'maxMessage' => 'L\'URL de votre image est trop long (max attendu : {{ limit }})'
 
-                    ]),
-                    'required'=> true
-                ]
-            ])
-            ->add('withoutPants',CheckboxType::class,[
-            'label'    => 's\'agit il d\'un vêtement en un seul tenant ?',
-            'required' => true
-            ])
+            //         ]),
+            //         'required'=> false,
+            //     ]
+            // ])
+            // ->add('withoutPants'
+            // ,CheckboxType::class,[
+            // 'label'    => 's\'agit il d\'un vêtement en un seul tenant ?',
+            // 'required' => true
+            // ]
+            // );
 
-            ->add('styles',EntityType::class,[
-                'class'=> Style::class,
-                'choice_label' => 'name',
-                'expanded' => true,
-                'multiple' => true,
-                'required'=> true
-            ]);
+            // ->add('styles',EntityType::class,[
+            //     'class'=> Style::class,
+            //     'choice_label' => 'name',
+            //     'expanded' => true,
+            //     'multiple' => true,
+            //     'required'=> true
+            // ]);
     
     }
 

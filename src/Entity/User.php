@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -26,18 +27,42 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=64, unique=true)
      *
+     * @Assert\Length(
+     *    min = 3,
+     *    max = 64,
+     *    minMessage = "Votre username doit contenir au moins {{ limit }} caractères",
+     *    maxMessage = "Votre username doit contenir au maximum {{ limit }} caractères"
+     * )
+     * @Assert\NotBlank
+     * 
      * @Groups({"cloth_read", "user_cloths", "user_outfits", "user_show"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Length(
+     *    min = 6,
+     *    max = 255,
+     *    minMessage = "Votre email doit contenir au moins {{ limit }} caractères",
+     *    maxMessage = "Votre email doit contenir au maximum {{ limit }} caractères"
+     * )
+     * @Assert\NotBlank
+     * @Assert\Type("\Email")
      * @Groups({"user_show"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\Length(
+     *    min = 5,
+     *    max = 64,
+     *    minMessage = "Votre mot de passe doit contenir au moins {{ limit }} caractères",
+     *    maxMessage = "Votre mot de passe doit contenir au maximum {{ limit }} caractères"
+     * )
+     * @Assert\NotBlank
+     * @Assert\Type("\Password")
      */
     private $password;
 

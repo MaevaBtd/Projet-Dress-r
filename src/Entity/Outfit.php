@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OutfitRepository")
@@ -22,6 +23,13 @@ class Outfit
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\Length(
+     *    min = 3,
+     *    max = 64,
+     *    minMessage = "Votre username doit contenir au moins {{ limit }} caractères",
+     *    maxMessage = "Votre username doit contenir au maximum {{ limit }} caractères"
+     * )
+     * @Assert\NotBlank
      * @Groups({"cloth_read", "user_outfits", "outfit_read"})
      */
     private $name;
@@ -52,6 +60,7 @@ class Outfit
     public function __construct()
     {
         $this->cloths = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int

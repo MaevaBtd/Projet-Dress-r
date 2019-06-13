@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Role;
 
 use App\Entity\User;
+use App\Form\SubscribeType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -42,22 +45,41 @@ class UserController extends AbstractController {
     /**
      * @Route("/register", name="register", methods={"GET","POST"})
      */
-    public function new(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response {
+    public function new(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator, SerializerInterface $serializer): Response {
 
         $user = new User();
 
         $form = $this->createForm(SubscribeType::class, $user);
 
-        // Retrieving data send from REACT ( don't know if we really need to decode )
-        $data = json_decode($request->getContent(), true);
+        // Si on a besoin de decode ce qu'on recoit au cas ou.
+        // $data = json_decode($request->getContent(), true);
 
-        // Giving the data to the form, a submission
-        $form->submit($data);
+        // Pour les test postman ( post mais infos dans l'url )
+        // $form->submit($request->query->all());
 
+        // Pour les vrai test front
+        $form->submit($request->request->all());
         // $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            
+        // Apres le submit on va check les erreurs sur les property de l'entité
+        $errors = $validator->validate($user);
+        
+        if (count($errors) > 0) {
+            /*
+            * Uses a __toString method on the $errors variable which is a
+            * ConstraintViolationList object. This gives us a nice string
+            * for debugging.
+            */
+            $errorsString = (string) $errors;
+
+            $json = $serializer->serialize($errorsString, 'json');
+
+            // si il y a des erreurs, on retourne le pourquoi
+            // TODO ajouter un httpresponse code
+            return new JsonResponse($json);
+        }
+        
+        else {
             $hash = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
 
@@ -68,17 +90,10 @@ class UserController extends AbstractController {
             $manager->persist($user);
             $manager->flush();
             
-            // Return a json response that show to the front that the creation is successfull ( flash message )
+            // L'inscription a réussie
+            // TODO un bon httpresponse code
             return new JsonResponse(array('flash' => 'Vous vous êtes inscrit avec succès !'));
-
-        }
-        if ($form->isSubmitted() && !$form->isValid()) {
-        
-            // Return a json response that show to the front that the creation was not successfull ( flash message )
-            return new JsonResponse(array('flash' => 'L\'inscription n\'a pas pu être effectuée !'));
-            
-        }
-
+         }
     }
 
     /**

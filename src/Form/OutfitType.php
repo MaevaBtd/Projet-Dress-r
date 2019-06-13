@@ -17,35 +17,9 @@ class OutfitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class,[
-                'label' => 'Nom de la tenue',
-                'attr' => [
-                    'placeholder' => "Entrez le nom de votre tenue !"
-                ]
-            ],[
-                'constraints' => [
-                    new NotBlank([
-                        'message'=>'Le nom de la tenue ne peut pas être vide'
-                    ]),
-                    new Length([
-                        'min' => 3,
-                        'max' => 64,
-                        'minMessage' => "Votre nom de tenue est trop court (min attendu :{{ limit }})",
-                        'maxMessage' => "Voter nom de tenue est trop long  (max attendu : {{ limit }})"
-                    ]),
-
-                ],
-                    'required'=>true
-            ])
-            ->add('cloths',EntityType::class,[
-                    'class'=> Cloth::class,
-                    'choice_label' => 'name',
-                    'expanded' => true,
-                    'multiple' => true,
-                    'required' => true
-            ]);
-       
-        
+            ->add('name')
+            ->add('cloths')
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

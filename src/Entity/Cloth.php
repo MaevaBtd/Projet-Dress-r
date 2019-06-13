@@ -27,6 +27,14 @@ class Cloth
     /**
      * @ORM\Column(type="string", length=64)
      * 
+     * @Assert\Length(
+     *    min = 3,
+     *    max = 64,
+     *    minMessage = "Le nom de votre vêtement doit contenir au moins {{ limit }} caractères",
+     *    maxMessage = "Le nom de votre vêtement doit contenir au maximum {{ limit }} caractères"
+     * )
+     * @Assert\NotBlank
+     * 
      * @Groups({"cloth_read", "user_cloths", "user_outfits", "outfit_read"})
      */
     private $name;
@@ -98,6 +106,7 @@ class Cloth
         $this->styles = new ArrayCollection();
         $this->outfits = new ArrayCollection();
         $this->without_pants = false;
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
