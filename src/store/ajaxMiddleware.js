@@ -8,6 +8,8 @@ import {
   receivedDatas,
   receivedCloths,
   receivedOutfits,
+  deleteOutfitFront,
+  deleteClothFront,
 } from './user_reducer';
 
 const ajaxMiddleware = store => next => (action) => {
@@ -63,7 +65,8 @@ const ajaxMiddleware = store => next => (action) => {
     case REMOVE_CLOTH:
       fetchDeleteAPI(`http://localhost:8001/api/cloth/${action.id}/delete`)
         .then((response) => {
-          console.log(`le vêtement à l'id ${action.id} a bien été supprimé`);
+          console.log(`le vêtement à l'id ${action.id} a bien été supprimé en bdd`);
+          store.dispatch(deleteClothFront(action.id));
         })
         .catch((error) => {
           console.log(error);
@@ -72,7 +75,8 @@ const ajaxMiddleware = store => next => (action) => {
     case REMOVE_OUTFIT:
       fetchDeleteAPI(`http://localhost:8001/api/outfit/${action.id}/delete`)
         .then((response) => {
-          console.log(`le vêtement à l'id ${action.id} a bien été supprimé`);
+          console.log(`la tenue à l'id ${action.id} a bien été supprimé en bdd`);
+          store.dispatch(deleteOutfitFront(action.id));
         })
         .catch((error) => {
           console.log(error);
