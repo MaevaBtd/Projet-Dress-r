@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import local
 import ClothList from '../components/Cloth/ClothList';
 // action creators
-import { fetchUserCloth } from '../store/user_reducer';
+import { fetchUserCloth, removeCloth } from '../store/user_reducer';
 
 // data
 const mapStateToProps = state => ({
@@ -12,11 +12,16 @@ const mapStateToProps = state => ({
 });
 
 // container
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchUserCloth: () => {
     dispatch(fetchUserCloth());
   },
+  onRemoveCloth: () => {
+    console.log('les props des vêtement:', ownProps);
+    dispatch(removeCloth(ownProps.id));
+  },
 });
+
 
 const ClothListContainer = connect(
   mapStateToProps,

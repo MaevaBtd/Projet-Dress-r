@@ -30,11 +30,11 @@ const Random = () => (
       <img id="dice" src="src/data/assets/Dice.png" alt="" />
     </div>
     <div id="tenue-random">
+      {/* <Cloth />
       <Cloth />
       <Cloth />
       <Cloth />
-      <Cloth />
-      <Cloth />
+      <Cloth /> */}
     </div>
   </div>
 );

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 // == Import: local
 import './ClothList.scss';
-import Cloth from '.';
+import Cloth from 'src/containers/Cloth';
 
 // == Code
 class ClothList extends React.Component {
@@ -48,10 +48,7 @@ class ClothList extends React.Component {
             clothsList.map(cloth => (
               <Cloth
                 key={cloth.id}
-                name={cloth.name}
-                image={cloth.image}
-                type={cloth.type}
-                styles={cloth.styles}
+                {...cloth}
               />
             ))
           }
