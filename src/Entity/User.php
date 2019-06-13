@@ -48,7 +48,6 @@ class User implements UserInterface, \Serializable
      *    maxMessage = "Votre email doit contenir au maximum {{ limit }} caractères"
      * )
      * @Assert\NotBlank
-     * @Assert\Type("\Email")
      * @Groups({"user_show"})
      */
     private $email;
@@ -62,7 +61,6 @@ class User implements UserInterface, \Serializable
      *    maxMessage = "Votre mot de passe doit contenir au maximum {{ limit }} caractères"
      * )
      * @Assert\NotBlank
-     * @Assert\Type("\Password")
      */
     private $password;
 
