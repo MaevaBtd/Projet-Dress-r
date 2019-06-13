@@ -6,11 +6,12 @@ import { NavLink } from 'react-router-dom';
 import './Welcome.scss';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
+import logo from 'src/data/assets/logo.png';
 
 // == Code
 const Welcome = () => (
   <div id="welcome">
-    <img id="logo" src="src/data/assets/logo.png" alt="" />
+    <img id="logo" src={logo} alt="" />
     <h1>Dress'R</h1>
     <h2>L'appli pour gérer votre garde-robe</h2>
     <div id="button">

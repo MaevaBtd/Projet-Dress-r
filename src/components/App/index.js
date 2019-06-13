@@ -10,6 +10,7 @@ import './app.scss';
 import Signin from 'src/containers/Signin';
 import Signup from 'src/containers/Signup';
 import Profil from 'src/containers/Profil';
+import AddCloth from 'src/containers/AddCloth';
 import Wardrobe from 'src/containers/Wardrobe';
 import Accueil from 'src/components/Accueil';
 import ClothList from 'src/containers/ClothList';
@@ -18,13 +19,9 @@ import Header from 'src/containers/Header';
 import FormAddCloth from '../AddCloth/FormAddCloth';
 import Main from '../Main';
 import Changemdp from '../Profil/ChangeMdp';
-
-
 import Outfit from '../Outfit';
 import NoMatch from '../NoMatch';
 
-
-import AddCloth from '../AddCloth';
 // gerer le dé (png pour le moment)
 import Random from '../Random';
 //  import Sign from '../Sign';
