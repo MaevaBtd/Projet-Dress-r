@@ -160,26 +160,56 @@ class ClothController extends AbstractController
     }
 
     /**
-     * @Route("/cloth/random", name="random_cloths", methods={"GET", "POST"})
+     * @Route("/cloth/random/style/{id}", name="random_cloths_by_style", methods={"GET"})
      */
-    public function random(ClothRepository $repository) {
+    public function random(ClothRepository $repository, SerializerInterface $serializer, $id) {
 
-        // Retrouver tout les vetements par style
-
-        // Retrouver tout les vetements par type selon le style
-        // On se retrouve avec 5 listes :
-            // Tout les vetements de type Tete par style
-            // Tout les vetements de type Veste par style
-            // Tout les vetements de type Haut par style
-            // Tout les vetements de type Bas par style
-            // Tout les vetements de type Chaussure par style
+        $cloths = $repository->findAll();
         
-        // On en pioche un au hasard dedans ( soit on fait un vrai hasard soit on shuffle les results et on prends le premier)
-        // Dans chaque liste
+        $clothId = rand(1,1000);
+        
+        $random = [];
+        
+        $heads = $repository->findHeadByIdAndStyleId($id,$clothId);
+        $jackets = $repository->findJacketByIdAndStyleId($id,$clothId);
+        $tops = $repository->findTopByIdAndStyleId($id,$clothId);
+        $bottoms = $repository->findBottomByIdAndStyleId($id,$clothId);
+        $shoes = $repository->findShoesByIdAndStyleId($id,$clothId);
 
-        // On les ajoutent à notre $random[]
-        // On le retourne en json
+        shuffle($heads);
+        shuffle($jackets);
+        shuffle($tops);
+        shuffle($bottoms);
+        shuffle($shoes);
+        
+        if(!empty($heads)) {
+            $oneHead = $heads[0];
+            $random[] = $oneHead;
+        }
 
+        if(!empty($jackets)) {
+            $oneJacket = $jackets[0];
+            $random[] = $oneJacket;
+        }
+
+        if(!empty($tops)) {
+            $oneTop = $tops[0];
+            $random[] = $oneTop;
+        }
+
+        if(!empty($bottoms)) {
+            $oneBottom = $bottoms[0];
+            $random[] = $oneBottom;
+        }
+
+        if(!empty($shoes)) {
+            $oneShoe = $shoes[0];
+            $random[] = $oneShoe; 
+        }
+
+        $json = $serializer->serialize($random, 'json');
+        
+        return JsonResponse::fromJsonString($json);
     }
 
     /**

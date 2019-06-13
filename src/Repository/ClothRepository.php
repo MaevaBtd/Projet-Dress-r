@@ -32,6 +32,89 @@ class ClothRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findHeadByIdAndStyleId($styleId,$clothId){
+        
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 1')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+        
+        
+       
+        ->getQuery()->getResult();
+    }
+   
+    public function findJacketByIdAndStyleId($styleId,$clothId){
+
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 2')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+       
+       
+        ->getQuery()->getResult();
+    }
+    public function findTopByIdAndStyleId($styleId,$clothId){
+
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 3')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+       
+        ->getQuery()->getResult();
+    }
+   
+    public function findBottomByIdAndStyleId($styleId, $clothId){
+
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 4')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+       
+        ->getQuery()->getResult();
+    }
+
+    public function findShoesByIdAndStyleId($styleId, $clothId){
+        
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name','c.image')
+        ->join('c.styles', 's')
+        ->join('c.type', 't')
+        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->andWhere('t.id = 5')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->andWhere('c.id <> :clothId')
+        ->setParameter('clothId', $clothId)
+
+       
+        ->getQuery()->getResult();
+    }
+
     // // Recuperer les cloths d'un type donné
     // public function findByTypeAndStyleDQL() {
 
