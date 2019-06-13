@@ -3,6 +3,8 @@ import {
   FETCH_USER_CLOTH,
   FETCH_USER_INFO,
   FETCH_USER_OUTFIT,
+  REMOVE_CLOTH,
+  REMOVE_OUTFIT,
   receivedDatas,
   receivedCloths,
   receivedOutfits,
@@ -11,6 +13,13 @@ import {
 const ajaxMiddleware = store => next => (action) => {
   const fetchAPI = url => (
     axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+      },
+    })
+  );
+  const fetchDeleteAPI = url => (
+    axios.delete(url, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
       },
@@ -46,6 +55,27 @@ const ajaxMiddleware = store => next => (action) => {
           console.log('outfits:', response.data[0].outfits);
           const outfitsList = response.data[0].outfits;
           store.dispatch(receivedOutfits(outfitsList));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      break;
+    case REMOVE_CLOTH:
+      fetchDeleteAPI(`http://localhost:8001/api/cloth/${action.id}/delete`)
+        .then((response) => {
+          console.log(`le vêtement à l'id ${action.id} a bien été supprimé`);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      break;
+    case REMOVE_OUTFIT:
+      fetchDeleteAPI(`http://localhost:8001/api/outfit/${action.id}/delete`)
+        .then((response) => {
+          console.log(`le vêtement à l'id ${action.id} a bien été supprimé`);
+        })
+        .catch((error) => {
+          console.log(error);
         });
       break;
     default:

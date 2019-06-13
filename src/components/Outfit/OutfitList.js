@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 // == Import: local
 import './OutfitList.scss';
-import OutfitCard from './OutfitCard';
+import OutfitCard from 'src/containers/OutfitCard';
 
 
 // == Code
@@ -21,11 +21,10 @@ class OutfitList extends React.Component {
       <div id="outfitlist">
         <h1>Mes tenues</h1>
         {outfitsList.map(outfit => (
-          <NavLink key={outfit.id} to={`/outfit-`+ outfit.id}>
+          <NavLink key={outfit.id} to={`/outfit-${outfit.id}`}>
             <OutfitCard
               key={outfit.id}
-              name={outfit.name}
-              cloths={outfit.cloths}
+              {...outfit}
             />
           </NavLink>
         ))}

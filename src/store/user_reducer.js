@@ -13,6 +13,8 @@ export const FETCH_USER_CLOTH = 'FETCH_USER_CLOTH';
 const RECEIVED_CLOTH = 'RECEIVED_CLOTH';
 export const FETCH_USER_OUTFIT = 'FETCH_USER_OUTFIT';
 const RECEIVED_OUTFITS = 'RECEIVED_OUTFITS';
+export const REMOVE_CLOTH = 'REMOVE_CLOTH';
+export const REMOVE_OUTFIT = 'REMOVE_OUTFIT';
 
 // Reducer
 const userReducer = (state = initialState, action = {}) => {
@@ -62,6 +64,14 @@ export const fetchUserOutfits = () => ({
 export const receivedOutfits = outfits => ({
   type: RECEIVED_OUTFITS,
   outfits,
+});
+export const removeCloth = id => ({
+  type: REMOVE_CLOTH,
+  id,
+});
+export const removeOutfit = id => ({
+  type: REMOVE_OUTFIT,
+  id,
 });
 
 export default userReducer;
