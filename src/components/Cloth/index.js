@@ -25,13 +25,13 @@ const Cloth = ({ id, name, image, styles, type, onRemoveCloth }) => (
   </a>
 );
 
-Cloth.propTypes = {
-  name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  styles: PropTypes.array.isRequired,
-  type: PropTypes.object.isRequired,
-  onRemoveCloth: PropTypes.func.isRequired,
-};
+// Cloth.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   image: PropTypes.string.isRequired,
+//   styles: PropTypes.array.isRequired,
+//   type: PropTypes.object.isRequired,
+//   onRemoveCloth: PropTypes.func.isRequired,
+// };
 
 // == Export
 export default Cloth;

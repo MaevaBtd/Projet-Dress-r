@@ -63,7 +63,7 @@ class ClothController extends AbstractController
 
         $newCloth = new Cloth();
 
-        $form = $this->createForm(ClothType::class, $newCloth);
+        // $form = $this->createForm(ClothType::class, $newCloth);
 
         // Si besoin de décode json
         // $data = json_decode($request->getContent(), true);
@@ -72,68 +72,130 @@ class ClothController extends AbstractController
         // $form->submit($request->query->all());
 
         // Pour les vrai test front
-        $form->submit($request->request->all());
+        // $form->submit($request->request->all());
         // $form->handleRequest($request);
 
-        $errors = $validator->validate($newCloth);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+        $data = json_decode($request->getContent(), true);
+
+        $nameJson = $data['name'];
+        // $typeJson = $data['type'];
+        // $stylesJson = $data['styles'];
+        // // $imageJson = $data['image'];
+        $withoutPantsJson = $data['onePart'];
+
+        $newCloth->setWithoutPants($withoutPantsJson);
+
+        $newCloth->setName($nameJson);
+        $name = $newCloth->getName();
+        // $newCloth->setType($typeJson);
+        // $type = $newCloth->getType();
+        // foreach ($stylesJson as $styleJson) {
+        //     $newCloth->addStyle($styleJson);
+        // }
+
         
-        if (count($errors) > 0) {
-            /*
-            * Uses a __toString method on the $errors variable which is a
-            * ConstraintViolationList object. This gives us a nice string
-            * for debugging.
-            */
-            $errorsString = (string) $errors;
 
-            $json = $serializer->serialize($errorsString, 'json');
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////
 
-            // si il y a des erreurs, on retourne le pourquoi
-            // TODO ajouter un httpresponse code
-            return new JsonResponse($json);
-        }
+        // $errors = $validator->validate($newCloth);
+        
+        // if (count($errors) > 0) {
+        //     /*
+        //     * Uses a __toString method on the $errors variable which is a
+        //     * ConstraintViolationList object. This gives us a nice string
+        //     * for debugging.
+        //     */
+        //     $errorsString = (string) $errors;
 
-        else {
+        //     $json = $serializer->serialize($errorsString, 'json');
+
+        //     // si il y a des erreurs, on retourne le pourquoi
+        //     // TODO ajouter un httpresponse code
+        //     return new JsonResponse($json);
+        // }
+
+        // else {
                 $userToken = $this->getUser();
                 // $id = $userToken->getId();
                 // $user = $repository->findById($id);
                 $newCloth->setUser($userToken);
+                // $newClothUser = $newCloth->getUser();
+                // $type = $request->get('type');
+                // $typeCloth = $typerepository->findOneBy([
+                //     'name' => $type,
+                // ]);
+                // $newCloth->setType($typeCloth);
 
-                $type = $request->get('type');
+                ////////////////////////////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////////////////////////////
+
+                $type = $data['type'];
                 $typeCloth = $typerepository->findOneBy([
                     'name' => $type,
                 ]);
+
                 $newCloth->setType($typeCloth);
+                $newType = $newCloth->getType();
 
-                $styles = $request->get('styles');
+                // $json = $serializer->serialize($user, 'json');
 
-                    foreach ($styles as $style) {
-                    $styleCloth = $stylerepository->findOneBy([
-                        'name' => $style,
-                    ]);
-                    $newCloth->addStyle($styleCloth);
+                // // si il y a des erreurs, on retourne le pourquoi
+                // // TODO ajouter un httpresponse code
+                // return new JsonResponse($json);
+
+        //         ////////////////////////////////////////////////////////////////////////////////////////////////
+        //         ////////////////////////////////////////////////////////////////////////////////////////////////
+
+                // $styles = $request->get('styles');
+
+                //     foreach ($styles as $style) {
+                //     $styleCloth = $stylerepository->findOneBy([
+                //         'name' => $style,
+                //     ]);
+                //     $newCloth->addStyle($styleCloth);
+                //     }
+
+        //         // $file = $newCloth->getImage();
+
+        //         ////////////////////////////////////////////////////////////////////////////////////////////////
+        //         ////////////////////////////////////////////////////////////////////////////////////////////////
+
+                $styles = $data['styles'];
+
+                    foreach($styles as $style) {
+                        $styleCloth = $stylerepository->findOneBy([
+                            'name' => $style,
+                        ]);
+                        $newCloth->addStyle($styleCloth);
                     }
 
-                $file = $newCloth->getImage();
+        //         ////////////////////////////////////////////////////////////////////////////////////////////////
+        //         ////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if (!is_null($file)) {
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
-                try {
-                    $file->move(
-                        $this->getParameter('image_directory'),
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                    dump($e);
-                }
-                $newCloth->setImage($fileName);
-            }
+        //     // if (!is_null($file)) {
+        //     //     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
+        //     //     try {
+        //     //         $file->move(
+        //     //             $this->getParameter('image_directory'),
+        //     //             $fileName
+        //     //         );
+        //     //     } catch (FileException $e) {
+        //     //         dump($e);
+        //     //     }
+        //     //     $newCloth->setImage($fileName);
+        //     // }
 
-            // $manager = $this->getDoctrine()->getManager();
+        //     // $manager = $this->getDoctrine()->getManager();
             $manager->persist($newCloth);
             $manager->flush();
 
             return new JsonResponse(array('flash' => 'Le vêtement a été ajouté avec succès !'));
-        }
+        // }
     }
 
     /**
