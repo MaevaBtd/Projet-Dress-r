@@ -76,10 +76,10 @@ class OutfitController extends AbstractController
         // $data = json_decode($request->getContent(), true);
 
         // Pour les test postman ( post mais infos dans l'url )
-        $form->submit($request->query->all());
+        // $form->submit($request->query->all());
 
         // Pour les vrai test front
-        // $form->submit($request->request->all());
+        $form->submit($request->request->all());
         // $form->handleRequest($request);
 
         $errors = $validator->validate($newOutfit);
@@ -157,8 +157,8 @@ class OutfitController extends AbstractController
                     
                 }
             
-            $form->submit($request->query->all());
-            // $form->submit($request->request->all());
+            // $form->submit($request->query->all());
+            $form->submit($request->request->all());
             // $form->handleRequest($request);
 
             $errors = $validator->validate($outfit);
