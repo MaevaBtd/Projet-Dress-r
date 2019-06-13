@@ -114,9 +114,9 @@ class OutfitController extends AbstractController
                 $newOutfit->addCloth($outfitCloth);
                 }
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($newOutfit);
-            $em->flush();
+            // $em = $this->getDoctrine()->getManager();
+            $manager->persist($newOutfit);
+            $manager->flush();
 
             // Return a json response that show to the front that the creation is successfull ( flash message )
             // Doit on retourner d'autres infos ? comme l'id de la tenue ?
@@ -188,9 +188,9 @@ class OutfitController extends AbstractController
 
                 $outfit->setUpdatedAt(new \DateTime());
                 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($outfit);
-                $em->flush();
+                // $em = $this->getDoctrine()->getManager();
+                $manager->persist($outfit);
+                $manager->flush();
 
                 // Return a json response that show to the front that the creation is successfull ( flash message )
                 return new JsonResponse(array('flash' => 'La tenue a été modifiée avec succès !'));

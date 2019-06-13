@@ -128,7 +128,7 @@ class ClothController extends AbstractController
                 $newCloth->setImage($fileName);
             }
 
-            $manager = $this->getDoctrine()->getManager();
+            // $manager = $this->getDoctrine()->getManager();
             $manager->persist($newCloth);
             $manager->flush();
 
@@ -194,21 +194,38 @@ class ClothController extends AbstractController
 
         if ($userClothId == $userTokenId) {
 
-            // $oldImage = $cloth->getImage();
+            $oldImage = $cloth->getImage();
 
-            // if(!is_null($oldImage)) {
-            //     $cloth->setImage(
-            //         new File($this->getParameter('image_directory').'/'.$oldImage)
-            //     );
-            // }
+            if(!empty($oldImage)) {
+                $cloth->setImage(
+                    new File($this->getParameter('image_directory').'/'.$oldImage)
+                );
+            }
 
             $form = $this->createForm(ClothType::class, $cloth);
             // $data = json_decode($request->getContent(), true);
+
+            $styles = $request->get('styles');
+
+                if (!empty($styles)) {
+
+                    $oldStyles = $cloth->getStyles();
+                    
+                    foreach ($oldStyles as $oldStyle) {
+                        $clothOldStyleId = $oldStyle->getId();
+                         $clothOldStyle = $stylerepository->findOneBy([
+                             'id' => $clothOldStyleId,
+                         ]);
+                         $cloth->removeStyle($clothOldStyle);
+                    }
+                    
+                }
+            
             $form->submit($request->query->all());
             // $form->submit($request->request->all());
             // $form->handleRequest($request);
 
-            $errors = $validator->validate($newCloth);
+            $errors = $validator->validate($cloth);
             
             if (count($errors) > 0) {
                 /*
@@ -232,16 +249,16 @@ class ClothController extends AbstractController
                 ]);
                 $cloth->setType($typeCloth);
 
-                $styles = $request->get('styles');
+                // $styles = $request->get('styles');
 
                     foreach ($styles as $style) {
                     $styleCloth = $stylerepository->findOneBy([
                         'name' => $style,
                     ]);
-                    $newCloth->addStyle($styleCloth);
+                    $cloth->addStyle($styleCloth);
                     }
 
-                if(!empty($cloth->getImage())){
+                if(!is_null($cloth->getImage())){
                     
                     $file = $cloth->getImage();
                 
@@ -266,9 +283,10 @@ class ClothController extends AbstractController
                     $cloth->setImage($oldImage);
                 }
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($cloth);
-                $em->flush();
+                $cloth->setUpdatedAt(new \DateTime());
+
+                $manager->persist($cloth);
+                $manager->flush();
 
                 // Return a json response that show to the front that the creation is successfull ( flash message )
                 return new JsonResponse(array('flash' => 'Le vêtement a été modifié avec succès !'));
