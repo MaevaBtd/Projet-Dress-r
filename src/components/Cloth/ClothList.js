@@ -7,6 +7,7 @@ import {
 } from 'antd';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 // == Import: local
 import './ClothList.scss';
@@ -20,7 +21,9 @@ class ClothList extends React.Component {
   }
 
   render() {
-    const { clothsList } = this.props;
+    const { clothsList, isConnected } = this.props;
+
+    if (!isConnected) return <Redirect to="/" />;
     return (
       <div id="clothlist">
         <Form>

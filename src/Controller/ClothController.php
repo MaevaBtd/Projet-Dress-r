@@ -59,7 +59,7 @@ class ClothController extends AbstractController
     /**
      * @Route("/cloth/new", name="new_cloth", methods={"GET", "POST"})
      */
-    public function new (Request $request,TypeRepository $typerepository, UserRepository $repository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, StyleRepository $stylerepository) {
+    public function new (Request $request,TypeRepository $typerepository, UserRepository $repository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, StyleRepository $stylerepository, ClothRepository $clothRepository) {
 
         $newCloth = new Cloth();
 
@@ -120,6 +120,15 @@ class ClothController extends AbstractController
         
         $errors = $validator->validate($newCloth);
         
+        $userId = $userToken->getId();
+        $clothName = $newCloth->getName();
+
+        $clothStillExist = $clothRepository->findOneByUserId($clothName, $userId);
+
+        if (!empty($clothStillExist)) {
+            $errors[] = 'Vous avez déjà un vêtement avec ce nom dans votre garde robe.';
+        }
+
         if (count($errors) > 0) {
             /*
             * Uses a __toString method on the $errors variable which is a

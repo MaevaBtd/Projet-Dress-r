@@ -54,9 +54,9 @@ class FormAddCloth extends React.Component {
 
   render() {
     const { Option } = Select;
-    const { categories, isAuthenticated } = this.props;
+    const { categories, isConnected } = this.props;
 
-
+    if (!isConnected) return <Redirect to="/" />;
     return (
       <Form className="addcloth" onSubmit={this.handleSubmit}>
         <h1 id="title-formaddcloth">Ajouter un vêtement</h1>
@@ -103,7 +103,7 @@ class FormAddCloth extends React.Component {
           </Radio.Group>
         </Form.Item>
         <Form.Item>
-          <Button id="button-add-cloth" type="primary" htmlType="submit">
+          <Button id="button-add-cloth" type="primary" htmlType="submit" >
             Valider
           </Button>
         </Form.Item>

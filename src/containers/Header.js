@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // Import local
 import Header from '../components/Header ';
 import setAuthorizationToken from '../store/utils/setAuthorizationToken';
-import { setCurrentUser } from '../store/sign_reducer';
+import { setCurrentUser, isDeconnected } from '../store/sign_reducer';
 
 // data / state
 const mapStateToProps = state => ({
@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => ({
     localStorage.removeItem('jwtToken');
     setAuthorizationToken(false);
     dispatch(setCurrentUser({}));
+    dispatch(isDeconnected());
   },
 });
 

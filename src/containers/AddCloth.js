@@ -8,7 +8,9 @@ import AddCloth from 'src/components/AddCloth';
 import { addHead, addBot, addTop, addShoes, addVest } from '../store/addCloth_reducer';
 
 // == StateToProps
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  isConnected: state.signReducer.isConnected,
+});
 
 // == DispatchToProps
 const mapDispatchToProps = dispatch => ({

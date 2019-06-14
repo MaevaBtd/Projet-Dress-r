@@ -8,7 +8,9 @@ import { fetchUserCloth, removeCloth } from '../store/user_reducer';
 
 // data
 const mapStateToProps = state => ({
+  isConnected: state.signReducer.isConnected,
   clothsList: state.userReducer.clothsList,
+  
 });
 
 // container
