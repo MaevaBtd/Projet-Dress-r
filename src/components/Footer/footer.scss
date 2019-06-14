@@ -1,12 +1,14 @@
 @import "./src/styles/vars";
 
 #footer {
-  background-color: $brownish;
+  background-color: #4a858f;
+  border-top: 5px solid #c0c3af;
 
   &-title {
     color: $main-color;
     padding: 1em 0;
     font-size: 1.5em;
+    font-family: $main-font;
   }
 }
 .icon-footer {

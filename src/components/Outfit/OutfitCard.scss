@@ -3,26 +3,49 @@
 #outfitcard {
     position: relative;
     background-color: $brownish;
-    margin: auto;
-    padding: 1em; 
+    margin-right: auto;
+    margin-left: auto; 
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
-    border: 1px solid $brownish;
+    //max-width: 30em;
+    height: 16em;
+    border: 4px solid #d18901;
     justify-content: space-around;
     align-items: center;
     color: $main-color;
     font-family: $main-font;
     font-size: 1.2em;
     margin-bottom: 1em;
-    h3 {
-      color: $main-color;
+    border-radius: 40px;
+
+    p {
+      padding-bottom: .5em;
+      width: 100%;
+    }
+
+    img {
+      max-width: 30%;
+      max-height: 60%;
     }
   
     #close-button {
       position: absolute;
-      right: -15px;
-  
+      right: 15px;
+      top: 15px;
+      background-color: #4a858f;
+      color: $brownish;
+      &:hover{
+        background-color: #d18901;
+        color: $brownish;
+        text-decoration: none;
+      }
+    }
+
+    .dyna {
+      color: #d18901;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     
   }
