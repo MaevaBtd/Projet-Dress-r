@@ -67,9 +67,10 @@ const addClothReducer = (state = initialState, action = {}) => {
 
     // Fetch styles
     case ON_STYLE_CHANGE:
+      console.log(state.styles);
       return {
         ...state,
-        styles: [...state.styles, action.value],
+        styles: [action.value],
       };
 
     // One Part cloth ?
