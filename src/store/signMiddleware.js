@@ -10,10 +10,10 @@ import setAuthorizationToken from './utils/setAuthorizationToken';
 const signMiddleware = store => next => (action) => {
   switch (action.type) {
     case USER_SIGNIN_REQUEST: {
-      axios.post('http://127.0.0.1:8001/api/login_check',
-        store.getState())
+      axios.post('http://127.0.0.1:8001/api/register',
+        store.getState().signReducer)
         .then((response) => {
-          console.log('inscription');
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);

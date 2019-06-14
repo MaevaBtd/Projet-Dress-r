@@ -63,6 +63,13 @@ class ClothController extends AbstractController
 
         $newCloth = new Cloth();
 
+        
+        $form = $this->createForm(ClothType::class, $newCloth);
+
+        // Si besoin de décode json
+        // $data = json_decode($request->getContent(), true);
+
+
         // Pour les test postman ( post mais infos dans l'url )
         // $form = $this->createForm(ClothType::class, $newCloth);
         // $form->submit($request->query->all());

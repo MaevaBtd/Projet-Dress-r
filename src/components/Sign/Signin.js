@@ -39,11 +39,25 @@ class Signin extends React.Component {
     onPwdChange(value);
   }
 
+  handleConfirmPwdChange = (evt) => {
+    const { value } = evt.target;
+    const { onConfirmPwdChange } = this.props;
+
+    onConfirmPwdChange(value);
+  }
+
+  handleEmailChange = (evt) => {
+    const { value } = evt.target;
+    const { onEmailChange } = this.props;
+
+    onEmailChange(value);
+  }
+
   render() {
     // Vars
-    const { username, password, isAuthenticated } = this.props;
 
-    if (isAuthenticated) return <Redirect to="/profil" />;
+    const { username, password, confirmPwd, email } = this.props;
+
 
     return (
       <Form id="signin" onSubmit={this.handleSubmit}>
@@ -53,6 +67,8 @@ class Signin extends React.Component {
             className="input-signin"
             prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
             placeholder="E-mail"
+            value={email}
+            onChange={this.handleEmailChange}
           />
         </Form.Item>
         <h2 className="password">Password:</h2>
@@ -71,6 +87,8 @@ class Signin extends React.Component {
             className="input-signin"
             prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
             placeholder="Confirm Password"
+            value={confirmPwd}
+            onChange={this.handleConfirmPwdChange}
           />
         </Form.Item>
         <h2 id="pseudo">Pseudo:</h2>
@@ -102,9 +120,13 @@ Signin.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   onPwdChange: PropTypes.func.isRequired,
   userSigninRequest: PropTypes.func.isRequired,
+  onConfirmPwdChange: PropTypes.func.isRequired,
+  onEmailChange: PropTypes.func.isRequired,
   // data : la valeur du champ
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
+  confirmPwd: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 // == Export
