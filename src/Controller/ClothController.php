@@ -62,19 +62,62 @@ class ClothController extends AbstractController
     public function new (Request $request,TypeRepository $typerepository, UserRepository $repository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, StyleRepository $stylerepository) {
 
         $newCloth = new Cloth();
+
         
         $form = $this->createForm(ClothType::class, $newCloth);
 
         // Si besoin de décode json
         // $data = json_decode($request->getContent(), true);
 
+
         // Pour les test postman ( post mais infos dans l'url )
+        // $form = $this->createForm(ClothType::class, $newCloth);
         // $form->submit($request->query->all());
 
-        // Pour les vrai test front
-        $form->submit($request->request->all());
-        // $form->handleRequest($request);
+        // json decode for axios request
+        $data = json_decode($request->getContent(), true);
 
+        $nameJson = $data['name'];
+        $withoutPantsJson = $data['onePart'];
+
+        $newCloth->setWithoutPants($withoutPantsJson);
+        $newCloth->setName($nameJson);
+        // $name = $newCloth->getName();
+
+        $userToken = $this->getUser();
+        $newCloth->setUser($userToken);
+
+        $type = $data['type'];
+        $typeCloth = $typerepository->findOneBy([
+            'name' => $type,
+        ]);
+        $newCloth->setType($typeCloth);
+        // $newType = $newCloth->getType();
+
+        $styles = $data['styles'];
+
+            foreach($styles as $style) {
+                $styleCloth = $stylerepository->findOneBy([
+                    'name' => $style,
+                ]);
+                $newCloth->addStyle($styleCloth);
+            }
+
+        // $imageJson = $data['image'];
+        // $file = $newCloth->getImage();
+        // if (!is_null($file)) {
+            //     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
+            //     try {
+            //         $file->move(
+            //             $this->getParameter('image_directory'),
+            //             $fileName
+            //         );
+            //     } catch (FileException $e) {
+            //         dump($e);
+            //     }
+            //     $newCloth->setImage($fileName);
+            // }
+        
         $errors = $validator->validate($newCloth);
         
         if (count($errors) > 0) {
@@ -93,42 +136,6 @@ class ClothController extends AbstractController
         }
 
         else {
-                $userToken = $this->getUser();
-                // $id = $userToken->getId();
-                // $user = $repository->findById($id);
-                $newCloth->setUser($userToken);
-
-                $type = $request->get('type');
-                $typeCloth = $typerepository->findOneBy([
-                    'name' => $type,
-                ]);
-                $newCloth->setType($typeCloth);
-
-                $styles = $request->get('styles');
-
-                    foreach ($styles as $style) {
-                    $styleCloth = $stylerepository->findOneBy([
-                        'name' => $style,
-                    ]);
-                    $newCloth->addStyle($styleCloth);
-                    }
-
-                $file = $newCloth->getImage();
-
-            if (!is_null($file)) {
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
-                try {
-                    $file->move(
-                        $this->getParameter('image_directory'),
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                    dump($e);
-                }
-                $newCloth->setImage($fileName);
-            }
-
-            // $manager = $this->getDoctrine()->getManager();
             $manager->persist($newCloth);
             $manager->flush();
 

@@ -25,7 +25,6 @@ const signMiddleware = store => next => (action) => {
       axios.post('http://localhost:8001/api/login_check', store.getState().signReducer)
         .then((response) => {
           const userToken = response.data.token;
-          //store.dispatch(receivedUserToken(userToken));
           localStorage.setItem('jwtToken', userToken);
           setAuthorizationToken(userToken);
           store.dispatch(setCurrentUser(jwt.decode(userToken)));

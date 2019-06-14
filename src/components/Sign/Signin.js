@@ -8,6 +8,7 @@ import {
 } from 'antd';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 // == Import: local
 import './Signin.scss';
@@ -54,7 +55,9 @@ class Signin extends React.Component {
 
   render() {
     // Vars
+
     const { username, password, confirmPwd, email } = this.props;
+
 
     return (
       <Form id="signin" onSubmit={this.handleSubmit}>

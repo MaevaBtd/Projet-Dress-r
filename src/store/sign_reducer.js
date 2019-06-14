@@ -3,7 +3,6 @@ export const initialState = {
   password: '',
   email: '',
   confirmPwd: '',
-  // token: '',
 };
 
 // Action Type
@@ -13,7 +12,6 @@ const CHANGE_CONFIRM_PWD = 'CHANGE_CONFIRM_PWD';
 const CHANGE_EMAIL = 'CHANGE_EMAIL';
 export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST ';
 export const USER_SIGNIN_REQUEST = 'USER_SIGNIN_REQUEST ';
-export const RECEIVED_USER_TOKEN = 'RECEIVED_USER_TOKEN';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 
@@ -30,6 +28,7 @@ const signupReducer = (state = initialState, action = {}) => {
         ...state,
         password: action.content,
       };
+
     case RECEIVED_USER_TOKEN:
       return {
         ...state,
@@ -45,6 +44,7 @@ const signupReducer = (state = initialState, action = {}) => {
         ...state,
         email: action.content,
       };
+
 
     default:
       return state;
@@ -73,10 +73,6 @@ export const userSignupRequest = () => ({
 });
 export const userSigninRequest = () => ({
   type: USER_SIGNIN_REQUEST,
-});
-export const receivedUserToken = userToken => ({
-  type: RECEIVED_USER_TOKEN,
-  token: userToken,
 });
 
 export const setCurrentUser = user => ({
