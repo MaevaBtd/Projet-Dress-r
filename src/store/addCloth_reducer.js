@@ -87,7 +87,7 @@ const addClothReducer = (state = initialState, action = {}) => {
         onePart: action.value,
       };
     default:
-      console.log('fail ( add cloth reducer)');
+      // console.log('fail ( add cloth reducer)');
       return state;
   }
 };

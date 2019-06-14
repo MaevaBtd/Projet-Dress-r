@@ -12,6 +12,7 @@ import {
   Col,
 } from 'antd';
 import 'antd/dist/antd.css';
+import { Redirect } from 'react-router-dom';
 
 // == Import: local
 import './FormAddCloth.scss';
@@ -53,7 +54,10 @@ class FormAddCloth extends React.Component {
 
   render() {
     const { Option } = Select;
-    const { categories } = this.props;
+    const { categories, isAuthenticated } = this.props;
+
+    if (!isAuthenticated) return <Redirect to="/welcome" />;
+
     return (
       <Form className="addcloth" onSubmit={this.handleSubmit}>
         <h1 id="title-formaddcloth">Ajouter un vêtement</h1>

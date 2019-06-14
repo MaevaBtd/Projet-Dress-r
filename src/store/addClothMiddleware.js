@@ -46,7 +46,7 @@ const addClothMiddleware = store => next => (action) => {
 
       break;
     default:
-      console.log('last action received: ', action);
+      // console.log('last action received: ', action);
       next(action);
   }
 };
