@@ -10,16 +10,16 @@ import './Cloth.scss';
 // == Code
 const Cloth = ({ id, name, image, styles, type, onRemoveCloth }) => (
   <a id="clothcard">
-    <div>
+    <div id="clothcard-content">
       <p>Nom du vêtement: <p className="dyna">{name}</p></p>
       <p>Catégorie:{styles.map(style => (
-        <span className="dyna" key={style.id}> {style.name}</span>
+        <span className="dyna" key={style.id}> {style.name} </span>
       ))}
       </p>
       <p>Type:<p className="dyna">{type.name}</p></p>
     </div>
     <img src={image} alt="" />
-    <Button id="close-button" shape="circle" onClick={onRemoveCloth}>
+    <Button id="close-button" shape="circle" size="small" onClick={onRemoveCloth}>
       <Icon type="close" theme="outlined" />
     </Button>
   </a>

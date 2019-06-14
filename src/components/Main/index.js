@@ -9,9 +9,9 @@ import './Main.scss';
 const Main = () => (
   <div id="main">
     <div id="main-container">
-      <NavLink to="/wardrobe"><h1 className="vertical">Ma garde-robe</h1></NavLink>
-      <NavLink to="/random"><h1 className="vertical">Tenue Aléatoire</h1></NavLink>
-      <NavLink to="/add-new-cloth"><h1 className="horizontal">Ajouter un vêtement</h1></NavLink>
+      <NavLink to="/wardrobe"><h1 className="vertical-wardrobe"><div className="txt">Ma garde-robe</div></h1></NavLink>
+      <NavLink to="/random"><h1 className="vertical-random"> <div className="txt">Tenue Aléatoire</div></h1></NavLink>
+      <NavLink to="/add-new-cloth"><h1 className="horizontal-cloth"> <div className="txt">Ajouter un vêtement</div></h1></NavLink>
     </div>
   </div>
 );
