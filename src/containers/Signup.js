@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
   username: state.signReducer.username,
   password: state.signReducer.password,
   isAuthenticated: state.auth.isAuthenticated,
+  isConnected: state.signReducer.isConnected,
 });
 
 // actions / dispatch

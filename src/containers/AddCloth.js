@@ -9,7 +9,7 @@ import { addHead, addBot, addTop, addShoes, addVest } from '../store/addCloth_re
 
 // == StateToProps
 const mapStateToProps = state => ({
-  isConnected: state.signReducer.isConnected,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 // == DispatchToProps
