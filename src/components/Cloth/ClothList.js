@@ -21,9 +21,9 @@ class ClothList extends React.Component {
   }
 
   render() {
-    const { clothsList, isConnected } = this.props;
-
-    if (!isConnected) return <Redirect to="/" />;
+    const { clothsList, isAuthenticated } = this.props;
+    
+    if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="clothlist">
         <Form>

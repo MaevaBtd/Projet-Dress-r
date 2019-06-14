@@ -42,9 +42,9 @@ class Signup extends React.Component {
 
   render() {
     // Vars
-    const { username, password, isAuthenticated } = this.props;
+    const { username, password, isConnected } = this.props;
 
-    if (isAuthenticated) return <Redirect to="/profil" />;
+    if (isConnected) return <Redirect to="/user-page" />;
 
     return (
       <Form className="login-form" onSubmit={this.handleSubmit}>

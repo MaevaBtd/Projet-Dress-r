@@ -14,9 +14,9 @@ import './AddCloth.scss';
 // eslint-disable-next-line react/prefer-stateless-function
 class AddCloth extends React.Component {
   render() {
-    const { addTypeHead, addTypeBot, addTypeTop, addTypeShoes, addTypeVest, isConnected } = this.props;
+    const { addTypeHead, addTypeBot, addTypeTop, addTypeShoes, addTypeVest, isAuthenticated } = this.props;
     
-    if (!isConnected) return <Redirect to="/" />;
+    if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="addcloth">
         <h1 id="title-add-cloth">Ajouter un Vêtement</h1>

@@ -21,9 +21,8 @@ class Header extends React.Component {
       <div className="navbar-nav ml-auto">
         <NavLink className="nav-item nav-link" to="/add-new-cloth">Ajouter un nouveau vêtement</NavLink>
         <NavLink className="nav-item nav-link" to="/wardrobe">Garde-robe</NavLink>
+        <NavLink className="nav-item nav-link" to="/random">Tenue Aléatoire</NavLink>
         <NavLink className="nav-item nav-link" to="/profil">Profil</NavLink>
-        <NavLink className="nav-item nav-link" to="/random">Random</NavLink>
-        <NavLink className="nav-item nav-link" to="/cloth-list">Liste des vêtemnts</NavLink>
         <NavLink className="nav-item nav-link" to="/random" onClick={this.logout.bind(this)}>Déconnexion</NavLink>
       </div>
     );

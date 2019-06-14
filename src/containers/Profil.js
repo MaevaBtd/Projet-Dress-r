@@ -10,6 +10,7 @@ import { fetchUserInfo } from 'src/store/user_reducer';
 // == StateToProps
 const mapStateToProps = state => ({
   email: state.userReducer.email,
+  isAuthenticated: state.auth.isAuthenticated,
   user: state.userReducer.username,
   creationDate: state.userReducer.creation_date,
 });
