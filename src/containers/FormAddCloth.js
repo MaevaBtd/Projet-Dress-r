@@ -8,7 +8,7 @@ import { changeClothName, fetchStyles, onStyleChange, onChangePart, addClothRequ
 // == StateToProps
 const mapStateToProps = state => ({
   categories: state.addClothReducer.categories,
-  isConnected: state.signReducer.isConnected,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 // == DispatchToProps

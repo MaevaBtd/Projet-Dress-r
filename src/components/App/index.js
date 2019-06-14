@@ -14,6 +14,7 @@ import AddCloth from 'src/containers/AddCloth';
 import Wardrobe from 'src/containers/Wardrobe';
 import FormAddCloth from 'src/containers/FormAddCloth';
 import ClothList from 'src/containers/ClothList';
+import Random from 'src/containers/Random';
 
 import Accueil from 'src/components/Accueil';
 import Footer from 'src/components/Footer';
@@ -24,7 +25,7 @@ import Outfit from '../Outfit';
 import NoMatch from '../NoMatch';
 
 // gerer le dé (png pour le moment)
-import Random from '../Random';
+
 //  import Sign from '../Sign';
 
 
@@ -93,11 +94,6 @@ class App extends Component {
               exact
               path="/change-mdp"
               component={Changemdp}
-            />
-            <Route
-              exact
-              path="/cloth-list"
-              component={ClothList}
             />
             <Route component={NoMatch} />
           </Switch>

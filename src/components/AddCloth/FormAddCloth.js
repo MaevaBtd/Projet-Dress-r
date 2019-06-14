@@ -54,9 +54,9 @@ class FormAddCloth extends React.Component {
 
   render() {
     const { Option } = Select;
-    const { categories, isConnected } = this.props;
+    const { categories, isAuthenticated } = this.props;
 
-    if (!isConnected) return <Redirect to="/" />;
+    if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <Form className="addcloth" onSubmit={this.handleSubmit}>
         <h1 id="title-formaddcloth">Ajouter un vêtement</h1>

@@ -1,6 +1,6 @@
 // == Import: Yarn
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import {
   Button,
   Icon,
@@ -19,7 +19,8 @@ class Profil extends React.Component {
   }
 
   render() {
-    const { user, email, creationDate } = this.props;
+    const { user, email, creationDate, isAuthenticated } = this.props;
+    if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="profil">
         <h1>Bonjour {user}</h1>
