@@ -9,6 +9,7 @@ import './About.scss';
 // == Code
 const About = () => (
   <div id="about">
+    <h2>Gestion de garde-robe</h2>
     <FontAwesomeIcon size="2x" className="icon" icon={faTshirt} />
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque voluptate aperiam, exercitationem totam est enim rem, molestiae soluta voluptatum voluptas iure deleniti. Quas excepturi hic quos natus sunt nesciunt ducimus.</p>
     <FontAwesomeIcon size="2x" className="icon" icon={faSocks} />

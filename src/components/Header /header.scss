@@ -1,20 +1,24 @@
 @import 'src/styles/vars';
 
 nav {
-  background-color: $brownish;
+  background-color: $header;
+  border-bottom: 5px solid #c5c8b3;
+  width: 100%;
 }
 .nav-title {
-  color : $main-color;
+  color : $text-link;
   font-family: $main-font; 
-  font-size: 2.5em;
+  font-size: 1.5em;
 }
 .nav-item {
-  color: $main-color;
   font-family: $main-font;
   font-size: 1.2em;
   margin-left: .5em;
 }
-
-
-
-
+.header-link {
+  color: $text-link;
+  display: inline;
+    &:hover {
+      color: $text-link-over;
+    }
+  }

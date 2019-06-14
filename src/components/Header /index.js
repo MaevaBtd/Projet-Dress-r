@@ -19,19 +19,19 @@ class Header extends React.Component {
 
     const userLinks = (
       <div className="navbar-nav ml-auto">
-        <NavLink className="nav-item nav-link" to="/add-new-cloth">Ajouter un nouveau vêtement</NavLink>
-        <NavLink className="nav-item nav-link" to="/wardrobe">Garde-robe</NavLink>
-        <NavLink className="nav-item nav-link" to="/profil">Profil</NavLink>
-        <NavLink className="nav-item nav-link" to="/random">Random</NavLink>
-        <NavLink className="nav-item nav-link" to="/cloth-list">Liste des vêtemnts</NavLink>
-        <NavLink className="nav-item nav-link" to="/random" onClick={this.logout.bind(this)}>Déconnexion</NavLink>
+        <NavLink className="nav-item nav-link" to="/add-new-cloth"> <p className="header-link">Ajouter un nouveau vêtement</p></NavLink>
+        <NavLink className="nav-item nav-link" to="/wardrobe"> <p className="header-link">Garde-robe</p></NavLink>
+        <NavLink className="nav-item nav-link" to="/profil"> <p className="header-link">Profil</p></NavLink>
+        <NavLink className="nav-item nav-link" to="/random"> <p className="header-link">Random</p></NavLink>
+        <NavLink className="nav-item nav-link" to="/cloth-list"> <p className="header-link">Liste des vêtemnts</p> </NavLink>
+        <NavLink className="nav-item nav-link" to="/random" onClick={this.logout.bind(this)}> <p className="header-link">Déconnexion</p> </NavLink>
       </div>
     );
 
     const guestLinks = (
       <div className="navbar-nav ml-auto">
-        <NavLink className="nav-item nav-link" to="/signin">Inscription</NavLink>
-        <NavLink className="nav-item nav-link" to="/signup">Connexion</NavLink>
+        <NavLink className="nav-item nav-link" to="/signin"><p className="header-link">Inscription</p></NavLink>
+        <NavLink className="nav-item nav-link" to="/signup"> <p className="header-link">Connexion</p></NavLink>
       </div>
     );
 
