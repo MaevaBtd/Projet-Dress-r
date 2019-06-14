@@ -52,13 +52,22 @@ class UserController extends AbstractController {
         $form = $this->createForm(SubscribeType::class, $user);
 
         // Si on a besoin de decode ce qu'on recoit au cas ou.
-        // $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true);
+
+        $username = $data['username'];
+        $email = $data['email'];
+        $password = $data['password'];
+
+        $user->setUsername($username);
+        $user->setEmail($email);
+        $user->setPassword($password);
 
         // Pour les test postman ( post mais infos dans l'url )
         // $form->submit($request->query->all());
 
         // Pour les vrai test front
-        $form->submit($request->request->all());
+        // $form->submit($request->request->all());
+        // $form->submit($data);
         // $form->handleRequest($request);
 
         // Apres le submit on va check les erreurs sur les property de l'entité

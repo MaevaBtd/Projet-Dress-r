@@ -62,7 +62,7 @@ class ClothController extends AbstractController
     public function new (Request $request,TypeRepository $typerepository, UserRepository $repository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, StyleRepository $stylerepository) {
 
         $newCloth = new Cloth();
-
+        
         $form = $this->createForm(ClothType::class, $newCloth);
 
         // Si besoin de décode json
