@@ -28,12 +28,6 @@ const signupReducer = (state = initialState, action = {}) => {
         ...state,
         password: action.content,
       };
-
-    case RECEIVED_USER_TOKEN:
-      return {
-        ...state,
-        token: action.token,
-      };
     case CHANGE_CONFIRM_PWD:
       return {
         ...state,

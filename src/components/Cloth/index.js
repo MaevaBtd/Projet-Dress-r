@@ -11,12 +11,12 @@ import './Cloth.scss';
 const Cloth = ({ id, name, image, styles, type, onRemoveCloth }) => (
   <a id="clothcard">
     <div>
-      <p>Nom du vêtement: {name} </p>
+      <p>Nom du vêtement: <p className="dyna">{name}</p></p>
       <p>Catégorie:{styles.map(style => (
-        <span key={style.id}> {style.name} </span>
+        <span className="dyna" key={style.id}> {style.name}</span>
       ))}
       </p>
-      <p>Type: {type.name} </p>
+      <p>Type:<p className="dyna">{type.name}</p></p>
     </div>
     <img src={image} alt="" />
     <Button id="close-button" shape="circle" onClick={onRemoveCloth}>
