@@ -56,7 +56,6 @@ class FormAddCloth extends React.Component {
     const { Option } = Select;
     const { categories, isAuthenticated } = this.props;
 
-    if (!isAuthenticated) return <Redirect to="/welcome" />;
 
     return (
       <Form className="addcloth" onSubmit={this.handleSubmit}>
