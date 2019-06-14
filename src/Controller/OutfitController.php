@@ -39,8 +39,8 @@ class OutfitController extends AbstractController
         ]);
 
         // user_outfits retourne = un User : id ,username + les Outfits associés : id, name, createdAt
-
-        return JsonResponse::fromJsonString($json);
+        // return code 200
+        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 
     /**
@@ -58,8 +58,8 @@ class OutfitController extends AbstractController
         ]);
         
         // outfit_cloths retourne = un  Outfit :id, name, createdAt + les Cloths associés :  id, name, image, createdAt + le Style : id, name + Type : id, name
-
-        return JsonResponse::fromJsonString($json);
+        //  return code 200
+        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 
     /**
@@ -95,8 +95,8 @@ class OutfitController extends AbstractController
             $json = $serializer->serialize($errorsString, 'json');
 
             // si il y a des erreurs, on retourne le pourquoi
-            // TODO ajouter un httpresponse code
-            return new JsonResponse($json);
+            // TODO ajouter un httpresponse code 409
+            return new JsonResponse($json,Response::HTTP_CONFLICT);
         }
         else {
 
@@ -120,7 +120,8 @@ class OutfitController extends AbstractController
 
             // Return a json response that show to the front that the creation is successfull ( flash message )
             // Doit on retourner d'autres infos ? comme l'id de la tenue ?
-            return new JsonResponse(array('flash' => 'La tenue a été ajoutée avec succès !'));
+            // return code 200
+            return new JsonResponse(array('flash' => 'La tenue a été ajoutée avec succès !',Response::HTTP_OK));
         }
     }
 
@@ -174,8 +175,8 @@ class OutfitController extends AbstractController
                 $json = $serializer->serialize($errorsString, 'json');
 
                 // si il y a des erreurs, on retourne le pourquoi
-                // TODO ajouter un httpresponse code
-                return new JsonResponse($json);
+                // TODO ajouter un httpresponse code 200
+                return new JsonResponse($json,Response::HTTP_OK);
 
             } else {
 
@@ -192,13 +193,14 @@ class OutfitController extends AbstractController
                 $manager->persist($outfit);
                 $manager->flush();
 
-                // Return a json response that show to the front that the creation is successfull ( flash message )
-                return new JsonResponse(array('flash' => 'La tenue a été modifiée avec succès !'));
+                // Return a json response that show to the front that the creation is successfull code 200
+                return new JsonResponse(array('flash' => 'La tenue a été modifiée avec succès !',Response::HTTP_OK));
             }
         } 
 
         else {
-            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de cette tenue !'));
+            // return code 401
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de cette tenue !',Response::HTTP_UNAUTHORIZED));
         }
 
     }
@@ -219,12 +221,13 @@ class OutfitController extends AbstractController
             $entityManager->remove($outfit);
             $entityManager->flush();
 
-            // Return a json response that show to the front that the delete is successfull OR NOT ( flash message )
-            return new JsonResponse(array('flash' => 'La tenue a été supprimée !'));
+            // Return a json response that show to the front that the delete is successfull OR NOT( flash message ) code 200
+            return new JsonResponse(array('flash' => 'La tenue a été supprimée !',Response::HTTP_OK));
         }
 
         else {
-            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de cette tenue !'));
+            // Return code 401
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de cette tenue !',Response::HTTP_UNAUTHORIZED));
         }
     }
 }

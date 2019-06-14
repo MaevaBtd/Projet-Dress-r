@@ -39,7 +39,8 @@ class UserController extends AbstractController {
 
         // user_show retourne = un User : id ,username, email, createdAt et son role: name
 
-        return JsonResponse::fromJsonString($json);
+        // return code 200
+        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 
     /**
@@ -52,26 +53,18 @@ class UserController extends AbstractController {
         $form = $this->createForm(SubscribeType::class, $user);
 
         // Si on a besoin de decode ce qu'on recoit au cas ou.
-        $data = json_decode($request->getContent(), true);
-
-        $username = $data['username'];
-        $email = $data['email'];
-        $password = $data['password'];
-
-        $user->setUsername($username);
-        $user->setEmail($email);
-        $user->setPassword($password);
+        // $data = json_decode($request->getContent(), true);
 
         // Pour les test postman ( post mais infos dans l'url )
         // $form->submit($request->query->all());
 
         // Pour les vrai test front
-        // $form->submit($request->request->all());
-        // $form->submit($data);
+        $form->submit($request->request->all());
         // $form->handleRequest($request);
 
         // Apres le submit on va check les erreurs sur les property de l'entité
         $errors = $validator->validate($user);
+        
         
         if (count($errors) > 0) {
             /*
@@ -84,8 +77,9 @@ class UserController extends AbstractController {
             $json = $serializer->serialize($errorsString, 'json');
 
             // si il y a des erreurs, on retourne le pourquoi
-            // TODO ajouter un httpresponse code
-            return new JsonResponse($json);
+            // TODO ajouter un httpresponse code 409
+            return new JsonResponse($json,Response::HTTP_CONFLICT);
+            
         }
         
         else {
@@ -100,8 +94,9 @@ class UserController extends AbstractController {
             $manager->flush();
             
             // L'inscription a réussie
-            // TODO un bon httpresponse code
-            return new JsonResponse(array('flash' => 'Vous vous êtes inscrit avec succès !'));
+            // TODO un bon httpresponse code 200
+            return new JsonResponse(array('flash' => 'Vous vous êtes inscrit avec succès !'),Response::HTTP_OK);
+            
          }
     }
 
@@ -114,7 +109,7 @@ class UserController extends AbstractController {
 
         $userToken = $this->getUser();
         $id = $userToken->getId();
-        $user = $repository->findById($id);
+        $user = $userRepository->findById($id);
 
     }
 
