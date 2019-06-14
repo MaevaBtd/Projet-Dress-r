@@ -3,6 +3,7 @@ export const initialState = {
   password: '',
   email: '',
   confirmPwd: '',
+  isConnected: false,
 };
 
 // Action Type
@@ -13,10 +14,12 @@ const CHANGE_EMAIL = 'CHANGE_EMAIL';
 export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST ';
 export const USER_SIGNIN_REQUEST = 'USER_SIGNIN_REQUEST ';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+const IS_CONNECTED = 'IS_CONNECTED';
+const IS_DECONNECTED = 'IS_DECONNECTED';
 
 
 // Reducer
-const signupReducer = (state = initialState, action = {}) => {
+const signReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case CHANGE_USERNAME:
       return {
@@ -28,12 +31,6 @@ const signupReducer = (state = initialState, action = {}) => {
         ...state,
         password: action.content,
       };
-
-    case RECEIVED_USER_TOKEN:
-      return {
-        ...state,
-        token: action.token,
-      };
     case CHANGE_CONFIRM_PWD:
       return {
         ...state,
@@ -43,6 +40,16 @@ const signupReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         email: action.content,
+      };
+    case IS_CONNECTED:
+      return {
+        ...state,
+        isConnected: true,
+      };
+    case IS_DECONNECTED:
+      return {
+        ...state,
+        isConnected: false,
       };
 
 
@@ -79,5 +86,11 @@ export const setCurrentUser = user => ({
   type: SET_CURRENT_USER,
   user,
 });
+export const isConnected = () => ({
+  type: IS_CONNECTED,
+});
+export const isDeconnected = () => ({
+  type: IS_DECONNECTED,
+});
 
-export default signupReducer;
+export default signReducer;

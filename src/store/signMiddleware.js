@@ -4,6 +4,7 @@ import {
   USER_SIGNIN_REQUEST,
   USER_SIGNUP_REQUEST,
   setCurrentUser,
+  isConnected,
 } from './sign_reducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 
@@ -28,6 +29,7 @@ const signMiddleware = store => next => (action) => {
           localStorage.setItem('jwtToken', userToken);
           setAuthorizationToken(userToken);
           store.dispatch(setCurrentUser(jwt.decode(userToken)));
+          store.dispatch(isConnected());
         })
         .catch((error) => {
           console.log(error);

@@ -6,7 +6,7 @@ import Wardrobe from 'src/components/Wardrobe';
 
 // == StateToProps
 const mapStateToProps = state => ({
-  userCloth: state,
+  isConnected: state.signReducer.isConnected,
 });
 
 // == DispatchToProps
