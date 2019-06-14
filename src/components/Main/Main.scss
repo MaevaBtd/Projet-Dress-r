@@ -16,7 +16,7 @@ $break-large: 1398px;
   flex-wrap: wrap;
   justify-content: center;
   h1 {
-    background-color: $mustard;
+    //background-color: $mustard;
     font-family: $main-font;
     font-size: 1.3em;
     display: flex;
@@ -24,25 +24,46 @@ $break-large: 1398px;
     align-items: center;
     margin: .5em;
 
-
   }
-  .vertical {
+  .txt {
+    font-size: 2em;
+  }
+  .vertical-wardrobe {
     width: 15em;
     height: 15em;
-    border: 1px solid $brownish;
-    border-radius: 3px;
-
+    //border: 1px solid $brownish;
+    //border-radius: 3px;
+    background-image: url('../../data/assets/outfit.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color: #d18901;
     @media screen and (min-width: $break-large) {
       width: 30em;
     }
   }
-  .horizontal {
+  .vertical-random {
+    width: 15em;
+    height: 15em;
+    //border: 1px solid $brownish;
+    //border-radius: 3px;
+    background-image: url('../../data/assets/random.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color: #d18901;
+    @media screen and (min-width: $break-large) {
+      width: 30em;
+    }
+  }
+  .horizontal-cloth {
     width: 31em;
     height: 9em;
-    border: 1px solid $brownish;
-    border-radius: 3px;
+    //border: 1px solid $brownish;
+    //border-radius: 3px;
     display: flex;
-    
+    background-image: url('../../data/assets/cloth.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color: #d18901;
       @media screen and (max-width: $break-small) {
       width: 15em;
       height: 15em;
