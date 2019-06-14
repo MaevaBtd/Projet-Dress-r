@@ -13,13 +13,19 @@ import './AddCloth.scss';
 // == Code
 // eslint-disable-next-line react/prefer-stateless-function
 class AddCloth extends React.Component {
+  componentDidMount() {
+    const { stopRedirect } = this.props;
+    stopRedirect();
+  }
+
   render() {
-    const { addTypeHead, addTypeBot, addTypeTop, addTypeShoes, addTypeVest, isAuthenticated } = this.props;
+    const { addTypeHead, addTypeBot, addTypeTop, addTypeShoes, addTypeVest, isAuthenticated, errorAddCloth } = this.props;
     
     if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="addcloth">
         <h1 id="title-add-cloth">Ajouter un Vêtement</h1>
+        <div>{errorAddCloth}</div>
         <h2 id="desc-add-cloth">Cliquez sur la partie du corps pour laquelle vous souhaitez ajouter un vêtement</h2>
         <div id="full-babouche-man">
           <img id="babouche-man" src={baboucheman} alt="" />

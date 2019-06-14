@@ -6,6 +6,7 @@ import signReducer, { setCurrentUser } from './sign_reducer';
 import userReducer from './user_reducer';
 import addClothReducer from './addCloth_reducer';
 import signMiddleware from './signMiddleware';
+import stylesReducer from './stylesReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import auth from './auth';
 import addClothMiddleware from './addClothMiddleware';
@@ -15,7 +16,7 @@ import addClothMiddleware from './addClothMiddleware';
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 const middlewares = applyMiddleware(signMiddleware, ajaxMiddleware, addClothMiddleware);
 const enhancers = (devTools, middlewares);
-const reducer = combineReducers({ signReducer, auth, userReducer, addClothReducer });
+const reducer = combineReducers({ signReducer, auth, userReducer, addClothReducer, stylesReducer });
 
 const store = createStore(reducer, enhancers);
 

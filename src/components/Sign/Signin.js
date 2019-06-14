@@ -5,10 +5,10 @@ import {
   Input,
   Button,
   Icon,
+  Spin,
 } from 'antd';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 
 // == Import: local
 import './Signin.scss';
@@ -17,8 +17,9 @@ import './Signin.scss';
 class Signin extends React.Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const { userSigninRequest } = this.props;
+    const { userSigninRequest, loading } = this.props;
     userSigninRequest();
+    loading();
   }
 
   handleChange = (evt) => {
@@ -56,61 +57,66 @@ class Signin extends React.Component {
   render() {
     // Vars
 
-    const { username, password, confirmPwd, email } = this.props;
+    const { username, password, confirmPwd, email, loadingNewUser, newUserMessage } = this.props;
 
 
     return (
-      <Form id="signin" onSubmit={this.handleSubmit}>
-        <h2 id="email">E-mail:</h2>
-        <Form.Item>
-          <Input
-            className="input-signin"
-            prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder="E-mail"
-            value={email}
-            onChange={this.handleEmailChange}
-          />
-        </Form.Item>
-        <h2 className="password">Password:</h2>
-        <Form.Item>
-          <Input.Password
-            className="input-signin"
-            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder="Password"
-            value={password}
-            onChange={this.handlePwdChange}
-          />
-        </Form.Item>
-        <h2 className="password">Confirm Password:</h2>
-        <Form.Item>
-          <Input.Password
-            className="input-signin"
-            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder="Confirm Password"
-            value={confirmPwd}
-            onChange={this.handleConfirmPwdChange}
-          />
-        </Form.Item>
-        <h2 id="pseudo">Pseudo:</h2>
-        <Form.Item>
-          <Input
-            value={username}
-            className="input-signin"
-            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder="Pseudo"
-            onChange={this.handleChange}
-          />
-        </Form.Item>
-        <Form.Item>
-          <Button
-            id="button"
-            type="primary"
-            htmlType="submit"
-          >
-            Register
-          </Button>
-        </Form.Item>
-      </Form>
+      <Spin spinning={loadingNewUser} tip="Création du compte en cours...">
+        
+        <Form id="signin" onSubmit={this.handleSubmit}>
+          <h2 id="email">E-mail:</h2>
+          <Form.Item>
+            <Input
+              className="input-signin"
+              prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="E-mail"
+              value={email}
+              onChange={this.handleEmailChange}
+            />
+          </Form.Item>
+          <h2 className="password">Password:</h2>
+          <Form.Item>
+            <Input.Password
+              className="input-signin"
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="Password"
+              value={password}
+              onChange={this.handlePwdChange}
+            />
+          </Form.Item>
+          <h2 className="password">Confirm Password:</h2>
+          <Form.Item>
+            <Input.Password
+              className="input-signin"
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="Confirm Password"
+              value={confirmPwd}
+              onChange={this.handleConfirmPwdChange}
+            />
+          </Form.Item>
+          <h2 id="pseudo">Pseudo:</h2>
+          <Form.Item>
+            <Input
+              value={username}
+              className="input-signin"
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="Pseudo"
+              onChange={this.handleChange}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              id="button"
+              type="primary"
+              htmlType="submit"
+            >
+              Register
+            </Button>
+          </Form.Item>
+        </Form>
+        <div>{newUserMessage}</div>
+      </Spin>
+      
     );
   }
 }

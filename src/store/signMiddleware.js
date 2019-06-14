@@ -4,7 +4,8 @@ import {
   USER_SIGNIN_REQUEST,
   USER_SIGNUP_REQUEST,
   setCurrentUser,
-  isConnected,
+  loadingOver,
+  loadingNewUserDone,
 } from './sign_reducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 
@@ -14,10 +15,12 @@ const signMiddleware = store => next => (action) => {
       axios.post('http://127.0.0.1:8001/api/register',
         store.getState().signReducer)
         .then((response) => {
-          console.log(response);
+          console.log('nouvel utilisateur');
+          store.dispatch(loadingNewUserDone('nouvel utilisateur créé. Merci de vous connecter'));
         })
         .catch((error) => {
           console.log(error);
+          store.dispatch(loadingNewUserDone('Erreur'));
         });
 
       break;
@@ -29,10 +32,10 @@ const signMiddleware = store => next => (action) => {
           localStorage.setItem('jwtToken', userToken);
           setAuthorizationToken(userToken);
           store.dispatch(setCurrentUser(jwt.decode(userToken)));
-          store.dispatch(isConnected());
+          store.dispatch(loadingOver());
         })
         .catch((error) => {
-          console.log(error);
+          store.dispatch(loadingOver('Identifiants erronés'));
         });
 
       break;

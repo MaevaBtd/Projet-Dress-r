@@ -2,7 +2,6 @@ export const initialState = {
   type: '',
   name: '',
   styles: [],
-  categories: [],
   onePart: false,
 };
 
@@ -18,8 +17,6 @@ const CHANGE_CLOTH_NAME = 'CHANGE_CLOTH_NAME';
 // Change Category status
 const CHANGE_CATEGORY = 'CHANGE_CATEGORY';
 // Fetch styles
-export const FETCH_STYLES = 'FETCH_STYLES';
-const RECEIVED_STYLES = 'RECEIVED_STYLES';
 const ON_STYLE_CHANGE = 'ON_STYLE_CHANGE';
 // One Part cloth ?
 const ON_CHANGE_PART = 'ON_CHANGE_PART';
@@ -69,11 +66,6 @@ const addClothReducer = (state = initialState, action = {}) => {
       };
 
     // Fetch styles
-    case RECEIVED_STYLES:
-      return {
-        ...state,
-        categories: action.styles,
-      };
     case ON_STYLE_CHANGE:
       return {
         ...state,
@@ -123,13 +115,6 @@ export const changeCategory = value => ({
 });
 
 // Fetch Styles
-export const fetchStyles = () => ({
-  type: FETCH_STYLES,
-});
-export const receivedStyles = styles => ({
-  type: RECEIVED_STYLES,
-  styles,
-});
 export const onStyleChange = value => ({
   type: ON_STYLE_CHANGE,
   value,
