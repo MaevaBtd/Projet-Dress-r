@@ -83,7 +83,6 @@ class ClothController extends AbstractController
      */
     public function new (Request $request,TypeRepository $typerepository, UserRepository $repository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, StyleRepository $stylerepository, ClothRepository $clothRepository) {
 
-
         // We got issues with deserialize method from $serializer
         // So we can't use it, and go for doing all the things manually
         $newCloth = new Cloth();
@@ -114,6 +113,7 @@ class ClothController extends AbstractController
 
             // retrieves datas et set them
             $withoutPantsJson = $data['onePart'];
+
             $newCloth->setWithoutPants($withoutPantsJson);
             $newCloth->setName($nameJson);
             $newCloth->setUser($userToken);
@@ -123,6 +123,7 @@ class ClothController extends AbstractController
             $typeCloth = $typerepository->findOneBy([
                 'name' => $type,
             ]);
+          
             if (!empty($typeCloth)) {
                 $newCloth->setType($typeCloth);
             }

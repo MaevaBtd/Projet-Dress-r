@@ -6,7 +6,7 @@ import Wardrobe from 'src/components/Wardrobe';
 
 // == StateToProps
 const mapStateToProps = state => ({
-  userCloth: state,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 // == DispatchToProps

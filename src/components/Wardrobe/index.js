@@ -1,18 +1,27 @@
 // == Import: Yarn
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 // == Import: local
+import OutfitList from 'src/containers/OutfitList';
+import ClothList from 'src/containers/ClothList';
 import './Wardrobe.scss';
-import OutfitList from '../Outfit/OutfitList';
-import ClothList from '../Cloth/ClothList';
 
 // == Code
-const Wardrobe = ({ userCloth }) => (
-  <div id="wardrobe">
-    <OutfitList />
-    <ClothList />
-  </div>
-);
+// eslint-disable-next-line react/prefer-stateless-function
+class Wardrobe extends React.Component {
+  render() {
+    const { isAuthenticated } = this.props;
+    if (!isAuthenticated) return <Redirect to="/" />;
+
+    return (
+      <div id="wardrobe">
+        <OutfitList />
+        <ClothList />
+      </div>
+    );
+  }
+}
 
 // == Export
 export default Wardrobe;

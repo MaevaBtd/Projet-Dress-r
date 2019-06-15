@@ -2,24 +2,36 @@
 import React from 'react';
 import { Button, Icon } from 'antd';
 import 'antd/dist/antd.css';
+import PropTypes from 'prop-types';
 
 // == Import: local
 import './Cloth.scss';
 
 // == Code
-const Cloth = () => (
+const Cloth = ({ id, name, image, styles, type, onRemoveCloth }) => (
   <a id="clothcard">
-    <div>
-      <p>Nom du vêtement:</p>
-      <p>Catégorie:</p>
-      <p>Type:</p>
+    <div id="clothcard-content">
+      <p>Nom du vêtement: <p className="dyna">{name}</p></p>
+      <p>Catégorie:{styles.map(style => (
+        <span className="dyna" key={style.id}> {style.name} </span>
+      ))}
+      </p>
+      <p>Type:<p className="dyna">{type.name}</p></p>
     </div>
-    <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="" />
-    <Button id="close-button" shape="circle">
+    <img src={image} alt="" />
+    <Button id="close-button" shape="circle" size="small" onClick={onRemoveCloth}>
       <Icon type="close" theme="outlined" />
     </Button>
   </a>
 );
+
+// Cloth.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   image: PropTypes.string.isRequired,
+//   styles: PropTypes.array.isRequired,
+//   type: PropTypes.object.isRequired,
+//   onRemoveCloth: PropTypes.func.isRequired,
+// };
 
 // == Export
 export default Cloth;

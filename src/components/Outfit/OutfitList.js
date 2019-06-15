@@ -1,24 +1,45 @@
 // == Import: Yarn
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // == Import: local
 import './OutfitList.scss';
-import OutfitCard from './OutfitCard';
+import OutfitCard from 'src/containers/OutfitCard';
+
 
 // == Code
-const OutfitList = () => (
-  <div id="outfitlist">
-    <h1>Mes tenues</h1>
-    <NavLink to="/outfit-id"><OutfitCard /></NavLink>
-    <NavLink to="/outfit-id"><OutfitCard /></NavLink>
-    <NavLink to="/outfit-id"><OutfitCard /></NavLink>
-    <NavLink to="/outfit-id"><OutfitCard /></NavLink>
-    <NavLink to="/outfit-id"><OutfitCard /></NavLink>
-    <NavLink to="/outfit-id"><OutfitCard /></NavLink>
-  </div>
-  
-);
+class OutfitList extends React.Component {
+  componentDidMount() {
+    const { fetchUserOutfits } = this.props;
+    fetchUserOutfits();
+  }
+
+  render() {
+    const { outfitsList } = this.props;
+    return (
+      <div id="outfitlist">
+        <h1>Mes tenues</h1>
+        <div id="outfit-list">
+          {outfitsList.map(outfit => (
+            <NavLink key={outfit.id} to={`/outfit-${outfit.id}`}>
+              <OutfitCard
+                key={outfit.id}
+                {...outfit}
+              />
+            </NavLink>
+          ))}
+        </div>
+      </div>
+    );
+  }
+}
+
+OutfitList.propTypes = {
+  fetchUserOutfits: PropTypes.func.isRequired,
+  outfitsList: PropTypes.array.isRequired,
+};
+
 
 // == Export
 export default OutfitList;

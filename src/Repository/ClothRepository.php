@@ -32,6 +32,20 @@ class ClothRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findOneByUserId ($clothName, $userId) {
+
+        return $this->createQueryBuilder('c')
+        ->select('c.name')
+        ->join('c.user', 'u')
+        ->addSelect('u.id')
+        ->andWhere('c.name = :clothName')
+        ->setParameter('clothName', $clothName)
+        ->andWhere('u.id = :userId')
+        ->setParameter('userId', $userId)
+
+        ->getQuery()->getResult();
+    }
+
     public function findHeadByIdAndStyleId($styleId,$clothId){
         
         return $this->createQueryBuilder('c')

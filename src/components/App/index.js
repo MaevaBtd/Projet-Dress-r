@@ -7,31 +7,32 @@ import PropTypes from 'prop-types';
 import './app.scss';
 
 // peaufiner toute les size dès que toute l'inté est faite
+import Signin from 'src/containers/Signin';
+import Signup from 'src/containers/Signup';
+import Profil from 'src/containers/Profil';
+import AddCloth from 'src/containers/AddCloth';
 import Wardrobe from 'src/containers/Wardrobe';
+import FormAddCloth from 'src/containers/FormAddCloth';
+import ClothList from 'src/containers/ClothList';
+import Random from 'src/containers/Random';
+import Header from 'src/containers/Header';
+import Main from 'src/containers/Main';
+
 import Accueil from 'src/components/Accueil';
 import Footer from 'src/components/Footer';
-import Header from '../Header ';
-import FormAddCloth from '../AddCloth/FormAddCloth';
-import Main from '../Main';
 import Changemdp from '../Profil/ChangeMdp';
-import Profil from '../Profil';
-import Signin from '../Sign/Signin';
-import Signup from '../Sign/Signup';
 import Outfit from '../Outfit';
 import NoMatch from '../NoMatch';
 
-
-import AddCloth from '../AddCloth';
 // gerer le dé (png pour le moment)
-import Random from '../Random';
+
 //  import Sign from '../Sign';
 
 
 // == Composant
 class App extends Component {
   componentDidMount() {
-    const { fetchClothContent } = this.props;
-    fetchClothContent();
+    
   }
 
 
@@ -50,38 +51,47 @@ class App extends Component {
               component={Signin}
             />
             <Route
+              exact
               path="/signup"
               component={Signup}
             />
             <Route
+              exact
               path="/wardrobe"
               component={Wardrobe}
             />
             <Route
+              exact
               path="/profil"
               component={Profil}
             />
             <Route
+              exact
               path="/random"
               component={Random}
             />
             <Route
+              exact
               path="/add-new-cloth"
               component={AddCloth}
             />
             <Route
+              exact
               path="/form-new-cloth"
               component={FormAddCloth}
             />
             <Route
+              exact
               path="/outfit-id"
               component={Outfit}
             />
             <Route
+              exact
               path="/user-page"
               component={Main}
             />
             <Route
+              exact
               path="/change-mdp"
               component={Changemdp}
             />
@@ -95,10 +105,6 @@ class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  fetchClothContent: PropTypes.func.isRequired,
-};
 
 // == Export
 export default App;
