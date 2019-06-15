@@ -88,14 +88,14 @@ class ClothController extends AbstractController
 
         // json decode for axios request
         $data = json_decode($request->getContent(), true);
-
+        
         // retrieve user and user->id via token
         $userToken = $this->getUser();
         $userId = $userToken->getId();
 
         // retrieve the cloth's name that being post
         $nameJson = $data['name'];
-
+        
         // security for existing cloth.name with the same user
         // We want that a cloth's name do not have to be unique in the DB
         // But we dont want that a user can have two cloth with the same name
@@ -110,7 +110,7 @@ class ClothController extends AbstractController
 
             // retrieves datas et set them
             $withoutPantsJson = $data['onePart'];
-
+            
             $newCloth->setWithoutPants($withoutPantsJson);
             $newCloth->setName($nameJson);
             $newCloth->setUser($userToken);
@@ -156,20 +156,26 @@ class ClothController extends AbstractController
             // Many constraints are handle directly in the front
             $errors = $validator->validate($newCloth);
           
-            if (count($errors) > 0) {
-                /*
-                * Uses a __toString method on the $errors variable which is a
-                * ConstraintViolationList object. This gives us a nice string
-                * for debugging.
-                */
-                $errorsString = (string) $errors;
+             
+        if (count($errors) > 0) {
+            /*
+            * Uses a __toString method on the $errors variable which is a
+            * ConstraintViolationList object. This gives us a nice string
+            * for debugging.
+            */
+            $errorsString = [];
 
-                $json = $serializer->serialize($errorsString, 'json');
-
-                // TODO: meilleur affichage erreurs pour meilleure lecture front
-                // HTTP RESPONSE code 409
-                return new JsonResponse($json,Response::HTTP_CONFLICT);
+            foreach ($errors as $error) {
+                $errorsString[] = $error->getMessage();
             }
+            
+            $json = $serializer->serialize($errorsString, 'json');
+
+            // si il y a des erreurs, on retourne le pourquoi
+            // HTTP RESPONSE Code 409
+            return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
+            
+        }
 
             // There is no errors, we can persist and flush
             else {
@@ -372,13 +378,23 @@ class ClothController extends AbstractController
             $errors = $validator->validate($cloth);
 
             if (count($errors) > 0) {
-                $errorsString = (string) $errors;
-
-                // TODO MIEUX RECUPERER LES ERREURS
+                /*
+                * Uses a __toString method on the $errors variable which is a
+                * ConstraintViolationList object. This gives us a nice string
+                * for debugging.
+                */
+                $errorsString = [];
+    
+                foreach ($errors as $error) {
+                    $errorsString[] = $error->getMessage();
+                }
+                
                 $json = $serializer->serialize($errorsString, 'json');
-
-                // HTTP RESPONSE code 409
-                return new JsonResponse($json,Response::HTTP_CONFLICT);
+    
+                // si il y a des erreurs, on retourne le pourquoi
+                // HTTP RESPONSE Code 409
+                return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
+                
             }
             else {
                 $manager->persist($cloth);

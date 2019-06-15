@@ -173,14 +173,19 @@ class OutfitController extends AbstractController
                 * ConstraintViolationList object. This gives us a nice string
                 * for debugging.
                 */
-                $errorsString = (string) $errors;
-
+                $errorsString = [];
+    
+                foreach ($errors as $error) {
+                    $errorsString[] = $error->getMessage();
+                }
+                
                 $json = $serializer->serialize($errorsString, 'json');
-
+    
                 // si il y a des erreurs, on retourne le pourquoi
-                // TODO ajouter un httpresponse code 200
-                return new JsonResponse($json,Response::HTTP_OK);
-
+                // HTTP RESPONSE Code 409
+                return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
+                
+            
             } else {
 
                 foreach ($cloths as $cloth) {

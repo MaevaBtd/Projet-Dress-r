@@ -33,7 +33,7 @@ class Cloth
      *    minMessage = "Le nom de votre vêtement doit contenir au moins {{ limit }} caractères",
      *    maxMessage = "Le nom de votre vêtement doit contenir au maximum {{ limit }} caractères"
      * )
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Veuillez remplir le champ Name .")
      * 
      * @Groups({"cloth_read", "user_cloths", "user_outfits", "outfit_read"})
      */
