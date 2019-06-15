@@ -33,8 +33,8 @@ class TypeController extends AbstractController
         ]);
 
         // types_index retourne = tout les Types : id, name
-
-        return JsonResponse::fromJsonString($json);
+        // Return code 200
+        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 
 }

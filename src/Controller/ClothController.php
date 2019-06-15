@@ -40,8 +40,8 @@ class ClothController extends AbstractController
             'groups' => 'user_cloths',
         ]);
 
-        // TODO ADD HTTP RESPONSE CODE
-        return JsonResponse::fromJsonString($json);
+        // HTTP RESPONSE CODE 200
+        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 
 
@@ -66,15 +66,14 @@ class ClothController extends AbstractController
                 'groups' => 'cloth_read',
             ]);
 
-            // TODO ADD HTTP RESPONSE CODE
-            return JsonResponse::fromJsonString($json);
+            // HTTP RESPONSE CODE 200
+            return JsonResponse::fromJsonString($json,Response::HTTP_OK);
         }
 
         // No match = you are not the owner of the cloth so you cant get these datas
         else {
-
-            // TODO ADD HTTP RESPONSE CODE
-            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de ce vêtement !'));
+            // HTTP RESPONSE CODE 401
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de ce vêtement !'),Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -102,10 +101,8 @@ class ClothController extends AbstractController
         // But we dont want that a user can have two cloth with the same name
         $clothStillExist = $clothRepository->findOneByUserId($nameJson, $userId);
         if (!empty($clothStillExist)) {
-            
-            // TODO: HTTP RESPONSE 400
-            return new JsonResponse(array('flash' => 'Vous avez déjà un vêtement avec ce nom !'));
-            
+            // HTTP RESPONSE 400
+            return new JsonResponse(array('flash' => 'Vous avez déjà un vêtement avec ce nom !',Response::HTTP_BAD_REQUEST));   
         }
 
         // Non existant cloth, so we can continue to add
@@ -158,7 +155,7 @@ class ClothController extends AbstractController
             // Validate the values directly in entities without a form
             // Many constraints are handle directly in the front
             $errors = $validator->validate($newCloth);
-
+          
             if (count($errors) > 0) {
                 /*
                 * Uses a __toString method on the $errors variable which is a
@@ -169,19 +166,18 @@ class ClothController extends AbstractController
 
                 $json = $serializer->serialize($errorsString, 'json');
 
-                // si il y a des erreurs, on retourne le pourquoi
-                // TODO ajouter un httpresponse code
-                return new JsonResponse($json);
+                // TODO: meilleur affichage erreurs pour meilleure lecture front
+                // HTTP RESPONSE code 409
+                return new JsonResponse($json,Response::HTTP_CONFLICT);
             }
 
             // There is no errors, we can persist and flush
             else {
-                
                 $manager->persist($newCloth);
                 $manager->flush();
 
-                // TODO ADD HTTP RESPONSE CODE
-                return new JsonResponse(array('flash' => 'Le vêtement a été ajouté !'));
+                // HTTP RESPONSE CODE 200
+                return new JsonResponse(array('flash' => 'Le vêtement a été ajouté !',Response::HTTP_OK));
             }
         }
     }
@@ -211,14 +207,14 @@ class ClothController extends AbstractController
             $entityManager->remove($cloth);
             $entityManager->flush();
 
-            // TODO ADD HTTP RESPONSE CODE
-            return new JsonResponse(array('flash' => 'Le vêtement a été supprimé !'));
+            // HTTP RESPONSE CODE 200
+            return new JsonResponse(array('flash' => 'Le vêtement a été supprimé !',Response::HTTP_OK));
 
         } 
         // if not, no access allowed
         else {
-            // TODO ADD HTTP RESPONSE CODE
-            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de ce vêtement !'));
+            // HTTP RESPONSE CODE 401
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de ce vêtement !',Response::HTTP_UNAUTHORIZED));
         }
     }
 
@@ -227,19 +223,16 @@ class ClothController extends AbstractController
      */
     public function random(ClothRepository $repository, SerializerInterface $serializer, $id) {
 
-
         $userToken = $this->getUser();
         $userId = $userToken->getId();
 
         $random = [];
 
-       
         $heads = $repository->findHeadByIdAndStyleId($id,$userId);
         $jackets = $repository->findJacketByIdAndStyleId($id,$userId);
         $tops = $repository->findTopByIdAndStyleId($id,$userId);
         $bottoms = $repository->findBottomByIdAndStyleId($id,$userId);
         $shoes = $repository->findShoesByIdAndStyleId($id,$userId);
-        
 
         // SOIT Je recupere tout ( select all ) -> je shuffle en php -> je prends le premier
         // SOIT random via SQL ( peur de ca, car ca creer des id temporaires a chaque entrée et apres ca en choisit une, donc il y a de l'ecriture)
@@ -249,7 +242,6 @@ class ClothController extends AbstractController
         shuffle($bottoms);
         shuffle($shoes);
 
-        
         // We have to check if there is a result
         // Because if not we cant add them to the result, but we still want that a result can
         // contain few cloths, and do not need that each type have a cloth assigned
@@ -278,11 +270,11 @@ class ClothController extends AbstractController
             $random[] = $oneShoe; 
         }
 
-        
+     
         $json = $serializer->serialize($random, 'json');
 
-        // TODO ADD HTTP RESPONSE CODE
-        return JsonResponse::fromJsonString($json);
+        // HTTP RESPONSE CODE 200
+        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 
     /**
@@ -314,8 +306,8 @@ class ClothController extends AbstractController
             if ($nameJson !== $oldName) {
                 $clothStillExist = $clothRepository->findOneByUserId($nameJson, $userTokenId);
                 if (!empty($clothStillExist)) {
-                // TODO: HTTP RESPONSE 400
-                return new JsonResponse(array('flash' => 'Vous avez déjà un vêtement avec ce nom !'));
+                // HTTP RESPONSE 400
+                return new JsonResponse(array('flash' => 'Vous avez déjà un vêtement avec ce nom !',Response::HTTP_BAD_REQUEST));
                 }
                 else {
                     $cloth->setName($nameJson);
@@ -385,20 +377,20 @@ class ClothController extends AbstractController
                 // TODO MIEUX RECUPERER LES ERREURS
                 $json = $serializer->serialize($errorsString, 'json');
 
-                // TODO ajouter un httpresponse code
-                return new JsonResponse($json);
+                // HTTP RESPONSE code 409
+                return new JsonResponse($json,Response::HTTP_CONFLICT);
             }
             else {
                 $manager->persist($cloth);
                 $manager->flush();
-                // TODO ADD HTTP RESPONSE CODE
-                return new JsonResponse(array('flash' => 'Le vêtement a été modifié !'));
+                // HTTP RESPONSE CODE 200
+                return new JsonResponse(array('flash' => 'Le vêtement a été modifié !',Response::HTTP_OK));
             }
         } 
         
         else {
-            // TODO ADD HTTP RESPONSE CODE
-            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de ce vêtement !'));
+            // HTTP RESPONSE CODE 401
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de ce vêtement !',Response::HTTP_UNAUTHORIZED));
         }
     }
 

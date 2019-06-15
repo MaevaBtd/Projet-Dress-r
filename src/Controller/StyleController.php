@@ -37,6 +37,7 @@ class StyleController extends AbstractController
 
         // styles_index retourne = tout les Styles : id, name
 
-        return JsonResponse::fromJsonString($json);
+        // return code 200
+        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 }
