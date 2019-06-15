@@ -33,6 +33,17 @@ class UserController extends AbstractController {
         $id = $userToken->getId();
         $user = $repository->findById($id);
 
+        // TODO Recuperer le nombre de vetement de l'utilisateur
+            // tu stock tout les resultats sorties par le find sur le repository, dans une variable $numberCloths
+            // count sur le repository adéquat count($numberCloths) ?
+        
+        // A VOIR AVEC UN COUNT SQL sur le nombre dentrées dans cloth where cloth.user.id = XX
+        
+        // TODO Recuperer le nombre de tenues de l'utilisateur
+            // count sur le repository adéquat
+        
+        // Ajouter ces deux informations a la réponse json
+
         $json = $serializer->serialize($user, 'json',[
             'groups'=>'user_show'
         ]);
@@ -73,6 +84,7 @@ class UserController extends AbstractController {
         // Apres le submit on va check les erreurs sur les property de l'entité
         $errors = $validator->validate($user);
         
+        
         if (count($errors) > 0) {
             /*
             * Uses a __toString method on the $errors variable which is a
@@ -84,8 +96,9 @@ class UserController extends AbstractController {
             $json = $serializer->serialize($errorsString, 'json');
 
             // si il y a des erreurs, on retourne le pourquoi
-            // TODO ajouter un httpresponse code
+            // TODO ajouter un httpresponse code 400
             return new JsonResponse($json);
+            
         }
         
         else {
@@ -102,6 +115,7 @@ class UserController extends AbstractController {
             // L'inscription a réussie
             // TODO un bon httpresponse code
             return new JsonResponse(array('flash' => 'Vous vous êtes inscrit avec succès !'));
+            
          }
     }
 

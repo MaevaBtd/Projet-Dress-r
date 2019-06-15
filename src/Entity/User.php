@@ -33,7 +33,7 @@ class User implements UserInterface, \Serializable
      *    minMessage = "Votre username doit contenir au moins {{ limit }} caractères",
      *    maxMessage = "Votre username doit contenir au maximum {{ limit }} caractères"
      * )
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Veuillez remplir le champ Username .")
      * 
      * @Groups({"cloth_read", "user_cloths", "user_outfits", "user_show"})
      */
@@ -47,7 +47,7 @@ class User implements UserInterface, \Serializable
      *    minMessage = "Votre email doit contenir au moins {{ limit }} caractères",
      *    maxMessage = "Votre email doit contenir au maximum {{ limit }} caractères"
      * )
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Veuillez remplir le champ Email .")
      * @Groups({"user_show"})
      */
     private $email;
@@ -60,7 +60,7 @@ class User implements UserInterface, \Serializable
      *    minMessage = "Votre mot de passe doit contenir au moins {{ limit }} caractères",
      *    maxMessage = "Votre mot de passe doit contenir au maximum {{ limit }} caractères"
      * )
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Veuillez remplir le champ Password .")
      */
     private $password;
 
