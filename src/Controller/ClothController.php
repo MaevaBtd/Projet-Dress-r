@@ -123,14 +123,18 @@ class ClothController extends AbstractController
             $typeCloth = $typerepository->findOneBy([
                 'name' => $type,
             ]);
-            $newCloth->setType($typeCloth);
+            if (!empty($typeCloth)) {
+                $newCloth->setType($typeCloth);
+            }
             
             $styles = $data['styles'];
                 foreach($styles as $style) {
                     $styleCloth = $stylerepository->findOneBy([
                         'name' => $style,
                     ]);
-                    $newCloth->addStyle($styleCloth);
+                    if (!empty($styleCloth)) {
+                        $newCloth->addStyle($styleCloth);
+                    }
                 }
             
             // TODO ADD A FILE
@@ -243,6 +247,8 @@ class ClothController extends AbstractController
         $bottoms = $repository->findBottomByIdAndStyleId($id,$clothId);
         $shoes = $repository->findShoesByIdAndStyleId($id,$clothId);
 
+        // SOIT Je recupere tout ( select all ) -> je shuffle en php -> je prends le premier
+        // SOIT random via SQL ( peur de ca, car ca creer des id temporaires a chaque entrée et apres ca en choisit une, donc il y a de l'ecriture)
         shuffle($heads);
         shuffle($jackets);
         shuffle($tops);
@@ -341,7 +347,9 @@ class ClothController extends AbstractController
                 $styleCloth = $stylerepository->findOneBy([
                     'name' => $style,
                 ]);
-                $cloth->addStyle($styleCloth);
+                if (!empty($styleCloth)) {
+                    $cloth->addStyle($styleCloth);
+                }
             }
 
             // TODO IMAGE

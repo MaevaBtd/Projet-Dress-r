@@ -33,6 +33,17 @@ class UserController extends AbstractController {
         $id = $userToken->getId();
         $user = $repository->findById($id);
 
+        // TODO Recuperer le nombre de vetement de l'utilisateur
+            // tu stock tout les resultats sorties par le find sur le repository, dans une variable $numberCloths
+            // count sur le repository adéquat count($numberCloths) ?
+        
+        // A VOIR AVEC UN COUNT SQL sur le nombre dentrées dans cloth where cloth.user.id = XX
+        
+        // TODO Recuperer le nombre de tenues de l'utilisateur
+            // count sur le repository adéquat
+        
+        // Ajouter ces deux informations a la réponse json
+
         $json = $serializer->serialize($user, 'json',[
             'groups'=>'user_show'
         ]);
