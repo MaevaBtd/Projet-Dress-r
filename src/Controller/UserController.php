@@ -52,8 +52,8 @@ class UserController extends AbstractController {
 
         return new JsonResponse(array(
             'infos' => $json,
-            'nbcloths' => $nbCloths,
-            'nbOutfit'=>$nbOutfits,
+            'nbCloths' => $nbCloths,
+            'nbOutfits'=>$nbOutfits,
             )
         );
     }
