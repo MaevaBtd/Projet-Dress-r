@@ -227,26 +227,19 @@ class ClothController extends AbstractController
      */
     public function random(ClothRepository $repository, SerializerInterface $serializer, $id) {
 
-        // The {id} is the style id chosen by the user
-        // We could alose use a post method for that, we can change it if we want
 
-        // $cloths = $repository->findAll();
-        
-        // generate a random number
-        $clothId = rand(1,1000);
-        
+        $userToken = $this->getUser();
+        $userId = $userToken->getId();
+
         $random = [];
-        
-        // We will search all cloths by type, and retrieve the one that is the nearest '<>'(in SQL)
-        // by style.id -> {id}
 
-        // TODO : AJOUTER un nouveau parametre, le user id, sinon la ca va aller prendre dans l'ensemble des utilisateurs
-        // Donc ajouter le join, et ajouter le set parameter
-        $heads = $repository->findHeadByIdAndStyleId($id,$clothId);
-        $jackets = $repository->findJacketByIdAndStyleId($id,$clothId);
-        $tops = $repository->findTopByIdAndStyleId($id,$clothId);
-        $bottoms = $repository->findBottomByIdAndStyleId($id,$clothId);
-        $shoes = $repository->findShoesByIdAndStyleId($id,$clothId);
+       
+        $heads = $repository->findHeadByIdAndStyleId($id,$userId);
+        $jackets = $repository->findJacketByIdAndStyleId($id,$userId);
+        $tops = $repository->findTopByIdAndStyleId($id,$userId);
+        $bottoms = $repository->findBottomByIdAndStyleId($id,$userId);
+        $shoes = $repository->findShoesByIdAndStyleId($id,$userId);
+        
 
         // SOIT Je recupere tout ( select all ) -> je shuffle en php -> je prends le premier
         // SOIT random via SQL ( peur de ca, car ca creer des id temporaires a chaque entrée et apres ca en choisit une, donc il y a de l'ecriture)
@@ -255,6 +248,7 @@ class ClothController extends AbstractController
         shuffle($tops);
         shuffle($bottoms);
         shuffle($shoes);
+
         
         // We have to check if there is a result
         // Because if not we cant add them to the result, but we still want that a result can
@@ -284,6 +278,7 @@ class ClothController extends AbstractController
             $random[] = $oneShoe; 
         }
 
+        
         $json = $serializer->serialize($random, 'json');
 
         // TODO ADD HTTP RESPONSE CODE

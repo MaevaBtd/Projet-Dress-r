@@ -32,6 +32,19 @@ class ClothRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findUserClothsByUserId($userId){
+         
+        return $this->createQueryBuilder('c')
+        ->select('c.id','c.name')
+        ->join('c.user', 'u')
+        ->andWhere('u.id = :userId')
+        ->setParameter('userId',$userId)
+        ->addSelect('u.username AS user_name')
+
+        ->getQuery()->getResult();
+    }
+    
+
     public function findOneByUserId ($clothName, $userId) {
 
         return $this->createQueryBuilder('c')
@@ -46,86 +59,87 @@ class ClothRepository extends ServiceEntityRepository
         ->getQuery()->getResult();
     }
 
-    public function findHeadByIdAndStyleId($styleId,$clothId){
+    public function findHeadByIdAndStyleId($styleId,$userId){
         
         return $this->createQueryBuilder('c')
         ->select('c.id','c.name','c.image')
         ->join('c.styles', 's')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->join('c.user','u')
+        ->andWhere('u.id = :userId')
+        ->setParameter('userId', $userId)
         ->join('c.type', 't')
-        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->addSelect('s.name AS style_name','u.username AS user_name','t.name AS type_name')
         ->andWhere('t.id = 1')
-        ->andWhere('s.id = :styleId')
-        ->setParameter('styleId', $styleId)
-        ->andWhere('c.id <> :clothId')
-        ->setParameter('clothId', $clothId)
         
-        
-       
         ->getQuery()->getResult();
     }
    
-    public function findJacketByIdAndStyleId($styleId,$clothId){
+    public function findJacketByIdAndStyleId($styleId,$userId){
 
         return $this->createQueryBuilder('c')
         ->select('c.id','c.name','c.image')
         ->join('c.styles', 's')
+        ->andWhere('s.id = :styleId')
+        ->setParameter('styleId', $styleId)
+        ->join('c.user','u')
+        ->andWhere('u.id = :userId')
+        ->setParameter('userId', $userId)
         ->join('c.type', 't')
-        ->addSelect('s.id AS style_id','s.name AS style_name')
+        ->addSelect('s.name AS style_name','u.username AS user_name','t.name AS type_name')
         ->andWhere('t.id = 2')
-        ->andWhere('s.id = :styleId')
-        ->setParameter('styleId', $styleId)
-        ->andWhere('c.id <> :clothId')
-        ->setParameter('clothId', $clothId)
-       
-       
+        
         ->getQuery()->getResult();
     }
-    public function findTopByIdAndStyleId($styleId,$clothId){
+    public function findTopByIdAndStyleId($styleId,$userId){
 
         return $this->createQueryBuilder('c')
         ->select('c.id','c.name','c.image')
         ->join('c.styles', 's')
-        ->join('c.type', 't')
-        ->addSelect('s.id AS style_id','s.name AS style_name')
-        ->andWhere('t.id = 3')
         ->andWhere('s.id = :styleId')
         ->setParameter('styleId', $styleId)
-        ->andWhere('c.id <> :clothId')
-        ->setParameter('clothId', $clothId)
-       
+        ->join('c.user','u')
+        ->andWhere('u.id = :userId')
+        ->setParameter('userId', $userId)
+        ->join('c.type', 't')
+        ->addSelect('s.name AS style_name','u.username AS user_name','t.name AS type_name')
+        ->andWhere('t.id = 3')
+        
         ->getQuery()->getResult();
     }
    
-    public function findBottomByIdAndStyleId($styleId, $clothId){
+    public function findBottomByIdAndStyleId($styleId, $userId){
 
         return $this->createQueryBuilder('c')
         ->select('c.id','c.name','c.image')
         ->join('c.styles', 's')
-        ->join('c.type', 't')
-        ->addSelect('s.id AS style_id','s.name AS style_name')
-        ->andWhere('t.id = 4')
         ->andWhere('s.id = :styleId')
         ->setParameter('styleId', $styleId)
-        ->andWhere('c.id <> :clothId')
-        ->setParameter('clothId', $clothId)
-       
+        ->join('c.user','u')
+        ->andWhere('u.id = :userId')
+        ->setParameter('userId', $userId)
+        ->join('c.type', 't')
+        ->addSelect('s.name AS style_name','u.username AS user_name','t.name AS type_name')
+        ->andWhere('t.id = 4')
+        
         ->getQuery()->getResult();
     }
 
-    public function findShoesByIdAndStyleId($styleId, $clothId){
+    public function findShoesByIdAndStyleId($styleId, $userId){
         
         return $this->createQueryBuilder('c')
         ->select('c.id','c.name','c.image')
         ->join('c.styles', 's')
-        ->join('c.type', 't')
-        ->addSelect('s.id AS style_id','s.name AS style_name')
-        ->andWhere('t.id = 5')
         ->andWhere('s.id = :styleId')
         ->setParameter('styleId', $styleId)
-        ->andWhere('c.id <> :clothId')
-        ->setParameter('clothId', $clothId)
-
-       
+        ->join('c.user','u')
+        ->andWhere('u.id = :userId')
+        ->setParameter('userId', $userId)
+        ->join('c.type', 't')
+        ->addSelect('s.name AS style_name','u.username AS user_name','t.name AS type_name')
+        ->andWhere('t.id = 5')
+        
         ->getQuery()->getResult();
     }
 

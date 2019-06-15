@@ -17,40 +17,45 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Repository\ClothRepository;
+use App\Repository\OutfitRepository;
 
 /**
  * @Route("/api", name="api_")
  */
 class UserController extends AbstractController {
+
     /**
      * Retourne les informations de l'utilisateur(id,username,email,createdAt,role)
      * 
      * @Route("/user/profile", name="user_show", methods={"GET"})
      */
-    public function show(UserRepository $repository, SerializerInterface $serializer) {
+    public function show(UserRepository $repository,ClothRepository $clothRepository,OutfitRepository $outfitRepository, SerializerInterface $serializer) {
+
 
         $userToken = $this->getUser();
         $id = $userToken->getId();
         $user = $repository->findById($id);
 
-        // TODO Recuperer le nombre de vetement de l'utilisateur
-            // tu stock tout les resultats sorties par le find sur le repository, dans une variable $numberCloths
-            // count sur le repository adéquat count($numberCloths) ?
+        // get all the cloths of the current User and count them 
+        $userCloths = $clothRepository->findUserClothsByUserId($id);
+        $nbCloths = count($userCloths);
+
+         // get all the outfits of the current User and count them 
+        $userOutfits = $outfitRepository->findUserOutfitsByUserId($id);
+        $nbOutfits = count($userOutfits);
         
-        // A VOIR AVEC UN COUNT SQL sur le nombre dentrées dans cloth where cloth.user.id = XX
-        
-        // TODO Recuperer le nombre de tenues de l'utilisateur
-            // count sur le repository adéquat
-        
-        // Ajouter ces deux informations a la réponse json
 
         $json = $serializer->serialize($user, 'json',[
-            'groups'=>'user_show'
+            'groups'=>'user_show',
         ]);
 
-        // user_show retourne = un User : id ,username, email, createdAt et son role: name
-
-        return JsonResponse::fromJsonString($json);
+        return new JsonResponse(array(
+            'infos' => $json,
+            'nbcloths' => $nbCloths,
+            'nbOutfit'=>$nbOutfits,
+            )
+        );
     }
 
     /**
@@ -128,7 +133,7 @@ class UserController extends AbstractController {
 
         $userToken = $this->getUser();
         $id = $userToken->getId();
-        $user = $repository->findById($id);
+        $user = $userRepository->findById($id);
 
     }
 
