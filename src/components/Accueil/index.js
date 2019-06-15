@@ -1,5 +1,6 @@
 // == Import: Yarn
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 // == Import: local
 import './Accueil.scss';
@@ -9,12 +10,19 @@ import About from './About';
 // import Header from '../Header ';
 
 // == Code
-const Accueil = () => (
-  <div id="accueil">
-    <Welcome />
-    <About />
-  </div>
-);
+// eslint-disable-next-line react/prefer-stateless-function
+class Accueil extends React.Component {
+  render() {
+    const { isAuthenticated } = this.props;
+    if (isAuthenticated) return <Redirect to="/user-page" />;
+    return (
+      <div id="accueil">
+        <Welcome />
+        <About />
+      </div>
+    )
+  }
+}
 
 // == Export
 export default Accueil;

@@ -8,6 +8,7 @@ import {
   Icon,
   Modal,
   Button,
+  Input,
 } from 'antd';
 import 'antd/dist/antd.css';
 
@@ -19,6 +20,7 @@ import Cloth from '../Cloth';
 const IconFont = Icon.createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_1243774_4xxfahkooh.js',
 });
+
 
 // == Code
 class Random extends React.Component {
@@ -32,33 +34,49 @@ class Random extends React.Component {
     console.log('submit');
     const { loadingDice, fetchRandom, styles } = this.props;
     loadingDice();
-    console.log(styles);
+    // console.log(styles);
     fetchRandom(styles);
   }
 
   handleStyleChange = (value) => {
     // Je recup la prop venant du container
     const { onStyleChange } = this.props;
-    console.log('id:', value);
+    // console.log('id:', value);
     onStyleChange(value);
   }
 
   handleCancel = () => {
-    const { closeModal } = this.props;
-    console.log('modal fermée1');
+    const { closeModal, deleteErrorMessage } = this.props;
+    // console.log('modal fermée1');
     closeModal();
+    deleteErrorMessage();
+  };
+
+  handleOk = (evt) => {
+    const { closeModal, requestAddOutfit } = this.props;
+    closeModal();
+    requestAddOutfit();
+  };
+
+  handleChange = (evt) => {
+    // Je recup la value : Problématique du DOM
+    const { value } = evt.target;
+    // Je recup la prop venant du container
+    const { onInputChange, receivedCloths, receivedClothId } = this.props;
+    onInputChange(value);
+    const clothIdArray = receivedCloths.map(cloth => cloth.id);
+    receivedClothId(clothIdArray);
   };
 
   render() {
     const { Option } = Select;
     const { isAuthenticated, categories, loadingRandom, errorRandom, modalShow, receivedCloths, styles } = this.props;
     if (!isAuthenticated) return <Redirect to="/" />;
-    console.log(receivedCloths);
+    // console.log(receivedCloths);
     return (
       <div id="random">
         <h1>Tenue aléatoire</h1>
         <h2>Choisissez la catégorie de la tenue souhaitée et cliquez sur le dé pour la générer aléatoirement parmis les vêtements de votre garde-robe</h2>
-        
         <Form className="random-form">
           <Spin spinning={loadingRandom} size="large">
             <Form.Item>
@@ -94,12 +112,18 @@ class Random extends React.Component {
             <Button
               key="submit"
               type="primary"
-            // onClick={this.handleOk}
+              onClick={this.handleOk}
             >
               Sauvegarder la tenue
             </Button>,
           ]}
         >
+          <Input
+            // value={name}
+            className="input-outfit-name"
+            placeholder="Donnez un nom à votre tenue"
+            onChange={this.handleChange}
+          />
           <div>{errorRandom}</div>
           <div id="randomCloths">
             {receivedCloths.map(cloth => (
@@ -113,7 +137,7 @@ class Random extends React.Component {
 
         </Modal>
       </div>
-    )
+    );
   }
 }
 

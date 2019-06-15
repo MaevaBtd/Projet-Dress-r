@@ -13,12 +13,11 @@ import Profil from 'src/containers/Profil';
 import AddCloth from 'src/containers/AddCloth';
 import Wardrobe from 'src/containers/Wardrobe';
 import FormAddCloth from 'src/containers/FormAddCloth';
-import ClothList from 'src/containers/ClothList';
 import Random from 'src/containers/Random';
 import Header from 'src/containers/Header';
 import Main from 'src/containers/Main';
+import Accueil from 'src/containers/Accueil';
 
-import Accueil from 'src/components/Accueil';
 import Footer from 'src/components/Footer';
 import Changemdp from '../Profil/ChangeMdp';
 import Outfit from '../Outfit';
@@ -32,7 +31,7 @@ import NoMatch from '../NoMatch';
 // == Composant
 class App extends Component {
   componentDidMount() {
-    
+
   }
 
 

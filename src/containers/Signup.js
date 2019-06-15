@@ -18,13 +18,9 @@ const mapStateToProps = state => ({
 // actions / dispatch
 const mapDispatchToProps = dispatch => ({
   onInputChange: (value) => {
-    // console.log('DispatchToProps : onInputChange');
-    // dispatch({ type: 'CHANGE_INPUT', content: value });
     dispatch(changeUsername(value));
   },
   onPwdChange: (pwd) => {
-    // console.log('DispatchToProps : onInputChange');
-    // dispatch({ type: 'CHANGE_INPUT', content: value });
     dispatch(changePwd(pwd));
   },
   userSignupRequest: () => {
