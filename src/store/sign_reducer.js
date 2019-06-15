@@ -3,7 +3,10 @@ export const initialState = {
   password: '',
   email: '',
   confirmPwd: '',
-  isConnected: false,
+  loading: false,
+  errorMessage: '',
+  loadingNewUser: false,
+  newUserMessage: '',
 };
 
 // Action Type
@@ -14,9 +17,11 @@ const CHANGE_EMAIL = 'CHANGE_EMAIL';
 export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST ';
 export const USER_SIGNIN_REQUEST = 'USER_SIGNIN_REQUEST ';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
-const IS_CONNECTED = 'IS_CONNECTED';
-const IS_DECONNECTED = 'IS_DECONNECTED';
-
+// Charging pages
+const LOADING_STATUS = 'LOADING_STATUS';
+const LOADING_OVER = 'LOADING_OVER';
+const LOADING_NEW_USER = 'LOADING_NEW_USER';
+const LOADING_NEW_USER_DONE = 'LOADING_NEW_USER_DONE';
 
 // Reducer
 const signReducer = (state = initialState, action = {}) => {
@@ -41,17 +46,28 @@ const signReducer = (state = initialState, action = {}) => {
         ...state,
         email: action.content,
       };
-    case IS_CONNECTED:
+    case LOADING_STATUS:
       return {
         ...state,
-        isConnected: true,
+        loading: true,
       };
-    case IS_DECONNECTED:
+    case LOADING_OVER:
       return {
         ...state,
-        isConnected: false,
+        loading: false,
+        errorMessage: action.message,
       };
-
+    case LOADING_NEW_USER:
+      return {
+        ...state,
+        loadingNewUser: true,
+      };
+    case LOADING_NEW_USER_DONE:
+      return {
+        ...state,
+        loadingNewUser: false,
+        newUserMessage: action.message,
+      };
 
     default:
       return state;
@@ -86,11 +102,20 @@ export const setCurrentUser = user => ({
   type: SET_CURRENT_USER,
   user,
 });
-export const isConnected = () => ({
-  type: IS_CONNECTED,
+// Charging pages
+export const loadingStatus = () => ({
+  type: LOADING_STATUS,
 });
-export const isDeconnected = () => ({
-  type: IS_DECONNECTED,
+export const loadingOver = message => ({
+  type: LOADING_OVER,
+  message,
+});
+export const loadingNewUser = () => ({
+  type: LOADING_NEW_USER,
+});
+export const loadingNewUserDone = message => ({
+  type: LOADING_NEW_USER_DONE,
+  message,
 });
 
 export default signReducer;
