@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 // == Import: local
 import Random from 'src/components/Random';
-import { fetchStyles, loadingDice, fetchRandom, closeModal } from 'src/store/stylesReducer';
+import { fetchStyles, loadingDice, fetchRandom, closeModal, deleteErrorMessage, requestAddOutfit } from 'src/store/stylesReducer';
 import { onStyleChange } from 'src/store/addCloth_reducer';
+import { changeOutfitName, receivedClothId } from 'src/store/randomReducer';
 
 // == StateToProps
 const mapStateToProps = state => ({
@@ -15,6 +16,7 @@ const mapStateToProps = state => ({
   errorRandom: state.stylesReducer.errorRandom,
   modalShow: state.stylesReducer.modalShow,
   receivedCloths: state.stylesReducer.receivedCloths,
+  outfitName: state.randomReducer.name,
 });
 
 // == DispatchToProps
@@ -36,6 +38,19 @@ const mapDispatchToProps = dispatch => ({
   closeModal: () => {
     console.log('close modale');
     dispatch(closeModal());
+  },
+  deleteErrorMessage: () => {
+    dispatch(deleteErrorMessage());
+  },
+  requestAddOutfit: () => {
+    dispatch(requestAddOutfit());
+  },
+  onInputChange: (value) => {
+    dispatch(changeOutfitName(value));
+  },
+  receivedClothId: (clothId) => {
+    console.log('randomContainer', clothId);
+    dispatch(receivedClothId(clothId));
   },
 });
 

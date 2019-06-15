@@ -25,6 +25,8 @@ const ON_STYLE_CHANGE = 'ON_STYLE_CHANGE';
 const ERROR_MESSAGE = 'ERROR_MESSAGE';
 const CLOSE_MODALE = 'CLOSE_MODALE';
 const RECEIVED_RANDOM = 'RECEIVED_RANDOM';
+const DELETE_ERROR_MESSAGE = 'DELETE_ERROR_MESSAGE';
+export const REQUEST_ADD_OUTFIT = 'REQUEST_ADD_OUTFIT';
 
 // Reducer
 const stylesReducer = (state = initialState, action = {}) => {
@@ -77,6 +79,11 @@ const stylesReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         errorRandom: action.message,
+      };
+    case DELETE_ERROR_MESSAGE:
+      return {
+        ...state,
+        errorRandom: '',
       };
     case CLOSE_MODALE:
       return {
@@ -143,6 +150,13 @@ export const closeModal = () => ({
 });
 export const receivedRandom = cloths => ({
   type: RECEIVED_RANDOM,
+  cloths,
+});
+export const deleteErrorMessage = () => ({
+  type: DELETE_ERROR_MESSAGE,
+});
+export const requestAddOutfit = cloths => ({
+  type: REQUEST_ADD_OUTFIT,
   cloths,
 });
 

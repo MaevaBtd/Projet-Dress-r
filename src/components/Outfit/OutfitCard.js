@@ -11,7 +11,7 @@ import './OutfitCard.scss';
 const OutfitCard = ({ id, name, cloths, onRemoveOutfit }) => (
   <div id="outfitcard">
     <div>
-      <p> Nom de la tenue: <p className="dyna"> {name}</p></p>
+      <p> Nom de la tenue: <span className="dyna"> {name}</span></p>
       <p>Liste des vêtements:</p>
       <ul className="dyna">
         {cloths.map(cloth => (
