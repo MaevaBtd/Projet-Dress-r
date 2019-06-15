@@ -3,7 +3,12 @@
  #clothlist {
    background-color: $main-color;
    
+   #cloth-list {
+     display: flex;
+     flex-wrap: wrap;
+   }
    h1 {
+     color: #d18901;
      font-family: $main-font;
      font-size: 2em;
      padding-top: 5em;
@@ -22,7 +27,7 @@
     margin-bottom: 1em;
 
     &:hover {
-      background-color: $mustard;
+      background-color: #d18901;
       color: $brownish;
     }
    }

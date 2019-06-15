@@ -3,12 +3,15 @@ import { connect } from 'react-redux';
 
 // == Import: local
 import FormAddCloth from 'src/components/AddCloth/FormAddCloth';
-import { changeClothName, fetchStyles, onStyleChange, onChangePart, addClothRequest } from 'src/store/addCloth_reducer';
+import { changeClothName, onStyleChange, onChangePart, addClothRequest } from 'src/store/addCloth_reducer';
+import { fetchStyles, loadingAddCloth } from 'src/store/stylesReducer';
 
 // == StateToProps
 const mapStateToProps = state => ({
-  categories: state.addClothReducer.categories,
-  isConnected: state.signReducer.isConnected,
+  categories: state.stylesReducer.categories,
+  isAuthenticated: state.auth.isAuthenticated,
+  loadingAddCloth: state.stylesReducer.loadingAddCloth,
+  redirectAddCloth: state.stylesReducer.redirectAddCloth,
 });
 
 // == DispatchToProps
@@ -29,6 +32,9 @@ const mapDispatchToProps = dispatch => ({
   },
   addClothRequest: () => {
     dispatch(addClothRequest());
+  },
+  loading: () => {
+    dispatch(loadingAddCloth());
   },
 });
 

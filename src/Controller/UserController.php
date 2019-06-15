@@ -17,30 +17,45 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Repository\ClothRepository;
+use App\Repository\OutfitRepository;
 
 /**
  * @Route("/api", name="api_")
  */
 class UserController extends AbstractController {
+
     /**
      * Retourne les informations de l'utilisateur(id,username,email,createdAt,role)
      * 
      * @Route("/user/profile", name="user_show", methods={"GET"})
      */
-    public function show(UserRepository $repository, SerializerInterface $serializer) {
+    public function show(UserRepository $repository,ClothRepository $clothRepository,OutfitRepository $outfitRepository, SerializerInterface $serializer) {
+
 
         $userToken = $this->getUser();
         $id = $userToken->getId();
         $user = $repository->findById($id);
 
+        // get all the cloths of the current User and count them 
+        $userCloths = $clothRepository->findUserClothsByUserId($id);
+        $nbCloths = count($userCloths);
+
+         // get all the outfits of the current User and count them 
+        $userOutfits = $outfitRepository->findUserOutfitsByUserId($id);
+        $nbOutfits = count($userOutfits);
+        
+
         $json = $serializer->serialize($user, 'json',[
-            'groups'=>'user_show'
+            'groups'=>'user_show',
         ]);
 
-        // user_show retourne = un User : id ,username, email, createdAt et son role: name
-
-        // return code 200
-        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
+        // HTTP RESPONSE Code 200
+        return new JsonResponse(array(
+            'infos' => $json,
+            'nbCloths' => $nbCloths,
+            'nbOutfits'=>$nbOutfits,
+            ),Response::HTTP_OK);
     }
 
     /**
@@ -77,9 +92,8 @@ class UserController extends AbstractController {
             $json = $serializer->serialize($errorsString, 'json');
 
             // si il y a des erreurs, on retourne le pourquoi
-            // TODO ajouter un httpresponse code 409
+            // HTTP RESPONSE Code 409
             return new JsonResponse($json,Response::HTTP_CONFLICT);
-            
         }
         
         else {
@@ -94,9 +108,8 @@ class UserController extends AbstractController {
             $manager->flush();
             
             // L'inscription a réussie
-            // TODO un bon httpresponse code 200
+            // HTTP RESPONSE Code 200
             return new JsonResponse(array('flash' => 'Vous vous êtes inscrit avec succès !'),Response::HTTP_OK);
-            
          }
     }
 

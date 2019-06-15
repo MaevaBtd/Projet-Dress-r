@@ -12,8 +12,7 @@ const OutfitCard = ({ id, name, cloths, onRemoveOutfit }) => (
   <div id="outfitcard">
     <div>
       <p> Nom de la tenue: <p className="dyna"> {name}</p></p>
-      <p>Catégorie:</p>
-      <h3>Liste des vêtements :</h3>
+      <p>Liste des vêtements:</p>
       <ul className="dyna">
         {cloths.map(cloth => (
           <li key={cloth.id}

@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 // == Import : local
 import Signup from 'src/components/Sign/Signup';
 // Action creators
-import { changeUsername, changePwd, userSignupRequest } from 'src/store/sign_reducer';
+import { changeUsername, changePwd, userSignupRequest, loadingStatus } from 'src/store/sign_reducer';
 
 // === data / state
 const mapStateToProps = state => ({
   username: state.signReducer.username,
   password: state.signReducer.password,
   isAuthenticated: state.auth.isAuthenticated,
+  loading: state.signReducer.loading,
+  errorMessage: state.signReducer.errorMessage,
 });
 
 // actions / dispatch
@@ -27,6 +29,9 @@ const mapDispatchToProps = dispatch => ({
   },
   userSignupRequest: () => {
     dispatch(userSignupRequest());
+  },
+  loadingChange: () => {
+    dispatch(loadingStatus());
   },
 });
 

@@ -6,10 +6,12 @@ import AddCloth from 'src/components/AddCloth';
 
 // action creators
 import { addHead, addBot, addTop, addShoes, addVest } from '../store/addCloth_reducer';
+import { notRedirectAddCloth } from '../store/stylesReducer';
 
 // == StateToProps
 const mapStateToProps = state => ({
-  isConnected: state.signReducer.isConnected,
+  isAuthenticated: state.auth.isAuthenticated,
+  errorAddCloth: state.stylesReducer.errorAddCloth,
 });
 
 // == DispatchToProps
@@ -33,6 +35,9 @@ const mapDispatchToProps = dispatch => ({
   addTypeShoes: () => {
     console.log('shoes dispatch');
     dispatch(addShoes());
+  },
+  stopRedirect: () => {
+    dispatch(notRedirectAddCloth());
   },
 });
 

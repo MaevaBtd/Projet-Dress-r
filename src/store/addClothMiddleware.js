@@ -1,20 +1,12 @@
 import axios from 'axios';
 import {
-  FETCH_STYLES,
   ADD_CLOTH_REQUEST,
-  receivedStyles,
 } from './addCloth_reducer';
+import { FETCH_STYLES, receivedStyles, loadingAddClothDone, redirectAddCloth } from './stylesReducer';
 
 const addClothMiddleware = store => next => (action) => {
   const fetchAPI = url => (
     axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
-      },
-    })
-  );
-  const postAPI = url => (
-    axios.post(url, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
       },
@@ -38,10 +30,13 @@ const addClothMiddleware = store => next => (action) => {
         },
       })
         .then((response) => {
-          console.log('votre vêtement à été ajouté', response);
+          console.log(response.data.flash);
+          store.dispatch(loadingAddClothDone(response.data.flash));
+          store.dispatch(redirectAddCloth());
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.flash);
+          store.dispatch(loadingAddClothDone('ERREUR: Votre vêtement n\'a pas été ajouté'));
         });
 
       break;

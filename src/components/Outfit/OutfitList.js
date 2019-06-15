@@ -20,15 +20,16 @@ class OutfitList extends React.Component {
     return (
       <div id="outfitlist">
         <h1>Mes tenues</h1>
-        {outfitsList.map(outfit => (
-          <NavLink key={outfit.id} to={`/outfit-${outfit.id}`}>
-            <OutfitCard
-              key={outfit.id}
-              {...outfit}
-            />
-          </NavLink>
-        ))}
-
+        <div id="outfit-list">
+          {outfitsList.map(outfit => (
+            <NavLink key={outfit.id} to={`/outfit-${outfit.id}`}>
+              <OutfitCard
+                key={outfit.id}
+                {...outfit}
+              />
+            </NavLink>
+          ))}
+        </div>
       </div>
     );
   }

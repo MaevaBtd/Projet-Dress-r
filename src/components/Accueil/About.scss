@@ -1,17 +1,26 @@
 @import "./src/styles/vars";
 
 #about {
-  background-color: $main-color;
+  background-color: #d18901;
   padding: 0 2em;
   height: auto;
+  border-top: 5px solid #c5c8b3;
+
+  h2 {
+    color: #f9c86b;
+    font-family: $main-font;
+    font-size: 2em;
+    padding-top: 2em;
+  }
 }
 .icon {
   margin: 1em;
-  color: $brownish;
+  color: white;
 }
 p {
   width: 50%;
   margin: auto;
   padding-bottom: 2em;
+  color: white;
 }
 

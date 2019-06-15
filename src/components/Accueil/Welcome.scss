@@ -4,10 +4,11 @@ $break-small: 790px;
 
 #welcome {
   height: 100vh;
+  background-image: url('../../data/assets/main.jpg');
   @media screen and (max-height: $break-small) {
     height: 790px;
   }
-  background-color: $mustard;
+  //background-color: $mustard;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

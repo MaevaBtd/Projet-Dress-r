@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 
 // == Import: local
-import Wardrobe from 'src/components/Wardrobe';
+import Main from 'src/components/Main';
 
 // == StateToProps
 const mapStateToProps = state => ({
@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = () => ({});
 
 // == Connect
-const WardrobeContainer = connect(mapStateToProps, mapDispatchToProps)(Wardrobe);
+const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 // == Export
-export default WardrobeContainer;
+export default MainContainer;

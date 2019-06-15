@@ -11,8 +11,8 @@ import './Wardrobe.scss';
 // eslint-disable-next-line react/prefer-stateless-function
 class Wardrobe extends React.Component {
   render() {
-    const { isConnected } = this.props;
-    if (!isConnected) return <Redirect to="/" />;
+    const { isAuthenticated } = this.props;
+    if (!isAuthenticated) return <Redirect to="/" />;
 
     return (
       <div id="wardrobe">

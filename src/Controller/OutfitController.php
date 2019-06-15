@@ -39,7 +39,7 @@ class OutfitController extends AbstractController
         ]);
 
         // user_outfits retourne = un User : id ,username + les Outfits associés : id, name, createdAt
-        // return code 200
+        // HTTP RESPONSE Code 200
         return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 
@@ -51,6 +51,8 @@ class OutfitController extends AbstractController
     public function show(OutfitRepository $repository, $id, SerializerInterface $serializer)
     {
 
+        // TODO VERIF USER
+        
         $outfit = $repository->findById($id);
 
         $json = $serializer->serialize($outfit, 'json',[
@@ -58,70 +60,71 @@ class OutfitController extends AbstractController
         ]);
         
         // outfit_cloths retourne = un  Outfit :id, name, createdAt + les Cloths associés :  id, name, image, createdAt + le Style : id, name + Type : id, name
-        //  return code 200
+        //  HTTP RESPONSE Code 200
         return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 
     /**
      * @Route("/outfit/new", name="new_outfit", methods={"GET", "POST"})
      */
-    public function new(Request $request, UserRepository $userRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, ClothRepository $clothRepository) {
+    public function new(Request $request, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, ClothRepository $clothRepository, OutfitRepository $outfitRepository) {
+
+        // manually, if we had an outfit, the user is sending the cloths, and the name of the outfit. And we have to set the user.
+        // v3: add a style to the outfit, a generic style or a personnal style that the user create for himself
 
         $newOutfit = new Outfit();
 
-        // Using a symfony form
-        $form = $this->createForm(OutfitType::class, $newOutfit);
+        $data = json_decode($request->getContent(), true);
 
-        // Si besoin de décode json
-        // $data = json_decode($request->getContent(), true);
+        $userToken = $this->getUser();
+        $userId = $userToken->getId();
 
-        // Pour les test postman ( post mais infos dans l'url )
-        // $form->submit($request->query->all());
+        $nameJson = $data['name'];
 
-        // Pour les vrai test front
-        $form->submit($request->request->all());
-        // $form->handleRequest($request);
+        $outfitStillExist = $outfitRepository->findOneByUserId($nameJson, $userId);
 
-        $errors = $validator->validate($newOutfit);
-        
-        if (count($errors) > 0) {
-            /*
-            * Uses a __toString method on the $errors variable which is a
-            * ConstraintViolationList object. This gives us a nice string
-            * for debugging.
-            */
-            $errorsString = (string) $errors;
-
-            $json = $serializer->serialize($errorsString, 'json');
-
-            // si il y a des erreurs, on retourne le pourquoi
-            // TODO ajouter un httpresponse code 409
-            return new JsonResponse($json,Response::HTTP_CONFLICT);
+        if (!empty($outfitStillExist)) {
+            // HTTP RESPONSE 400
+            return new JsonResponse(array('flash' => 'Vous avez déjà une tenue avec ce nom !',Response::HTTP_BAD_REQUEST));
         }
+
         else {
 
-            $userToken = $this->getUser();
+            $newOutfit->setName($nameJson);
             // $id = $userToken->getId();
             // $user = $userRepository->findById($id);
             $newOutfit->setUser($userToken);
 
-            $cloths = $request->get('cloths');
-
-                foreach ($cloths as $cloth) {
-                $outfitCloth = $clothRepository->findOneBy([
+            // sending the id of the cloths
+            $cloths = $data['cloths'];
+            foreach ($cloths as $cloth) {
+                $clothOutfit = $clothRepository->findOneBy([
                     'id' => $cloth,
                 ]);
-                $newOutfit->addCloth($outfitCloth);
+                if(!empty($clothOutfit)) {
+                    $newOutfit->addCloth($clothOutfit);
                 }
+            }
 
-            // $em = $this->getDoctrine()->getManager();
-            $manager->persist($newOutfit);
-            $manager->flush();
+            $errors = $validator->validate($newOutfit);
 
-            // Return a json response that show to the front that the creation is successfull ( flash message )
-            // Doit on retourner d'autres infos ? comme l'id de la tenue ?
-            // return code 200
-            return new JsonResponse(array('flash' => 'La tenue a été ajoutée avec succès !',Response::HTTP_OK));
+            if (count($errors) > 0) {
+
+                $errorsString = (string) $errors;
+
+                $json = $serializer->serialize($errorsString, 'json');
+              
+                // HTTP RESPONSE CODE 409
+                return new JsonResponse($json,Response::HTTP_CONFLICT);
+            }
+
+            else {
+                $manager->persist($newOutfit);
+                $manager->flush();
+
+                // HTTP RESPONSE CODE 200
+                return new JsonResponse(array('flash' => 'La tenue a été ajoutée avec succès !',Response::HTTP_OK));
+            }
         }
     }
 
