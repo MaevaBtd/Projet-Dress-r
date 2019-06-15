@@ -226,7 +226,7 @@ class ClothController extends AbstractController
             $random[] = $oneShoe; 
         }
 
-        dd($random);
+        
         $json = $serializer->serialize($random, 'json');
 
         return JsonResponse::fromJsonString($json);

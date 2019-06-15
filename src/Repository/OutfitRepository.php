@@ -31,6 +31,18 @@ class OutfitRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    public function findUserOutfitsByUserId($userId){
+         
+        return $this->createQueryBuilder('o')
+        ->select('o.id','o.name')
+        ->join('o.user', 'u')
+        ->andWhere('u.id = :userId')
+        ->setParameter('userId',$userId)
+        ->addSelect('u.username AS user_name')
+
+        ->getQuery()->getResult();
+    }
+
   
     // /**
     //  * @return Outfit[] Returns an array of Outfit objects
