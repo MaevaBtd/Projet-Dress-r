@@ -1,8 +1,13 @@
 export const initialState = {
   categories: [],
+  styles: [],
   loadingAddCloth: false,
   errorAddCloth: '',
   redirectAddCloth: false,
+  loadingRandom: false,
+  errorRandom: '',
+  modalShow: false,
+  receivedCloths: [],
 };
 
 // == Action Type
@@ -13,6 +18,13 @@ const LOADING_ADD_CLOTH = 'LOADING_ADD_CLOTH';
 const LOADING_ADD_CLOTH_DONE = 'LOADING_ADD_CLOTH_DONE';
 const REDIRECT_ADD_CLOTH = 'REDIRECT_ADD_CLOTH';
 const NOT_REDIRECT_ADD_CLOTH = 'NOT_REDIRECT_ADD_CLOTH';
+const LOADING_DICE = 'LOADING_DICE';
+const LOADING_DICE_DONE = 'LOADING_DICE_DONE';
+export const FETCH_RANDOM = 'FETCH_RANDOM';
+const ON_STYLE_CHANGE = 'ON_STYLE_CHANGE';
+const ERROR_MESSAGE = 'ERROR_MESSAGE';
+const CLOSE_MODALE = 'CLOSE_MODALE';
+const RECEIVED_RANDOM = 'RECEIVED_RANDOM';
 
 // Reducer
 const stylesReducer = (state = initialState, action = {}) => {
@@ -22,6 +34,12 @@ const stylesReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         categories: action.styles,
+      };
+    case ON_STYLE_CHANGE:
+      console.log(state.styles);
+      return {
+        ...state,
+        styles: [action.value],
       };
     case LOADING_ADD_CLOTH:
       return {
@@ -44,6 +62,32 @@ const stylesReducer = (state = initialState, action = {}) => {
         ...state,
         redirectAddCloth: false,
       };
+    case LOADING_DICE:
+      return {
+        ...state,
+        loadingRandom: true,
+      };
+    case LOADING_DICE_DONE:
+      return {
+        ...state,
+        loadingRandom: false,
+        modalShow: true,
+      };
+    case ERROR_MESSAGE:
+      return {
+        ...state,
+        errorRandom: action.message,
+      };
+    case CLOSE_MODALE:
+      return {
+        ...state,
+        modalShow: false,
+      };
+    case RECEIVED_RANDOM:
+      return {
+        ...state,
+        receivedCloths: [...action.cloths],
+      };
     default:
       // console.log('fail ( add cloth reducer)');
       return state;
@@ -60,6 +104,10 @@ export const receivedStyles = styles => ({
   type: RECEIVED_STYLES,
   styles,
 });
+export const onStyleChange = value => ({
+  type: ON_STYLE_CHANGE,
+  value,
+});
 // loading
 export const loadingAddCloth = () => ({
   type: LOADING_ADD_CLOTH,
@@ -75,6 +123,27 @@ export const redirectAddCloth = () => ({
 export const notRedirectAddCloth = () => ({
   type: NOT_REDIRECT_ADD_CLOTH,
 });
-
+// random function
+export const loadingDice = () => ({
+  type: LOADING_DICE,
+});
+export const loadingDiceDone = () => ({
+  type: LOADING_DICE_DONE,
+});
+export const fetchRandom = style => ({
+  type: FETCH_RANDOM,
+  style,
+});
+export const errorMessage = message => ({
+  type: ERROR_MESSAGE,
+  message,
+});
+export const closeModal = () => ({
+  type: CLOSE_MODALE,
+});
+export const receivedRandom = cloths => ({
+  type: RECEIVED_RANDOM,
+  cloths,
+});
 
 export default stylesReducer;
