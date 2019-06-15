@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   loadingAddCloth: state.stylesReducer.loadingAddCloth,
   redirectAddCloth: state.stylesReducer.redirectAddCloth,
+  type: state.addClothReducer.type,
 });
 
 // == DispatchToProps

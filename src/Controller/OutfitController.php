@@ -78,6 +78,7 @@ class OutfitController extends AbstractController
 
         $userToken = $this->getUser();
         $userId = $userToken->getId();
+        
 
         $nameJson = $data['name'];
 
