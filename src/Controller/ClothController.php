@@ -180,23 +180,26 @@ class ClothController extends AbstractController
      */
     public function random(ClothRepository $repository, SerializerInterface $serializer, $id) {
 
-        $cloths = $repository->findAll();
-        
-        $clothId = rand(1,1000);
+        $userToken = $this->getUser();
+        $userId = $userToken->getId();
         
         $random = [];
+
+       
+        $heads = $repository->findHeadByIdAndStyleId($id,$userId);
+        $jackets = $repository->findJacketByIdAndStyleId($id,$userId);
+        $tops = $repository->findTopByIdAndStyleId($id,$userId);
+        $bottoms = $repository->findBottomByIdAndStyleId($id,$userId);
+        $shoes = $repository->findShoesByIdAndStyleId($id,$userId);
         
-        $heads = $repository->findHeadByIdAndStyleId($id,$clothId);
-        $jackets = $repository->findJacketByIdAndStyleId($id,$clothId);
-        $tops = $repository->findTopByIdAndStyleId($id,$clothId);
-        $bottoms = $repository->findBottomByIdAndStyleId($id,$clothId);
-        $shoes = $repository->findShoesByIdAndStyleId($id,$clothId);
+
 
         shuffle($heads);
         shuffle($jackets);
         shuffle($tops);
         shuffle($bottoms);
         shuffle($shoes);
+
         
         if(!empty($heads)) {
             $oneHead = $heads[0];
@@ -223,6 +226,7 @@ class ClothController extends AbstractController
             $random[] = $oneShoe; 
         }
 
+        dd($random);
         $json = $serializer->serialize($random, 'json');
 
         return JsonResponse::fromJsonString($json);
