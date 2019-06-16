@@ -11,6 +11,10 @@
   }
   p {
     font-family: $main-font;
+    color: #d18901;
+  }
+  .user-counter {
+    color: $brownish;
   }
   h2 {
     font-family: $main-font;
@@ -39,6 +43,7 @@
 .stats {
   width: 70%;
   margin: 2em auto;
-  border: 1px solid $brownish;
+  border: 2px solid $text-link;
+  border-radius: 40px;
   padding-top: 2em;
 }

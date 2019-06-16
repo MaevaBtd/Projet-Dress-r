@@ -3,18 +3,34 @@
 $break-small: 790px;
 
 .addcloth {
-  background-color: $main-color;
-  padding: 0 2em;
-  min-height: 55em;
+  background-image: url('../../data/assets/bckMain.png');
+  background-size: 100%;
+  height: 60em;
   @media screen and (max-height: $break-small) {
     height: 790px;
   }
+
+  #form {
+    background-color: #d18901;
+    width: 80%;
+    margin-top: 2em;
+    margin-bottom: 5em;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid #c5c8b3;
+    border-radius: 40px;
+  }
+  
+  #msg-confirm {
+    font-family: $main-font;
+    font-size: 1.3em;
+  }
 }
 .input-add-cloth {
-  width: 75%;
+  width: 70%;
 }
 .category-add-cloth {
-  width: 75%;
+  width: 70%;
   margin: auto;
 }
 

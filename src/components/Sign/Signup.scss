@@ -1,21 +1,40 @@
 @import 'src/styles/vars';
 
 .login-form {
-  background-color: $main-color;
-  min-height: 55em;
+  background-image: url('../../data/assets/bckMain.png');
+  background-size: 100%;
+  height: 60em;
 
   h1 {
     padding-top: 5em;
     font-family: $main-font;
     font-size: 2em;
   }
+
+  #form {
+    background-color: #d18901;
+    width: 80%;
+    margin-top: 2em;
+    margin-bottom: 5em;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid #c5c8b3;
+    border-radius: 40px;
+  }
+
+  #pseudo {
+    padding-top: 2em;
+  }
+  h2 {
+    font-family: $main-font;
+    font-size: 1.3em;
+  }
   .input-signup {
-    width: 75%;
+    width: 70%;
     margin-top: 2em;
   }
   .login-form-button {
-    height: 2em;
-    margin: 0.5em 1em 0;
+    margin: auto;
     background-color: $brownish;
     border-color: $brownish;
     font-family: $main-font;
@@ -23,12 +42,16 @@
     text-decoration: none;
     color: $main-color;
     position: static;
-    margin-bottom: 5em;
-    margin-top: 4em;
+    margin-bottom: 2em;
+    margin-top: 2em;
 
     &:hover {
-      background-color: $mustard;
+      background-color: #4a858f;
       color: $brownish;
     }
+  }
+  #msg-confirm {
+    font-family: $main-font;
+    font-size: 1.3em;
   }
 }
