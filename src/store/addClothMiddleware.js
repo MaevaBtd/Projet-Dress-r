@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   ADD_CLOTH_REQUEST,
 } from './addCloth_reducer';
-import { FETCH_STYLES, receivedStyles, loadingAddClothDone, redirectAddCloth } from './stylesReducer';
+import { FETCH_STYLES, FETCH_TYPES, receivedStyles, loadingAddClothDone, redirectAddCloth, receivedTypes } from './stylesReducer';
 
 const addClothMiddleware = store => next => (action) => {
   const fetchAPI = url => (
@@ -17,7 +17,17 @@ const addClothMiddleware = store => next => (action) => {
     case FETCH_STYLES:
       fetchAPI('http://localhost:8001/api/styles')
         .then((response) => {
-          store.dispatch(receivedStyles(response.data));
+          store.dispatch(receivedStyles(response.data)); 
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      break;
+    case FETCH_TYPES:
+      fetchAPI('http://localhost:8001/api/types')
+        .then((response) => {
+          store.dispatch(receivedTypes(response.data));
+          // console.log(response.data);
         })
         .catch((error) => {
           console.log(error);

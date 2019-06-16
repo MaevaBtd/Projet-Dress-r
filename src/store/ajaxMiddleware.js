@@ -54,7 +54,7 @@ const ajaxMiddleware = store => next => (action) => {
     case FETCH_USER_OUTFIT:
       fetchAPI('http://localhost:8001/api/user/outfits')
         .then((response) => {
-          console.log('outfits:', response.data[0].outfits);
+          // console.log('outfits:', response.data[0].outfits);
           const outfitsList = response.data[0].outfits;
           store.dispatch(receivedOutfits(outfitsList));
         })
@@ -65,7 +65,7 @@ const ajaxMiddleware = store => next => (action) => {
     case REMOVE_CLOTH:
       fetchDeleteAPI(`http://localhost:8001/api/cloth/${action.id}/delete`)
         .then((response) => {
-          console.log(`le vêtement à l'id ${action.id} a bien été supprimé en bdd`);
+          // console.log(`le vêtement à l'id ${action.id} a bien été supprimé en bdd`);
           store.dispatch(deleteClothFront(action.id));
         })
         .catch((error) => {
@@ -75,7 +75,7 @@ const ajaxMiddleware = store => next => (action) => {
     case REMOVE_OUTFIT:
       fetchDeleteAPI(`http://localhost:8001/api/outfit/${action.id}/delete`)
         .then((response) => {
-          console.log(`la tenue à l'id ${action.id} a bien été supprimé en bdd`);
+          // console.log(`la tenue à l'id ${action.id} a bien été supprimé en bdd`);
           store.dispatch(deleteOutfitFront(action.id));
         })
         .catch((error) => {

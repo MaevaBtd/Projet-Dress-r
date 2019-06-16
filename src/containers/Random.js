@@ -49,7 +49,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeOutfitName(value));
   },
   receivedClothId: (clothId) => {
-    console.log('randomContainer', clothId);
     dispatch(receivedClothId(clothId));
   },
 });

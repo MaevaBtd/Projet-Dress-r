@@ -17,6 +17,7 @@ import Random from 'src/containers/Random';
 import Header from 'src/containers/Header';
 import Main from 'src/containers/Main';
 import Accueil from 'src/containers/Accueil';
+import FormAddOutfit from 'src/containers/FormAddOutfit';
 
 import Footer from 'src/components/Footer';
 import Changemdp from '../Profil/ChangeMdp';
@@ -93,6 +94,11 @@ class App extends Component {
               exact
               path="/change-mdp"
               component={Changemdp}
+            />
+            <Route
+              exact
+              path="/add-new-outfit"
+              component={FormAddOutfit}
             />
             <Route component={NoMatch} />
           </Switch>

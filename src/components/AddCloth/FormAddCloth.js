@@ -27,6 +27,7 @@ class FormAddCloth extends React.Component {
   componentDidMount() {
     const { fetchStyles } = this.props;
     fetchStyles();
+
   }
 
   handleSubmit = (evt) => {
@@ -60,10 +61,32 @@ class FormAddCloth extends React.Component {
 
   render() {
     const { Option } = Select;
-    const { categories, isAuthenticated, loadingAddCloth, errorAddCloth, redirectAddCloth } = this.props;
+    const { categories, isAuthenticated, loadingAddCloth, errorAddCloth, redirectAddCloth, type } = this.props;
+    let onePart;
 
     if (!isAuthenticated) return <Redirect to="/" />;
     if (redirectAddCloth) return <Redirect to="/add-new-cloth" />;
+
+    if (type === 'haut') {
+      onePart = (
+        <Form.Item>
+          <h2 className="label-add-cloth">Votre vêtement est-il d'un seul tenant? (Robe, combinaison, tunique ...) </h2>
+          <Radio.Group className="radio-add-cloth" onChange={this.handleChangePart}>
+            <Row>
+              <Col span={8}>
+                <Radio className="radio-left" value={true}>Oui</Radio>
+              </Col>
+              <Col span={8}>
+                <Radio className="radio-right" value={false}>
+                Non
+                </Radio>
+              </Col>
+            </Row>
+          </Radio.Group>
+        </Form.Item>
+      );
+    } 
+
     return (
       <Spin spinning={loadingAddCloth}>
         <Form className="addcloth" onSubmit={this.handleSubmit}>
@@ -109,9 +132,16 @@ class FormAddCloth extends React.Component {
               <Button id="button-add-cloth" type="primary" htmlType="submit">
                 Valider
               </Button>
-              <div id="msg-confirm">{errorAddCloth}</div>
-            </Form.Item>
-          </div>
+
+            </Upload>
+          </Form.Item>
+          {onePart}
+          <Form.Item>
+            <Button id="button-add-cloth" type="primary" htmlType="submit" >
+              Valider
+            </Button>
+          </Form.Item>
+
         </Form>
       </Spin>
     );

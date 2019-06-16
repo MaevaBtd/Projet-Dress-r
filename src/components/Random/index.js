@@ -21,7 +21,6 @@ const IconFont = Icon.createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_1243774_4xxfahkooh.js',
 });
 
-
 // == Code
 class Random extends React.Component {
   componentDidMount() {
@@ -32,10 +31,11 @@ class Random extends React.Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
     console.log('submit');
-    const { loadingDice, fetchRandom, styles } = this.props;
+    const { loadingDice, fetchRandom, styles, deleteErrorMessage } = this.props;
     loadingDice();
     // console.log(styles);
     fetchRandom(styles);
+    deleteErrorMessage();
   }
 
   handleStyleChange = (value) => {
@@ -76,6 +76,7 @@ class Random extends React.Component {
     return (
       <div id="random">
         <h1>Tenue aléatoire</h1>
+        <div>{errorRandom}</div>
         <h2>Choisissez la catégorie de la tenue souhaitée et cliquez sur le dé pour la générer aléatoirement parmis les vêtements de votre garde-robe</h2>
         <Form className="random-form">
           <Spin spinning={loadingRandom} size="large">
@@ -99,7 +100,7 @@ class Random extends React.Component {
         <Modal
           id="random-modal"
           visible={modalShow}
-          title={`Nouvelle tenue de style ${styles}`}
+          title="Nouvelle tenue aléatoire"
           // onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[
@@ -118,13 +119,13 @@ class Random extends React.Component {
             </Button>,
           ]}
         >
+          <div>{errorRandom}</div>
           <Input
             // value={name}
             className="input-outfit-name"
             placeholder="Donnez un nom à votre tenue"
             onChange={this.handleChange}
           />
-          <div>{errorRandom}</div>
           <div id="randomCloths">
             {receivedCloths.map(cloth => (
               <div key={cloth.id} className="randomCloth">

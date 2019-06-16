@@ -22,12 +22,10 @@ class OutfitList extends React.Component {
         <h1>Mes tenues</h1>
         <div id="outfit-list">
           {outfitsList.map(outfit => (
-            <NavLink key={outfit.id} to={`/outfit-${outfit.id}`}>
-              <OutfitCard
-                key={outfit.id}
-                {...outfit}
-              />
-            </NavLink>
+            <OutfitCard
+              key={outfit.id}
+              {...outfit}
+            />
           ))}
         </div>
       </div>
