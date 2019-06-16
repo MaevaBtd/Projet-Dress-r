@@ -26,10 +26,10 @@ class Outfit
      * @Assert\Length(
      *    min = 3,
      *    max = 64,
-     *    minMessage = "Votre username doit contenir au moins {{ limit }} caractères",
-     *    maxMessage = "Votre username doit contenir au maximum {{ limit }} caractères"
+     *    minMessage = "Votre tenue doit contenir au moins {{ limit }} caractères",
+     *    maxMessage = "Votre tenue doit contenir au maximum {{ limit }} caractères"
      * )
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Veuillez remplir le nom de la tenue .")
      * @Groups({"cloth_read", "user_outfits", "outfit_read"})
      */
     private $name;

@@ -33,7 +33,7 @@ class Cloth
      *    minMessage = "Le nom de votre vêtement doit contenir au moins {{ limit }} caractères",
      *    maxMessage = "Le nom de votre vêtement doit contenir au maximum {{ limit }} caractères"
      * )
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Veuillez remplir le nom du vêtement .")
      * 
      * @Groups({"cloth_read", "user_cloths", "user_outfits", "outfit_read"})
      */
@@ -43,7 +43,7 @@ class Cloth
      * @Assert\File(
      * maxSize = "1024k", 
      * mimeTypes={ "image/gif", "image/jpeg", "image/png" },
-     * mimeTypesMessage = "Please valid image format : gif, png, jpeg"
+     * mimeTypesMessage = "Entrez un format d'image valide: gif, png, jpeg"
      * )
      * 
      * @ORM\Column(type="string", length=255, nullable=true)

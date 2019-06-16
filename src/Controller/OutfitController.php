@@ -38,7 +38,6 @@ class OutfitController extends AbstractController
             'groups'=>'user_outfits'
         ]);
 
-        // user_outfits retourne = un User : id ,username + les Outfits associés : id, name, createdAt
         // HTTP RESPONSE Code 200
         return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
@@ -51,17 +50,25 @@ class OutfitController extends AbstractController
     public function show(OutfitRepository $repository, $id, SerializerInterface $serializer)
     {
 
-        // TODO VERIF USER
-        
         $outfit = $repository->findById($id);
-
-        $json = $serializer->serialize($outfit, 'json',[
-            'groups'=>'outfit_read'
-        ]);
+        $userOutfitId = $outfit->getUser()->getId();
         
-        // outfit_cloths retourne = un  Outfit :id, name, createdAt + les Cloths associés :  id, name, image, createdAt + le Style : id, name + Type : id, name
-        //  HTTP RESPONSE Code 200
-        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
+        $userToken = $this->getUser();
+        $userTokenId = $userToken->getId();
+
+        if ($userOutfitId == $userTokenId) {
+
+            $json = $serializer->serialize($outfit, 'json',[
+                'groups'=>'outfit_read'
+            ]);
+
+            //  HTTP RESPONSE Code 200
+            return JsonResponse::fromJsonString($json,Response::HTTP_OK);
+        }
+        else {
+            // HTTP RESPONSE CODE 401
+            return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de cette tenue !'),Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -78,10 +85,11 @@ class OutfitController extends AbstractController
 
         $userToken = $this->getUser();
         $userId = $userToken->getId();
-
+        
         $nameJson = $data['name'];
-
         $outfitStillExist = $outfitRepository->findOneByUserId($nameJson, $userId);
+        
+    
 
         if (!empty($outfitStillExist)) {
             // HTTP RESPONSE 400
@@ -97,6 +105,12 @@ class OutfitController extends AbstractController
 
             // sending the id of the cloths
             $cloths = $data['cloths'];
+
+            if (empty($cloths)) {
+                // HTTP RESPONSE 400
+                return new JsonResponse(array('flash' => 'Une tenue doit être au moins constituée d\'un vêtement .',Response::HTTP_BAD_REQUEST));
+            }
+
             foreach ($cloths as $cloth) {
                 $clothOutfit = $clothRepository->findOneBy([
                     'id' => $cloth,
@@ -110,12 +124,16 @@ class OutfitController extends AbstractController
 
             if (count($errors) > 0) {
 
-                $errorsString = (string) $errors;
+                $errorsString = [];
+
+                foreach ($errors as $error) {
+                    $errorsString[] = $error->getMessage();
+                }
 
                 $json = $serializer->serialize($errorsString, 'json');
               
                 // HTTP RESPONSE CODE 409
-                return new JsonResponse($json,Response::HTTP_CONFLICT);
+                return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
             }
 
             else {
@@ -131,78 +149,88 @@ class OutfitController extends AbstractController
     /**
      * @Route("/outfit/{id}/edit", name="edit_outfit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Outfit $outfit, UserRepository $userRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, ClothRepository $clothRepository): Response {
+    public function edit(Request $request, Outfit $outfit, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $manager, ClothRepository $clothRepository, OutfitRepository $outfitRepository): Response {
 
+       
         $userOutfitId = $outfit->getUser()->getId();
-        
         $userToken = $this->getUser();
         $userTokenId = $userToken->getId();
 
         if ($userOutfitId == $userTokenId) {
 
-            $form = $this->createForm(OutfitType::class, $outfit);
-            // $data = json_decode($request->getContent(), true);
-
-            $cloths = $request->get('cloths');
-
-                if (!empty($cloths)) {
-
-                    $oldCloths = $outfit->getCloths();
-                    // dd($oldCloths);
-                    foreach ($oldCloths as $oldCloth) {
-                        $outfitOldClothId = $oldCloth->getId();
-                        // dd($outfitOldCloth);
-                         $outfitOldCloth = $clothRepository->findOneBy([
-                             'id' => $outfitOldClothId,
-                         ]);
-                        // dd($outfitOldCloth);
-                         $outfit->removeCloth($outfitOldCloth);
-                    }
-                    
-                }
             
-            // $form->submit($request->query->all());
-            $form->submit($request->request->all());
-            // $form->handleRequest($request);
+            $data = json_decode($request->getContent(), true);
+
+            $nameJson = $data['name'];
+            $oldName = $outfit->getName();
+            
+            if($nameJson !== $oldName){
+                $outfitStillExist =
+                $outfitRepository->findOneByUserId($nameJson, $userTokenId);
+            
+                if (!empty($outfitStillExist)) {
+                // HTTP RESPONSE 400
+                return new JsonResponse(array('flash' => 'Vous avez déjà une tenue avec ce nom !',Response::HTTP_BAD_REQUEST));
+                }
+                else {
+                    $outfit->setName($nameJson);
+                }
+            }
+            
+            $cloths = $data['cloths'];
+
+            if (!empty($cloths)) {
+
+                $oldCloths = $outfit->getCloths();
+
+                foreach ($oldCloths as $oldCloth) {
+                    $outfitOldClothId = $oldCloth->getId();
+                    $outfitOldCloth = $clothRepository->findOneBy([
+                        'id' => $outfitOldClothId,
+                    ]);
+                    $outfit->removeCloth($outfitOldCloth);
+                }
+
+                foreach ($cloths as $cloth) {
+                    $clothOutfit = $clothRepository->findOneBy([
+                        'id' => $cloth,
+                    ]);
+                    if (!empty($clothOutfit)) {
+                        $outfit->addCloth($clothOutfit);
+                    }
+                }
+            }
+
+            if (empty($cloths)) {
+                // HTTP RESPONSE 400
+                return new JsonResponse(array('flash' => 'Une tenue doit être au moins constituée d\'un vêtement .',Response::HTTP_BAD_REQUEST));
+            }
+
+            $outfit->setUpdatedAt(new \DateTime());
 
             $errors = $validator->validate($outfit);
             
             if (count($errors) > 0) {
-                /*
-                * Uses a __toString method on the $errors variable which is a
-                * ConstraintViolationList object. This gives us a nice string
-                * for debugging.
-                */
-                $errorsString = (string) $errors;
-
+                $errorsString = [];
+    
+                foreach ($errors as $error) {
+                    $errorsString[] = $error->getMessage();
+                }
+                
                 $json = $serializer->serialize($errorsString, 'json');
 
-                // si il y a des erreurs, on retourne le pourquoi
-                // TODO ajouter un httpresponse code 200
-                return new JsonResponse($json,Response::HTTP_OK);
-
-            } else {
-
-                foreach ($cloths as $cloth) {
-                    $outfitCloth = $clothRepository->findOneBy([
-                        'id' => $cloth,
-                    ]);
-                    $outfit->addCloth($outfitCloth);
-                }
-
-                $outfit->setUpdatedAt(new \DateTime());
-                
-                // $em = $this->getDoctrine()->getManager();
+                // HTTP RESPONSE Code 409
+                return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
+            } 
+            else {
                 $manager->persist($outfit);
                 $manager->flush();
-
-                // Return a json response that show to the front that the creation is successfull code 200
-                return new JsonResponse(array('flash' => 'La tenue a été modifiée avec succès !',Response::HTTP_OK));
+                // HTTP RESPONSE CODE 200
+                return new JsonResponse(array('flash' => 'La tenue a été modifié !',Response::HTTP_OK));
             }
-        } 
-
+        }
         else {
-            // return code 401
+            // HTTP RESPONSE Code 401
             return new JsonResponse(array('flash' => 'Vous n\'êtes pas propriétaire de cette tenue !',Response::HTTP_UNAUTHORIZED));
         }
 

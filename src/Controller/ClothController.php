@@ -88,14 +88,14 @@ class ClothController extends AbstractController
 
         // json decode for axios request
         $data = json_decode($request->getContent(), true);
-
+        
         // retrieve user and user->id via token
         $userToken = $this->getUser();
         $userId = $userToken->getId();
 
         // retrieve the cloth's name that being post
         $nameJson = $data['name'];
-
+        
         // security for existing cloth.name with the same user
         // We want that a cloth's name do not have to be unique in the DB
         // But we dont want that a user can have two cloth with the same name
@@ -104,17 +104,17 @@ class ClothController extends AbstractController
             // HTTP RESPONSE 400
             return new JsonResponse(array('flash' => 'Vous avez déjà un vêtement avec ce nom !',Response::HTTP_BAD_REQUEST));   
         }
-
+       
         // Non existant cloth, so we can continue to add
         if (empty($clothStillExist)) {
 
             // retrieves datas et set them
             $withoutPantsJson = $data['onePart'];
-
+            
             $newCloth->setWithoutPants($withoutPantsJson);
             $newCloth->setName($nameJson);
             $newCloth->setUser($userToken);
-
+           
             // using repository for set types and styles
             $type = $data['type'];
             $typeCloth = $typerepository->findOneBy([
@@ -126,6 +126,8 @@ class ClothController extends AbstractController
             }
             
             $styles = $data['styles'];
+
+            if (!empty($styles)) {
                 foreach($styles as $style) {
                     $styleCloth = $stylerepository->findOneBy([
                         'name' => $style,
@@ -134,6 +136,13 @@ class ClothController extends AbstractController
                         $newCloth->addStyle($styleCloth);
                     }
                 }
+            }
+
+            // We dont want a cloth without any style assigned
+            if (empty($styles)) {
+                // HTTP RESPONSE 400
+                return new JsonResponse(array('flash' => 'Un vêtement doit au moins avoir un style .',Response::HTTP_BAD_REQUEST));
+            }
             
             // TODO ADD A FILE
             
@@ -156,21 +165,23 @@ class ClothController extends AbstractController
             // Many constraints are handle directly in the front
             $errors = $validator->validate($newCloth);
           
+             
             if (count($errors) > 0) {
-                /*
-                * Uses a __toString method on the $errors variable which is a
-                * ConstraintViolationList object. This gives us a nice string
-                * for debugging.
-                */
-                $errorsString = (string) $errors;
+                // Initialize a stockage variable for errors messages
+                $errorsString = [];
 
+                // Retrieve the display message for each error
+                foreach ($errors as $error) {
+                    $errorsString[] = $error->getMessage();
+                }
+                
+                // Convert it into json
                 $json = $serializer->serialize($errorsString, 'json');
 
-                // TODO: meilleur affichage erreurs pour meilleure lecture front
-                // HTTP RESPONSE code 409
-                return new JsonResponse($json,Response::HTTP_CONFLICT);
+                // HTTP RESPONSE Code 409
+                return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
+                
             }
-
             // There is no errors, we can persist and flush
             else {
                 $manager->persist($newCloth);
@@ -328,16 +339,21 @@ class ClothController extends AbstractController
                     ]);
                     $cloth->removeStyle($clothOldStyle);
                 }
+
+                // add the new styles to the cloth
+                foreach ($styles as $style) {
+                    $styleCloth = $stylerepository->findOneBy([
+                        'name' => $style,
+                    ]);
+                    if (!empty($styleCloth)) {
+                        $cloth->addStyle($styleCloth);
+                    }
+                }
             }
 
-            // add the new styles to the cloth
-            foreach ($styles as $style) {
-                $styleCloth = $stylerepository->findOneBy([
-                    'name' => $style,
-                ]);
-                if (!empty($styleCloth)) {
-                    $cloth->addStyle($styleCloth);
-                }
+            if (empty($styles)) {
+                // HTTP RESPONSE 400
+                return new JsonResponse(array('flash' => 'Un vêtement doit au moins avoir un style .',Response::HTTP_BAD_REQUEST));
             }
 
             // TODO IMAGE
@@ -372,13 +388,18 @@ class ClothController extends AbstractController
             $errors = $validator->validate($cloth);
 
             if (count($errors) > 0) {
-                $errorsString = (string) $errors;
 
-                // TODO MIEUX RECUPERER LES ERREURS
+                $errorsString = [];
+    
+                foreach ($errors as $error) {
+                    $errorsString[] = $error->getMessage();
+                }
+                
                 $json = $serializer->serialize($errorsString, 'json');
-
-                // HTTP RESPONSE code 409
-                return new JsonResponse($json,Response::HTTP_CONFLICT);
+    
+                // HTTP RESPONSE Code 409
+                return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
+                
             }
             else {
                 $manager->persist($cloth);
