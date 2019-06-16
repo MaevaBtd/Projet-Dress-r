@@ -20,6 +20,14 @@ $break-small: 790px;
     border: 5px solid #c5c8b3;
     border-radius: 40px;
   }
+  #cloth-name {
+    padding-top: 2em;
+  }
+
+  h2 {
+    font-family: $main-font;
+    font-size: 1.3em;
+  }
   
   #msg-confirm {
     font-family: $main-font;
