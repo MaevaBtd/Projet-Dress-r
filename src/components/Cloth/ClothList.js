@@ -1,7 +1,6 @@
 // == Import: Yarn
 import React from 'react';
 import {
-  Button,
   Form,
   Select,
 } from 'antd';
@@ -16,32 +15,54 @@ import Cloth from 'src/containers/Cloth';
 // == Code
 class ClothList extends React.Component {
   componentDidMount() {
-    const { fetchUserCloth } = this.props;
+    const { fetchUserCloth, fetchStyles, fetchTypes } = this.props;
     fetchUserCloth();
+    fetchStyles();
+    fetchTypes();
+  }
+
+  handleStyleChange = (value) => {
+    // Je recup la prop venant du container
+    const { onStyleChange } = this.props;
+    console.log('change cloth style');
+    onStyleChange(value);
+  }
+
+  handleTypeChange = (evt) => {
+    const { onChangePart } = this.props;
+    console.log('change cloth part');
+    onChangePart(evt.target.value);
   }
 
   render() {
-    const { clothsList, isAuthenticated } = this.props;
+    const { Option } = Select;
+    const { clothsList, isAuthenticated, categories, types } = this.props;
     if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="clothlist">
         <Form>
           <h1 id="title-cloth-list">Liste de vos vêtements</h1>
-          <Button id="button-cloth-list" type="primary" htmlType="submit">
-            Ajouter un nouveau vêtement
-          </Button>
           <Form.Item>
             <div className="category-add-cloth">
               <Select
                 placeholder="Catégorie (sport, soirée, décontracté...)"
-              />
+                //onChange={this.handleStyleChange}
+              >
+                {categories.map(category => (
+                  <Option key={category.id} value={category.id}>{category.name}</Option>
+                ))}
+              </Select>
             </div>
           </Form.Item>
           <Form.Item>
             <div className="category-add-cloth">
               <Select
                 placeholder="Type de vêtement (haut, bas, chapeau...)"
-              />
+              >
+                {types.map(type => (
+                  <Option key={type.id} value={type.id}>{type.name}</Option>
+                ))}
+              </Select>
             </div>
           </Form.Item>
         </Form>
@@ -64,6 +85,7 @@ class ClothList extends React.Component {
 ClothList.propTypes = {
   fetchUserCloth: PropTypes.func.isRequired,
   clothsList: PropTypes.array.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 

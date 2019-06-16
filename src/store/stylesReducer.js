@@ -1,6 +1,7 @@
 export const initialState = {
   categories: [],
   styles: [],
+  types: [],
   loadingAddCloth: false,
   errorAddCloth: '',
   redirectAddCloth: false,
@@ -14,6 +15,8 @@ export const initialState = {
 
 export const FETCH_STYLES = 'FETCH_STYLES';
 const RECEIVED_STYLES = 'RECEIVED_STYLES';
+export const FETCH_TYPES = 'FETCH_TYPES';
+const RECEIVED_TYPES = 'RECEIVED_TYPES';
 const LOADING_ADD_CLOTH = 'LOADING_ADD_CLOTH';
 const LOADING_ADD_CLOTH_DONE = 'LOADING_ADD_CLOTH_DONE';
 const REDIRECT_ADD_CLOTH = 'REDIRECT_ADD_CLOTH';
@@ -37,8 +40,12 @@ const stylesReducer = (state = initialState, action = {}) => {
         ...state,
         categories: action.styles,
       };
+    case RECEIVED_TYPES:
+      return {
+        ...state,
+        types: [...action.types],
+      };
     case ON_STYLE_CHANGE:
-      console.log(state.styles);
       return {
         ...state,
         styles: [action.value],
@@ -110,6 +117,13 @@ export const fetchStyles = () => ({
 export const receivedStyles = styles => ({
   type: RECEIVED_STYLES,
   styles,
+});
+export const fetchTypes = () => ({
+  type: FETCH_TYPES,
+});
+export const receivedTypes = types => ({
+  type: RECEIVED_TYPES,
+  types,
 });
 export const onStyleChange = value => ({
   type: ON_STYLE_CHANGE,

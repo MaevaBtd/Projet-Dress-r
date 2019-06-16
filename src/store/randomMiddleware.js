@@ -16,7 +16,7 @@ const randomMiddleware = store => next => (action) => {
     case FETCH_RANDOM:
       fetchAPI(`http://localhost:8001/api/cloth/random/style/${action.style}/`)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           store.dispatch(loadingDiceDone());
           store.dispatch(receivedRandom(response.data));
         })
@@ -34,7 +34,7 @@ const randomMiddleware = store => next => (action) => {
       })
         .then((response) => {
           store.dispatch(errorMessage(response.data.flash));
-          console.log(response);
+          // console.log(response);
         })
         .catch((error) => {
           store.dispatch(errorMessage('La tenue n\'a pas pu être créée. Avez vous bien renseigné un nom de tenue ?'));

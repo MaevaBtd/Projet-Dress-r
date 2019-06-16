@@ -16,7 +16,7 @@ const Cloth = ({ id, name, image, styles, type, onRemoveCloth }) => (
         <span className="dyna" key={style.id}> {style.name} </span>
       ))}
       </p>
-      {/* <p>Type:<span className="dyna">{type.name}</span></p> */}
+      <p>Type:<span className="dyna">{type.name}</span></p>
     </div>
     <img src={image} alt="" />
     <Button id="close-button" shape="circle" size="small" onClick={onRemoveCloth}>
