@@ -1,7 +1,7 @@
 // == Import: Yarn
 import React from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, Icon } from 'antd';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
 
@@ -25,15 +25,15 @@ class AddCloth extends React.Component {
     return (
       <div id="addcloth">
         <h1 id="title-add-cloth">Ajouter un Vêtement</h1>
-        <div>{errorAddCloth}</div>
+        <div id="error-add-cloth">{errorAddCloth}</div>
         <h2 id="desc-add-cloth">Cliquez sur la partie du corps pour laquelle vous souhaitez ajouter un vêtement</h2>
         <div id="full-babouche-man">
           <img id="babouche-man" src={baboucheman} alt="" />
-          <NavLink to="/form-new-cloth" onClick={addTypeHead}><Button id="hat" shape="round" icon="plus" /></NavLink>
-          <NavLink to="/form-new-cloth" onClick={addTypeTop}><Button id="tshirt" shape="circle" icon="plus" /></NavLink>
-          <NavLink to="/form-new-cloth" onClick={addTypeVest}><Button id="vest" shape="circle" icon="plus" /></NavLink>
-          <NavLink to="/form-new-cloth" onClick={addTypeBot}><Button id="pants" shape="circle" icon="plus" /></NavLink>
-          <NavLink to="/form-new-cloth" onClick={addTypeShoes}><Button id="shoes" shape="circle" icon="plus" /></NavLink>
+          <NavLink to="/form-new-cloth" onClick={addTypeHead}><Icon className="icon-babouch" id="hat" type="plus-circle" theme="filled" /></NavLink>
+          <NavLink to="/form-new-cloth" onClick={addTypeTop}><Icon className="icon-babouch" id="tshirt" type="plus-circle" theme="filled" /></NavLink>
+          <NavLink to="/form-new-cloth" onClick={addTypeVest}><Icon className="icon-babouch" id="vest" type="plus-circle" theme="filled" /></NavLink>
+          <NavLink to="/form-new-cloth" onClick={addTypeBot}><Icon className="icon-babouch" id="pants" type="plus-circle" theme="filled" /></NavLink>
+          <NavLink to="/form-new-cloth" onClick={addTypeShoes}><Icon className="icon-babouch" id="shoes" type="plus-circle" theme="filled" /></NavLink>
         </div>
       </div>
     );

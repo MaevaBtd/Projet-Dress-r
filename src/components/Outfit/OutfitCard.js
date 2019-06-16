@@ -22,10 +22,7 @@ const OutfitCard = ({ id, name, cloths, onRemoveOutfit }) => (
       </ul>
     </div>
     <img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="" />
-    <Button id="close-button" shape="circle" onClick={onRemoveOutfit}>
-      <Icon type="close" theme="outlined" />
-    </Button>
-
+    <Icon id="close-button" type="close-circle" theme="filled" onClick={onRemoveOutfit} />
   </div>
 );
 
