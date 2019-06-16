@@ -48,6 +48,7 @@ class User implements UserInterface, \Serializable
      *    maxMessage = "Votre email doit contenir au maximum {{ limit }} caractères"
      * )
      * @Assert\NotBlank(message="Veuillez remplir le champ Email .")
+     * 
      * @Groups({"user_show"})
      */
     private $email;

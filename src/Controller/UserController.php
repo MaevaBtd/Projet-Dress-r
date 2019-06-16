@@ -87,13 +87,18 @@ class UserController extends AbstractController {
             * ConstraintViolationList object. This gives us a nice string
             * for debugging.
             */
-            $errorsString = (string) $errors;
+            $errorsString = [];
 
+            foreach ($errors as $error) {
+                $errorsString[] = $error->getMessage();
+            }
+            
             $json = $serializer->serialize($errorsString, 'json');
 
             // si il y a des erreurs, on retourne le pourquoi
             // HTTP RESPONSE Code 409
-            return new JsonResponse($json,Response::HTTP_CONFLICT);
+            return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
+            
         }
         
         else {
