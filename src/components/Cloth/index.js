@@ -19,9 +19,7 @@ const Cloth = ({ id, name, image, styles, type, onRemoveCloth }) => (
       {/* <p>Type:<span className="dyna">{type.name}</span></p> */}
     </div>
     <img src={image} alt="" />
-    <Button id="close-button" shape="circle" size="small" onClick={onRemoveCloth}>
-      <Icon type="close" theme="outlined" />
-    </Button>
+    <Icon id="close-button" type="close-circle" theme="filled" onClick={onRemoveCloth} />
   </a>
 );
 

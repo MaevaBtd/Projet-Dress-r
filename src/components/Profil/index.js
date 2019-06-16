@@ -25,9 +25,9 @@ class Profil extends React.Component {
       <div id="profil">
         <h1>Bonjour {user}</h1>
         <div className="stats">
-          <p>J'ai x tenues enregistrées</p>
-          <p>J'ai x vêtements enregistrés</p>
-          <p>J'ai utilisé l'outil Tenues Aléatoires x fois</p>
+          <p>J'ai <span className="user-counter">x</span> tenues enregistrées</p>
+          <p>J'ai <span className="user-counter">x</span> vêtements enregistrés</p>
+          <p>J'ai utilisé l'outil Tenues Aléatoires <span className="user-counter">x</span> fois</p>
         </div>
         <h2>Mon adresse mail: <span>{email}</span></h2>
         <h2 id="date">Date d'inscription: <span>{creationDate}</span></h2>

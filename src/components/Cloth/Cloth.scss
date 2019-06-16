@@ -36,12 +36,9 @@
     position: absolute;
     right: 15px;
     top: 15px;
-    background-color: #4a858f;
-    color: $brownish;
+    color: $main-color;
     &:hover{
-      background-color: #d18901;
-      color: $brownish;
-      text-decoration: none;
+      color: #f9c86b;
     }
   }
 
