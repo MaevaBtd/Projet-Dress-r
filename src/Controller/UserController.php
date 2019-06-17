@@ -47,12 +47,15 @@ class UserController extends AbstractController {
             'groups'=>'user_show',
         ]);
 
+        $jsonNbCloth = $serializer->serialize($nbCloths, 'json');
+        $jsonNbOutfit = $serializer->serialize($nbOutfits, 'json');
+
         // HTTP RESPONSE Code 200
         return new JsonResponse(array(
             'infos' => $json,
-            'nbCloths' => $nbCloths,
-            'nbOutfits'=>$nbOutfits,
-            ),Response::HTTP_OK);
+            'nbCloths' => $jsonNbCloth,
+            'nbOutfits'=> $jsonNbOutfit,
+        ),Response::HTTP_OK);
     }
 
      /**

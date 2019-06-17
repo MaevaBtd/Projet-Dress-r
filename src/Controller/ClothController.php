@@ -146,6 +146,7 @@ class ClothController extends AbstractController
             // TODO ADD A FILE
             
             // $imageJson = $data['image'];
+            // $newCloth->setImage($imageJson);
             // $file = $newCloth->getImage();
             // if (!is_null($file)) {
                 //     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
