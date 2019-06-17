@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Role;
-
 use App\Entity\User;
-use App\Form\SubscribeType;
 use App\Repository\UserRepository;
+use App\Repository\ClothRepository;
+use App\Repository\OutfitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Repository\ClothRepository;
-use App\Repository\OutfitRepository;
 
 /**
  * @Route("/api", name="api_")
@@ -50,12 +47,15 @@ class UserController extends AbstractController {
             'groups'=>'user_show',
         ]);
 
+        $jsonNbCloth = $serializer->serialize($nbCloths, 'json');
+        $jsonNbOutfit = $serializer->serialize($nbOutfits, 'json');
+
         // HTTP RESPONSE Code 200
         return new JsonResponse(array(
             'infos' => $json,
-            'nbCloths' => $nbCloths,
-            'nbOutfits'=>$nbOutfits,
-            ),Response::HTTP_OK);
+            'nbCloths' => $jsonNbCloth,
+            'nbOutfits'=> $jsonNbOutfit,
+        ),Response::HTTP_OK);
     }
 
      /**
@@ -132,12 +132,79 @@ class UserController extends AbstractController {
      * 
      * @Route("/user/edit", name="user_edit", methods={"GET", "POST"})
      */
-    public function edit(UserRepository $userRepository, Request $request) {
+    public function edit(UserRepository $userRepository, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator, SerializerInterface $serializer) {
 
         $userToken = $this->getUser();
         $id = $userToken->getId();
         $user = $userRepository->findById($id);
 
+        $data = json_decode($request->getContent(), true);
+        
+        $username = $data['username'];
+        $email = $data['email'];
+        $password = $data['password'];
+
+        $oldUsername = $user->getUsername();
+        $oldEmail = $user->getEmail();
+
+        if(empty($username || $email || $password)){
+            // HTTP RESPONSE 400
+            return new JsonResponse(array('flash' => 'Veuillez remplir tout les champs!',Response::HTTP_BAD_REQUEST));   
+        }
+
+        if ($username !== $oldUsername) {
+            $usernameStillExist = $userRepository->findOneBy([
+                'username' => $username,
+            ]);
+            
+            if (!empty($usernameStillExist)) {
+                return new JsonResponse(array('flash' => 'L\'email ou le username n\'est pas disponible !',Response::HTTP_BAD_REQUEST));
+            } else {
+                $user->setUsername($username);
+            }
+        }
+        
+        if ($email !== $oldEmail) {
+
+            $emailStillExist = $userRepository->findOneBy([
+                'email' => $email,
+            ]);
+
+            if (!empty($emailStillExist)) {
+                return new JsonResponse(array('flash' => 'L\'email ou le username n\'est pas disponible !',Response::HTTP_BAD_REQUEST));
+            } else {
+                $user->setEmail($email);
+            }
+        }
+            
+        $user->setPassword($password);
+        
+        $errors = $validator->validate($user);
+        
+        if (count($errors) > 0) { 
+
+            $errorsString = [];
+    
+            foreach ($errors as $error) {
+                $errorsString[] = $error->getMessage();
+            }
+                
+            $json = $serializer->serialize($errorsString, 'json');
+    
+            // HTTP RESPONSE Code 409
+            return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
+        }
+        
+        else {
+            $hash = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
+            
+            $manager->persist($user);
+            $manager->flush();
+            
+            // HTTP RESPONSE Code 200
+            return new JsonResponse(array('flash' => 'Modifications enregistrées !'),Response::HTTP_OK);
+         }
     }
 
 }

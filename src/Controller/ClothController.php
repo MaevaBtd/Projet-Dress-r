@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Cloth;
-use App\Form\ClothType;
 use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
 use App\Repository\ClothRepository;
@@ -147,6 +146,7 @@ class ClothController extends AbstractController
             // TODO ADD A FILE
             
             // $imageJson = $data['image'];
+            // $newCloth->setImage($imageJson);
             // $file = $newCloth->getImage();
             // if (!is_null($file)) {
                 //     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();

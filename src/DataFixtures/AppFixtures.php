@@ -63,8 +63,7 @@ class AppFixtures extends Fixture
         $manager->persist($user);
         $manager->persist($admin);
 
-    
-
+        
         $populator->addEntity(Type::class, 5, array(
             'name' => function () use ($generator) {
                 return $generator->types();
