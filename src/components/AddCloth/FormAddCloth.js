@@ -87,6 +87,7 @@ class FormAddCloth extends React.Component {
         <Form className="addcloth" onSubmit={this.handleSubmit}>
           <h1 id="title-formaddcloth">Ajouter un vêtement</h1>
           <div id="form">
+            <h2 id="cloth-name">Nom du vêtement:</h2>
             <Form.Item>
               <Input
                 className="input-add-cloth"
@@ -95,6 +96,7 @@ class FormAddCloth extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Item>
+            <h2>Catégorie:</h2>
             <Form.Item>
               <div className="category-add-cloth">
                 <Select
@@ -114,7 +116,6 @@ class FormAddCloth extends React.Component {
                 </Button>
               </Upload>
             </Form.Item>
-            
             {onePart}
             <Form.Item>
               <Button id="button-add-cloth" type="primary" htmlType="submit" >

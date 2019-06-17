@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 // == Import Local
+import './AddOutfit.scss';
 import Cloth from 'src/containers/Cloth';
 
 // == Code 
@@ -30,11 +31,11 @@ class FormAddOutfit extends React.Component {
     if (!isAuthenticated) return <Redirect to="/" />;
     // console.log(receivedCloths);
     return (
-      <div id="random">
+      <div id="add-outfit">
         <h1>Créer une nouvelle tenue</h1>
         <h2>Choisissez la catégorie de la tenue souhaitée et séléctionnez des vêtements dans votre garde-robe</h2>
         <Spin spinning={false} size="large">
-          <Form className="random-form">
+          <Form className="add-outfit-form">
             <Form.Item>
               <div className="category-add-cloth">
                 <Select
@@ -56,16 +57,14 @@ class FormAddOutfit extends React.Component {
               <Radio.Group className="radio-add-cloth" onChange={this.handleChangePart}>
                 <h2 className="label-add-cloth">Tête</h2>
                 <Row>
-                  <Col span={8}>
-                    {clothsList.filter(cloth => cloth.type.name === 'tête').map(cloth => (
-                      <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
-                        <Cloth
-                          key={cloth.id}
-                          {...cloth}
-                        />
-                      </Radio>
-                    ))}
-                  </Col>
+                  {clothsList.filter(cloth => cloth.type.name === 'tête').map(cloth => (
+                    <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
+                      <Cloth
+                        key={cloth.id}
+                        {...cloth}
+                      />
+                    </Radio>
+                  ))}
                 </Row>
               </Radio.Group>
             </Form.Item>
@@ -73,16 +72,14 @@ class FormAddOutfit extends React.Component {
               <Radio.Group className="radio-add-cloth" onChange={this.handleChangePart}>
                 <h2 className="label-add-cloth">Veste</h2>
                 <Row>
-                  <Col span={8}>
-                    {clothsList.filter(cloth => cloth.type.name === 'tête').map(cloth => (
-                      <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
-                        <Cloth
-                          key={cloth.id}
-                          {...cloth}
-                        />
-                      </Radio>
-                    ))}
-                  </Col>
+                  {clothsList.filter(cloth => cloth.type.name === 'tête').map(cloth => (
+                    <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
+                      <Cloth
+                        key={cloth.id}
+                        {...cloth}
+                      />
+                    </Radio>
+                  ))}
                 </Row>
               </Radio.Group>
             </Form.Item>
@@ -90,16 +87,14 @@ class FormAddOutfit extends React.Component {
               <Radio.Group className="radio-add-cloth" onChange={this.handleChangePart}>
                 <h2 className="label-add-cloth">Haut / Robes / Combinaisons</h2>
                 <Row>
-                  <Col span={8}>
-                    {clothsList.filter(cloth => cloth.type.name === 'haut').map(cloth => (
-                      <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
-                        <Cloth
-                          key={cloth.id}
-                          {...cloth}
-                        />
-                      </Radio>
-                    ))}
-                  </Col>
+                  {clothsList.filter(cloth => cloth.type.name === 'haut').map(cloth => (
+                    <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
+                      <Cloth
+                        key={cloth.id}
+                        {...cloth}
+                      />
+                    </Radio>
+                  ))}
                 </Row>
               </Radio.Group>
             </Form.Item>
@@ -107,16 +102,14 @@ class FormAddOutfit extends React.Component {
               <Radio.Group className="radio-add-cloth" onChange={this.handleChangePart}>
                 <h2 className="label-add-cloth">Bas</h2>
                 <Row>
-                  <Col span={8}>
-                    {clothsList.filter(cloth => cloth.type.name === 'bas').map(cloth => (
-                      <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
-                        <Cloth
-                          key={cloth.id}
-                          {...cloth}
-                        />
-                      </Radio>
-                    ))}
-                  </Col>
+                  {clothsList.filter(cloth => cloth.type.name === 'bas').map(cloth => (
+                    <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
+                      <Cloth
+                        key={cloth.id}
+                        {...cloth}
+                      />
+                    </Radio>
+                  ))}
                 </Row>
               </Radio.Group>
             </Form.Item>
@@ -124,20 +117,17 @@ class FormAddOutfit extends React.Component {
               <Radio.Group className="radio-add-cloth" onChange={this.handleChangePart}>
                 <h2 className="label-add-cloth">Chaussures</h2>
                 <Row>
-                  <Col span={8}>
-                    {clothsList.filter(cloth => cloth.type.name === 'chaussures').map(cloth => (
-                      <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
-                        <Cloth
-                          key={cloth.id}
-                          {...cloth}
-                        />
-                      </Radio>
-                    ))}
-                  </Col>
+                  {clothsList.filter(cloth => cloth.type.name === 'chaussures').map(cloth => (
+                    <Radio key={cloth.id} className="radio-outfit" value={cloth.id}>
+                      <Cloth
+                        key={cloth.id}
+                        {...cloth}
+                      />
+                    </Radio>
+                  ))}
                 </Row>
               </Radio.Group>
             </Form.Item>
-            
           </Form>
         </Spin>
         <Modal
