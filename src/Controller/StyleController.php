@@ -27,10 +27,7 @@ class StyleController extends AbstractController
      */
     public function index(StyleRepository $repository, SerializerInterface $serializer)
     {
-
-
         $styles = $repository->findAll();
-
 
         $json = $serializer->serialize($styles, 'json', [
             'groups' => 'styles_index',

@@ -83,6 +83,13 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
+     * @ORM\Column(type="integer")
+     *
+     * @Groups({"user_show"})
+     */
+    private $nbRandom;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="users")
      * @Groups({"user_show"})
      */
@@ -292,6 +299,17 @@ class User implements UserInterface, \Serializable
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+        return $this;
+    }
+
+    public function getNbRandom(): ?int
+    {
+        return $this->nbRandom;
+    }
+
+    public function setNbRandom(int $nbRandom): self
+    {
+        $this->nbRandom = $nbRandom;
         return $this;
     }
 
