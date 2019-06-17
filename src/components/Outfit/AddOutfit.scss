@@ -1,0 +1,20 @@
+@import 'src/styles/vars';
+
+#add-outfit {
+  background-image: url('../../data/assets/bckMain.png');
+  background-size: 100%;
+  h1 {
+    font-family: $main-font;
+    font-size: 2em;
+    padding-top: 5em;
+    padding-bottom: 1em;
+  }
+  h2 {
+  font-family: $main-font;
+  font-size: 1.5em;
+  padding-bottom: 2em;
+  }
+  .radio-add-cloth {
+    margin: auto;
+  }
+}
