@@ -86,8 +86,19 @@ class ClothController extends AbstractController
         $newCloth = new Cloth();
 
         // json decode for axios request
-        $data = json_decode($request->getContent(), true);
-        var_dump($data);exit;
+        // $data = json_decode($request->getContent(), true);
+        // var_dump($data);exit;
+
+        // $doto = ($request->headers->get('payload'));
+        // var_dump($doto);exit;
+        var_dump($request->request->all());
+        var_dump($request->headers->all());
+        var_dump($request->headers->get('Content-Disposition'));
+        var_dump(file_get_contents('php://input'));
+        exit;
+        // var_dump($HTTP_RAW_POST_DATA);exit;
+        // var_dump($data);exit;
+
         // // retrieve user and user->id via token
         $userToken = $this->getUser();
         $userId = $userToken->getId();
@@ -272,26 +283,31 @@ class ClothController extends AbstractController
         if(!empty($heads)) {
             $oneHead = $heads[0];
             $random[] = $oneHead;
+            $jsonHead = $serializer->serialize($oneHead, 'json');
         }
 
         if(!empty($jackets)) {
             $oneJacket = $jackets[0];
             $random[] = $oneJacket;
+            $jsonJacket = $serializer->serialize($oneJacket, 'json');
         }
 
         if(!empty($tops)) {
             $oneTop = $tops[0];
             $random[] = $oneTop;
+            $jsonTop = $serializer->serialize($oneTop, 'json');
         }
 
         if(!empty($bottoms)) {
             $oneBottom = $bottoms[0];
             $random[] = $oneBottom;
+            $jsonBottom = $serializer->serialize($oneBottom, 'json');
         }
 
         if(!empty($shoes)) {
             $oneShoe = $shoes[0];
             $random[] = $oneShoe; 
+            $jsonShoes = $serializer->serialize($oneShoe, 'json');
         }
 
         if (empty($random)) {
@@ -307,7 +323,15 @@ class ClothController extends AbstractController
             $json = $serializer->serialize($random, 'json');
 
             // HTTP RESPONSE CODE 200
-            return new JsonResponse($json,Response::HTTP_OK);
+            // return new JsonResponse(array(
+            //     'head' => $jsonHead,
+            //     'jacket' => $jsonJacket,
+            //     'top' => $jsonTop,
+            //     'bottom' => $jsonBottom,
+            //     'shoes' => $jsonShoes
+            // ),Response::HTTP_OK);
+
+            return JsonResponse::fromJsonString($json,Response::HTTP_OK);
         }
 
     }

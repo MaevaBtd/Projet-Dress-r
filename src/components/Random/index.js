@@ -131,7 +131,7 @@ class Random extends React.Component {
             {console.log('render:', receivedCloths)}
             {receivedCloths.map(cloth => (
               <div key={cloth.id} className="randomCloth">
-                <h3>Type de vêtement: Tête </h3>
+                <h3>Type de vêtement: {cloth.type_name} </h3>
                 <h3>Nom du vêtement: {cloth.name}</h3>
                 <img src={cloth.image} alt="" width="60px" />
               </div>

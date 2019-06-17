@@ -63,10 +63,10 @@ class FormAddCloth extends React.Component {
     onStyleChange(value);
   }
 
-  handleChangePart = (evt) => {
+  handleChangePart = (checked) => {
     const { onChangePart } = this.props;
-    console.log('change bool', evt.target.value);
-    onChangePart(evt.target.value);
+    console.log('change bool', checked);
+    onChangePart(checked);
   }
 
   render() {
@@ -85,7 +85,6 @@ class FormAddCloth extends React.Component {
             id="switch"
             checkedChildren={<IconFont style={{ fontSize: '1.5em' }} type="diceDress-" />}
             unCheckedChildren={<IconFont style={{ fontSize: '1.5em' }} type="dicetshirt" />}
-            defaultunchecked
             onChange={this.handleChangePart}
           />
         </Form.Item>
@@ -94,7 +93,7 @@ class FormAddCloth extends React.Component {
 
     return (
       <Spin spinning={loadingAddCloth}>
-        <Form className="addcloth" onSubmit={this.handleSubmit} encType="multipart/form-data" method="post">
+        <Form className="addcloth" onSubmit={this.handleSubmit}>
           <h1 id="title-formaddcloth">Ajouter un vêtement</h1>
           <div id="form">
             <h2 id="cloth-name">Nom du vêtement:</h2>

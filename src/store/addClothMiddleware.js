@@ -35,8 +35,8 @@ const addClothMiddleware = store => next => (action) => {
       break;
     case ADD_CLOTH_REQUEST:
       console.log(image);
-      const { image } = store.getState().imageReducer;
-      const { name, type, styles, onePart } = store.getState().addClothReducer;
+      // const { image } = store.getState().imageReducer;
+      const { image, name, type, styles, onePart } = store.getState().addClothReducer;
 
       const formdata = new FormData();
 

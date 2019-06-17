@@ -101,7 +101,7 @@ const stylesReducer = (state = initialState, action = {}) => {
       console.log('bordel de received random');
       return {
         ...state,
-        receivedCloths: [action.cloths],
+        receivedCloths: [...action.cloths],
       };
     default:
       // console.log('fail ( add cloth reducer)');
