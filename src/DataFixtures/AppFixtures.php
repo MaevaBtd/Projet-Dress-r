@@ -46,6 +46,7 @@ class AppFixtures extends Fixture
         $admin->setPassword($encodedPassword);
         $admin->setEmail('admin@admin.admin');
         $admin->setRole($roleAdmin);
+        $admin->setNbRandom(0);
 
         $user = new User();
         $user->setUsername('user');
@@ -53,6 +54,7 @@ class AppFixtures extends Fixture
         $user->setPassword($encodedPassword);
         $user->setEmail('user@user.user');
         $user->setRole($roleUser);
+        $user->setNbRandom(0);
 
        
         $manager->persist($roleAdmin);
@@ -61,8 +63,7 @@ class AppFixtures extends Fixture
         $manager->persist($user);
         $manager->persist($admin);
 
-    
-
+        
         $populator->addEntity(Type::class, 5, array(
             'name' => function () use ($generator) {
                 return $generator->types();

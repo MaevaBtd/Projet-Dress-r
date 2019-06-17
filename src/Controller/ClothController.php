@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Cloth;
-use App\Form\ClothType;
 use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
 use App\Repository\ClothRepository;
@@ -151,21 +150,21 @@ class ClothController extends AbstractController
             
             // TODO ADD A FILE
             
-            $imageJson = $data['image'];
-            $newCloth->setImage($imageJson);
-            $file = $newCloth->getImage();
-            if (!is_null($file)) {
-                    $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
-                    try {
-                        $file->move(
-                            $this->getParameter('image_directory'),
-                            $fileName
-                        );
-                    } catch (FileException $e) {
-                        dump($e);
-                    }
-                    $newCloth->setImage($fileName);
-            }
+            // $imageJson = $data['image'];
+            // $newCloth->setImage($imageJson);
+            // $file = $newCloth->getImage();
+            // if (!is_null($file)) {
+                //     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
+                //     try {
+                //         $file->move(
+                //             $this->getParameter('image_directory'),
+                //             $fileName
+                //         );
+                //     } catch (FileException $e) {
+                //         dump($e);
+                //     }
+                //     $newCloth->setImage($fileName);
+                // }
             
             // Validate the values directly in entities without a form
             // Many constraints are handle directly in the front
@@ -238,11 +237,19 @@ class ClothController extends AbstractController
     /**
      * @Route("/cloth/random/style/{id}", name="random_cloths_by_style", methods={"GET"})
      */
-    public function random(ClothRepository $repository, SerializerInterface $serializer, $id) {
+    public function random(ClothRepository $repository, SerializerInterface $serializer, $id, UserRepository $userRepository) {
 
         $userToken = $this->getUser();
         $userId = $userToken->getId();
 
+        $user = $userRepository->findOneBy([
+            'id' => $userId,
+        ]);
+
+        $oldRandomNb = $user->getNbRandom();
+        $nbRandomUser = $oldRandomNb + 1;
+        $user->setNbRandom($nbRandomUser);
+        
         $random = [];
 
         $heads = $repository->findHeadByIdAndStyleId($id,$userId);
@@ -287,11 +294,22 @@ class ClothController extends AbstractController
             $random[] = $oneShoe; 
         }
 
-     
-        $json = $serializer->serialize($random, 'json');
+        if (empty($random)) {
+            // HTTP RESPONSE CODE 400
+            return new JsonResponse(array('flash' => 'Vous n\'avez aucun vêtement de ce style, veuillez en ajouter au moins un pour utiliser \'Dress Me\'', Response::HTTP_BAD_REQUEST));
+        }
 
-        // HTTP RESPONSE CODE 200
-        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
+        else {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            
+            $json = $serializer->serialize($random, 'json');
+
+            // HTTP RESPONSE CODE 200
+            return new JsonResponse($json,Response::HTTP_OK);
+        }
+
     }
 
     /**
