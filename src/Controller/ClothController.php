@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Cloth;
-use App\Form\ClothType;
 use App\Repository\TypeRepository;
 use App\Repository\UserRepository;
 use App\Repository\ClothRepository;
