@@ -40,7 +40,7 @@ class ClothController extends AbstractController
         ]);
 
         // HTTP RESPONSE CODE 200
-        return new JsonResponse($json,Response::HTTP_OK);
+        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
     }
 
 
@@ -66,7 +66,7 @@ class ClothController extends AbstractController
             ]);
 
             // HTTP RESPONSE CODE 200
-            return new JsonResponse($json,Response::HTTP_OK);
+            return JsonResponse::fromJsonString($json,Response::HTTP_OK);
         }
 
         // No match = you are not the owner of the cloth so you cant get these datas
