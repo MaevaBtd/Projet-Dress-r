@@ -8,8 +8,9 @@ import PropTypes from 'prop-types';
 import './Cloth.scss';
 
 // == Code
-const Cloth = ({ id, name, image, styles, type, onRemoveCloth }) => (
+const Cloth = ({ name, image, styles, type, onRemoveCloth }) => (
   <a id="clothcard">
+  
     <div id="clothcard-content">
       <p>Nom du vêtement: <span className="dyna">{name}</span></p>
       <p>Catégorie:{styles.map(style => (

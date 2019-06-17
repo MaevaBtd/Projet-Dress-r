@@ -19,10 +19,10 @@ class Header extends React.Component {
 
     const userLinks = (
       <div className="navbar-nav ml-auto">
-
-        <NavLink className="nav-item nav-link" to="/add-new-cloth"> <p className="header-link">Ajouter un nouveau vêtement</p></NavLink>
         <NavLink className="nav-item nav-link" to="/wardrobe"> <p className="header-link">Garde-robe</p></NavLink>
-        <NavLink className="nav-item nav-link" to="/random"> <p className="header-link">Random</p></NavLink>
+        <NavLink className="nav-item nav-link" to="/add-new-cloth"> <p className="header-link">Ajouter un nouveau vêtement</p></NavLink>
+        <NavLink className="nav-item nav-link" to="/add-new-outfit"> <p className="header-link">Créer une nouvelle tenue</p></NavLink>
+        <NavLink className="nav-item nav-link" to="/random"> <p className="header-link">Tenue Aléatoire</p></NavLink>
         <NavLink className="nav-item nav-link" to="/profil"> <p className="header-link">Profil</p></NavLink>
         <NavLink className="nav-item nav-link" to="/random" onClick={this.logout.bind(this)}> <p className="header-link">Déconnexion</p> </NavLink>
 
