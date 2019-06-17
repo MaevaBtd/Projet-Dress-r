@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Repository\ClothRepository;
 
 use App\Repository\StyleRepository;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -26,10 +27,7 @@ class StyleController extends AbstractController
      */
     public function index(StyleRepository $repository, SerializerInterface $serializer)
     {
-
-
         $styles = $repository->findAll();
-
 
         $json = $serializer->serialize($styles, 'json', [
             'groups' => 'styles_index',

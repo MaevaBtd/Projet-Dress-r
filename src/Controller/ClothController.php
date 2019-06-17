@@ -41,7 +41,7 @@ class ClothController extends AbstractController
         ]);
 
         // HTTP RESPONSE CODE 200
-        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
+        return new JsonResponse($json,Response::HTTP_OK);
     }
 
 
@@ -67,7 +67,7 @@ class ClothController extends AbstractController
             ]);
 
             // HTTP RESPONSE CODE 200
-            return JsonResponse::fromJsonString($json,Response::HTTP_OK);
+            return new JsonResponse($json,Response::HTTP_OK);
         }
 
         // No match = you are not the owner of the cloth so you cant get these datas
@@ -232,11 +232,19 @@ class ClothController extends AbstractController
     /**
      * @Route("/cloth/random/style/{id}", name="random_cloths_by_style", methods={"GET"})
      */
-    public function random(ClothRepository $repository, SerializerInterface $serializer, $id) {
+    public function random(ClothRepository $repository, SerializerInterface $serializer, $id, UserRepository $userRepository) {
 
         $userToken = $this->getUser();
         $userId = $userToken->getId();
 
+        $user = $userRepository->findOneBy([
+            'id' => $userId,
+        ]);
+
+        $oldRandomNb = $user->getNbRandom();
+        $nbRandomUser = $oldRandomNb + 1;
+        $user->setNbRandom($nbRandomUser);
+        
         $random = [];
 
         $heads = $repository->findHeadByIdAndStyleId($id,$userId);
@@ -281,11 +289,22 @@ class ClothController extends AbstractController
             $random[] = $oneShoe; 
         }
 
-     
-        $json = $serializer->serialize($random, 'json');
+        if (empty($random)) {
+            // HTTP RESPONSE CODE 400
+            return new JsonResponse(array('flash' => 'Vous n\'avez aucun vêtement de ce style, veuillez en ajouter au moins un pour utiliser \'Dress Me\'', Response::HTTP_BAD_REQUEST));
+        }
 
-        // HTTP RESPONSE CODE 200
-        return JsonResponse::fromJsonString($json,Response::HTTP_OK);
+        else {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            
+            $json = $serializer->serialize($random, 'json');
+
+            // HTTP RESPONSE CODE 200
+            return new JsonResponse($json,Response::HTTP_OK);
+        }
+
     }
 
     /**

@@ -58,47 +58,57 @@ class UserController extends AbstractController {
             ),Response::HTTP_OK);
     }
 
-    /**
+     /**
      * @Route("/register", name="register", methods={"GET","POST"})
      */
-    public function new(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator, SerializerInterface $serializer): Response {
+    public function new(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator, SerializerInterface $serializer, UserRepository $userRepository): Response {
 
         $user = new User();
+ 
+        $data = json_decode($request->getContent(), true);
+        
+        $username = $data['username'];
+        $email = $data['email'];
+        $password = $data['password'];
+        
+        if(empty($username || $email || $password)){
+            // HTTP RESPONSE 400
+            return new JsonResponse(array('flash' => 'Veuillez remplir tout les champs!',Response::HTTP_BAD_REQUEST));   
+        }
+       
+        $usernameStillExist = $userRepository->findOneBy([
+            'username' => $username,
+        ]);
+        $emailStillExist = $userRepository->findOneBy([
+            'email' => $email,
+        ]);
 
-        $form = $this->createForm(SubscribeType::class, $user);
+        if (!empty($usernameStillExist || $emailStillExist)) {
+            // HTTP RESPONSE 400
+            return new JsonResponse(array('flash' => 'L\'email ou le username existe déjà !',Response::HTTP_BAD_REQUEST));   
+        }
+        if(empty($usernameStillExist || $emailStillExist)){
 
-        // Si on a besoin de decode ce qu'on recoit au cas ou.
-        // $data = json_decode($request->getContent(), true);
-
-        // Pour les test postman ( post mais infos dans l'url )
-        // $form->submit($request->query->all());
-
-        // Pour les vrai test front
-        $form->submit($request->request->all());
-        // $form->handleRequest($request);
-
-        // Apres le submit on va check les erreurs sur les property de l'entité
+            $user->setUsername($username); // (3)
+            $user->setEmail($email);
+            $user->setPassword($password);
+            $user->setNbRandom(0);
+        }
+        
         $errors = $validator->validate($user);
         
-        
-        if (count($errors) > 0) {
-            /*
-            * Uses a __toString method on the $errors variable which is a
-            * ConstraintViolationList object. This gives us a nice string
-            * for debugging.
-            */
-            $errorsString = [];
+        if (count($errors) > 0) { 
 
+            $errorsString = [];
+    
             foreach ($errors as $error) {
                 $errorsString[] = $error->getMessage();
             }
-            
+                
             $json = $serializer->serialize($errorsString, 'json');
-
-            // si il y a des erreurs, on retourne le pourquoi
+    
             // HTTP RESPONSE Code 409
             return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
-            
         }
         
         else {
@@ -112,7 +122,6 @@ class UserController extends AbstractController {
             $manager->persist($user);
             $manager->flush();
             
-            // L'inscription a réussie
             // HTTP RESPONSE Code 200
             return new JsonResponse(array('flash' => 'Vous vous êtes inscrit avec succès !'),Response::HTTP_OK);
          }
@@ -132,3 +141,5 @@ class UserController extends AbstractController {
     }
 
 }
+
+
