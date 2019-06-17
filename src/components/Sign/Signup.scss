@@ -12,13 +12,13 @@
   }
 
   #form {
-    background-color: #d18901;
+    background-color: $brownish;
     width: 80%;
     margin-top: 2em;
     margin-bottom: 5em;
     margin-left: auto;
     margin-right: auto;
-    border: 5px solid #c5c8b3;
+    border: 5px solid #d18901;
     border-radius: 40px;
   }
 
@@ -28,6 +28,7 @@
   h2 {
     font-family: $main-font;
     font-size: 1.3em;
+    color: #d18901;
   }
   .input-signup {
     width: 70%;
@@ -35,7 +36,7 @@
   }
   .login-form-button {
     margin: auto;
-    background-color: $brownish;
+    background-color: #d18901;
     border-color: $brownish;
     font-family: $main-font;
     font-size: 1em;
@@ -46,7 +47,7 @@
     margin-top: 2em;
 
     &:hover {
-      background-color: #4a858f;
+      background-color: #f9c86b;
       color: $brownish;
     }
   }

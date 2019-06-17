@@ -71,18 +71,13 @@ class FormAddCloth extends React.Component {
       onePart = (
         <Form.Item>
           <h2 className="label-add-cloth">Votre vêtement est-il d'un seul tenant? (Robe, combinaison, tunique ...) </h2>
-          <Radio.Group className="radio-add-cloth" onChange={this.handleChangePart}>
-            <Row>
-              <Col span={8}>
-                <Radio className="radio-left" value={true}>Oui</Radio>
-              </Col>
-              <Col span={8}>
-                <Radio className="radio-right" value={false}>
-                Non
-                </Radio>
-              </Col>
-            </Row>
-          </Radio.Group>
+          <Switch
+            id="switch"
+            checkedChildren={<IconFont style={{ fontSize: '1.5em' }} type="diceDress-" />}
+            unCheckedChildren={<IconFont style={{ fontSize: '1.5em' }} type="dicetshirt" />}
+            defaultunchecked
+            onChange={this.handleChangePart}
+          />
         </Form.Item>
       );
     } 
@@ -101,7 +96,7 @@ class FormAddCloth extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Item>
-            <h2>Catégorie</h2>
+            <h2>Catégorie:</h2>
             <Form.Item>
               <div className="category-add-cloth">
                 <Select
@@ -121,29 +116,13 @@ class FormAddCloth extends React.Component {
                 </Button>
               </Upload>
             </Form.Item>
+            {onePart}
             <Form.Item>
-              <h2 className="label-add-cloth">Votre vêtement est-il d'un seul tenant? (Robe, combinaison, tunique ...) </h2>
-              <Switch
-                id="switch"
-                checkedChildren={<IconFont style={{ fontSize: '1.5em' }} type="diceDress-" />}
-                unCheckedChildren={<IconFont style={{ fontSize: '1.5em' }} type="dicetshirt" />}
-                defaultUnChecked
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button id="button-add-cloth" type="primary" htmlType="submit">
+              <Button id="button-add-cloth" type="primary" htmlType="submit" >
                 Valider
               </Button>
-
-            </Upload>
-          </Form.Item>
-          {onePart}
-          <Form.Item>
-            <Button id="button-add-cloth" type="primary" htmlType="submit" >
-              Valider
-            </Button>
-          </Form.Item>
-
+            </Form.Item>
+          </div>
         </Form>
       </Spin>
     );

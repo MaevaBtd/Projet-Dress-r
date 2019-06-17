@@ -1,6 +1,9 @@
 @import 'src/styles/vars';
 
 #random {
+  background-image: url('../../data/assets/bckMain.png');
+  background-size: 100%;
+  height: 55em;
   h1 {
     font-family: $main-font;
     font-size: 2em;
