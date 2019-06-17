@@ -43,6 +43,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(deleteErrorMessage());
   },
   requestAddOutfit: () => {
+    console.log('request container');
     dispatch(requestAddOutfit());
   },
   onInputChange: (value) => {

@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 // == Import: local
 import FormAddCloth from 'src/components/AddCloth/FormAddCloth';
-import { changeClothName, onStyleChange, onChangePart, addClothRequest, selectedPicture } from 'src/store/addCloth_reducer';
+import { changeClothName, onStyleChange, onChangePart, addClothRequest } from 'src/store/addCloth_reducer';
 import { fetchStyles, loadingAddCloth } from 'src/store/stylesReducer';
+import { selectedPicture } from 'src/store/imageReducer';
 
 // == StateToProps
 const mapStateToProps = state => ({

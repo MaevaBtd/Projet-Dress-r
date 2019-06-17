@@ -56,6 +56,7 @@ class Random extends React.Component {
     const { closeModal, requestAddOutfit } = this.props;
     closeModal();
     requestAddOutfit();
+    console.log('render func addoutfit');
   };
 
   handleChange = (evt) => {
@@ -101,7 +102,7 @@ class Random extends React.Component {
           id="random-modal"
           visible={modalShow}
           title="Nouvelle tenue aléatoire"
-          // onOk={this.handleOk}
+          onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[
             <Button
@@ -127,13 +128,15 @@ class Random extends React.Component {
             onChange={this.handleChange}
           />
           <div id="randomCloths">
+            {console.log('render:', receivedCloths)}
             {receivedCloths.map(cloth => (
               <div key={cloth.id} className="randomCloth">
                 <h3>Type de vêtement: Tête </h3>
                 <h3>Nom du vêtement: {cloth.name}</h3>
                 <img src={cloth.image} alt="" width="60px" />
               </div>
-            ))}
+            ))
+            }
           </div>
 
         </Modal>

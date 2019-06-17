@@ -3,7 +3,6 @@ export const initialState = {
   name: '',
   styles: [],
   onePart: false,
-  image: [],
 };
 
 // == Action Type
@@ -23,7 +22,7 @@ const ON_STYLE_CHANGE = 'ON_STYLE_CHANGE';
 const ON_CHANGE_PART = 'ON_CHANGE_PART';
 // on submit
 export const ADD_CLOTH_REQUEST = 'ADD_CLOTH_REQUEST';
-const SELECTED_PICTURE = 'SELECTED_PICTURE';
+
 
 // Reducer
 const addClothReducer = (state = initialState, action = {}) => {
@@ -80,11 +79,6 @@ const addClothReducer = (state = initialState, action = {}) => {
         ...state,
         onePart: action.value,
       };
-    case SELECTED_PICTURE:
-      console.log('addpic');
-      return {
-        image: [action.picture],
-      };
     default:
       // console.log('fail ( add cloth reducer)');
       return state;
@@ -136,10 +130,6 @@ export const onChangePart = value => ({
 // submit
 export const addClothRequest = () => ({
   type: ADD_CLOTH_REQUEST,
-});
-export const selectedPicture = picture => ({
-  type: SELECTED_PICTURE,
-  picture,
 });
 
 

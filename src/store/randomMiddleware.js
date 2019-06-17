@@ -16,7 +16,7 @@ const randomMiddleware = store => next => (action) => {
     case FETCH_RANDOM:
       fetchAPI(`http://localhost:8001/api/cloth/random/style/${action.style}/`)
         .then((response) => {
-          // console.log(response);
+          console.log(response.data);
           store.dispatch(loadingDiceDone());
           store.dispatch(receivedRandom(response.data));
         })

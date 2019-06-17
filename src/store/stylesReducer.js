@@ -98,9 +98,10 @@ const stylesReducer = (state = initialState, action = {}) => {
         modalShow: false,
       };
     case RECEIVED_RANDOM:
+      console.log('bordel de received random');
       return {
         ...state,
-        receivedCloths: [...action.cloths],
+        receivedCloths: [action.cloths],
       };
     default:
       // console.log('fail ( add cloth reducer)');

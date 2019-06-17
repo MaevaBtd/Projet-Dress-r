@@ -41,8 +41,10 @@ class FormAddCloth extends React.Component {
 
   handlePictureSelected = (evt) => {
     const { selectedPicture } = this.props;
-    selectedPicture(evt.target.files[0]);
-    console.log(evt.target.files[0]);
+
+    const image = evt.target.files[0];
+    selectedPicture(image);
+    console.log(image);
   }
 
   handleChange = (evt) => {
@@ -92,7 +94,7 @@ class FormAddCloth extends React.Component {
 
     return (
       <Spin spinning={loadingAddCloth}>
-        <Form className="addcloth" onSubmit={this.handleSubmit}>
+        <Form className="addcloth" onSubmit={this.handleSubmit} encType="multipart/form-data" method="post">
           <h1 id="title-formaddcloth">Ajouter un vêtement</h1>
           <div id="form">
             <h2 id="cloth-name">Nom du vêtement:</h2>
@@ -120,7 +122,12 @@ class FormAddCloth extends React.Component {
             <Form.Item>
               <h2>Ajoutez une photo de votre vêtement:</h2>
               <Button>
-                <input type="file" onChange={this.handlePictureSelected} placeholder="Cliquez pour uploader une photo" />
+                <input
+                  type="file"
+                  name="image"
+                  accept=".jpg, .png, .jpeg"
+                  onChange={this.handlePictureSelected}
+                />
               </Button>
             </Form.Item>
             {onePart}

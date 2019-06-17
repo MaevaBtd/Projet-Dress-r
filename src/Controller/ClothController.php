@@ -88,7 +88,7 @@ class ClothController extends AbstractController
         // json decode for axios request
         $data = json_decode($request->getContent(), true);
         var_dump($data);exit;
-        // retrieve user and user->id via token
+        // // retrieve user and user->id via token
         $userToken = $this->getUser();
         $userId = $userToken->getId();
 
@@ -151,21 +151,21 @@ class ClothController extends AbstractController
             // TODO ADD A FILE
             
             // $imageJson = $data['image'];
-            // $newCloth->setImage($imageJson);
-            // $file = $newCloth->getImage();
-            // if (!is_null($file)) {
-                //     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
-                //     try {
-                //         $file->move(
-                //             $this->getParameter('image_directory'),
-                //             $fileName
-                //         );
-                //     } catch (FileException $e) {
-                //         dump($e);
-                //     }
-                //     $newCloth->setImage($fileName);
-                // }
-            
+            // // $newCloth->setImage($imageJson);
+            // // $file = $newCloth->getImage();
+            // // if (!is_null($file)) {
+            //     //     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
+            //     //     try {
+            //     //         $file->move(
+            //     //             $this->getParameter('image_directory'),
+            //     //             $fileName
+            //     //         );
+            //     //     } catch (FileException $e) {
+            //     //         dump($e);
+            //     //     }
+            //     //     $newCloth->setImage($fileName);
+            //     // }
+            // 
             // Validate the values directly in entities without a form
             // Many constraints are handle directly in the front
             $errors = $validator->validate($newCloth);
