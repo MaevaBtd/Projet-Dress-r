@@ -40,13 +40,16 @@ const addClothMiddleware = store => next => (action) => {
         },
       })
         .then((response) => {
-          console.log(response.data.flash);
+          console.log('envoi add cloth:', store.getState().addClothReducer);
+          // console.log(response.data.flash);
           store.dispatch(loadingAddClothDone(response.data.flash));
           store.dispatch(redirectAddCloth());
         })
         .catch((error) => {
-          console.log(error.flash);
+          console.log('envoi add cloth:', store.getState().addClothReducer);
+          // console.log(error, 'erreur');
           store.dispatch(loadingAddClothDone('ERREUR: Votre vêtement n\'a pas été ajouté'));
+          store.dispatch(redirectAddCloth());
         });
 
       break;
