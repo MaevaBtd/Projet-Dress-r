@@ -31,7 +31,7 @@ class Profil extends React.Component {
         </div>
         <h2>Mon adresse mail: <span>{email}</span></h2>
         <h2 id="date">Date d'inscription: <span>{creationDate}</span></h2>
-        <NavLink to="/change-mdp">
+        {/* <NavLink to="/change-mdp">
           <Button className="button">
             <Icon type="unlock" /> Modifier mon Mot de passe
           </Button>
@@ -39,7 +39,7 @@ class Profil extends React.Component {
 
         <Button className="button">
           <Icon type="user" /> Modifier mes informations personnelles
-        </Button>
+        </Button> */}
       </div>
     );
   }
