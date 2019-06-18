@@ -42,15 +42,23 @@ class UserController extends AbstractController {
         $userOutfits = $outfitRepository->findUserOutfitsByUserId($id);
         $nbOutfits = count($userOutfits);
         
+        // $informations = [];
 
         $json = $serializer->serialize($user, 'json',[
             'groups'=>'user_show',
         ]);
+        // $informations[] = $json;
 
         $jsonNbCloth = $serializer->serialize($nbCloths, 'json');
+
+        // $informations[] = $jsonNbCloth;
         $jsonNbOutfit = $serializer->serialize($nbOutfits, 'json');
+        // $informations[] = $jsonNbOutfit;
+
+        
 
         // HTTP RESPONSE Code 200
+        // return JsonResponse::fromJsonString($informations,Response::HTTP_OK);
         return new JsonResponse(array(
             'infos' => $json,
             'nbCloths' => $jsonNbCloth,

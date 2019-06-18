@@ -2,6 +2,9 @@ export const initialState = {
   email: '',
   username: '',
   creation_date: '',
+  nbCloths: '',
+  nbOutfits: '',
+  nbRandom: '',
   clothsList: [],
   outfitsList: [],
 };
@@ -22,11 +25,15 @@ const DELETE_CLOTH_FRONT = 'DELETE_CLOTH_FRONT';
 const userReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case RECEIVED_USER_DATA:
+    // console.log(action.user.infos[0].createdAt);
       return {
         ...state,
-        username: action.user[0].username,
-        email: action.user[0].email,
-        creation_date: action.user[0].createdAt,
+        nbRandom: action.user.infos[0].nbRandom,
+        nbOutfits: action.user.nbOutfits,
+        username: action.user.infos[0].username,
+        email: action.user.infos[0].email,
+        creation_date: action.user.infos[0].createdAt,
+        nbCloths: action.user.nbCloths,
       };
     case RECEIVED_CLOTH:
       // console.log('cloths :', [...action.cloths[0].cloths]);

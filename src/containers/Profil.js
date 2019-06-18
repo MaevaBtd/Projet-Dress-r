@@ -13,6 +13,9 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.userReducer.username,
   creationDate: state.userReducer.creation_date,
+  nbCloths: state.userReducer.nbCloths,
+  nbOutfits: state.userReducer.nbOutfits,
+  nbRandom: state.userReducer.nbRandom,
 });
 
 // == DispatchToProps
