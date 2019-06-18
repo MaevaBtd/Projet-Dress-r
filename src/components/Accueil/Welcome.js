@@ -20,7 +20,7 @@ const Welcome = () => (
       <NavLink to="/signin"><Button className="log">Inscription</Button></NavLink>
       <NavLink to="/signup"><Button className="log">Connexion</Button></NavLink>
     </div>
-    <Button className="about">En savoir plus</Button>
+    <Button className="about" href="#about-link">En savoir plus</Button>
   </div>
 );
 

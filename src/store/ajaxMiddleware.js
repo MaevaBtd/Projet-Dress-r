@@ -32,7 +32,7 @@ const ajaxMiddleware = store => next => (action) => {
     case FETCH_USER_CLOTH:
       fetchAPI('http://localhost:8001/api/user/cloths')
         .then((response) => {
-          // console.log(response);
+          console.log(response);
           const clothList = response.data;
           store.dispatch(receivedCloths(clothList));
         })
@@ -43,8 +43,13 @@ const ajaxMiddleware = store => next => (action) => {
     case FETCH_USER_INFO:
       fetchAPI('http://localhost:8001/api/user/profile')
         .then((response) => {
-          // console.log(response.data);
+          console.log(response.data);
           const userData = response.data;
+          userData.infos = JSON.parse(userData.infos);
+          // let newDate = userData.infos[0].createdAt;
+          // console.log(userData.infos[0].createdAt);
+          // newDate = dateFormat();
+          // console.log(userData.infos[0].createdAt);
           store.dispatch(receivedDatas(userData));
         })
         .catch((error) => {

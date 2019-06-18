@@ -1,5 +1,6 @@
 // == Import: Yarn
 import React from 'react';
+import dateFormat from 'dateformat';
 import { NavLink, Redirect } from 'react-router-dom';
 import {
   Button,
@@ -19,18 +20,18 @@ class Profil extends React.Component {
   }
 
   render() {
-    const { user, email, creationDate, isAuthenticated } = this.props;
+    const { user, email, creationDate, isAuthenticated, nbCloths, nbOutfits, nbRandom } = this.props;
     if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="profil">
         <h1>Bonjour {user}</h1>
         <div className="stats">
-          <p>J'ai <span className="user-counter">x</span> tenues enregistrées</p>
-          <p>J'ai <span className="user-counter">x</span> vêtements enregistrés</p>
-          <p>J'ai utilisé l'outil Tenues Aléatoires <span className="user-counter">x</span> fois</p>
+          <p>J'ai <span className="user-counter">{nbOutfits}</span> tenues enregistrées</p>
+          <p>J'ai <span className="user-counter">{nbCloths}</span> vêtements enregistrés</p>
+          <p>J'ai utilisé l'outil Tenues Aléatoires <span className="user-counter">{nbRandom}</span> fois</p>
         </div>
         <h2>Mon adresse mail: <span>{email}</span></h2>
-        <h2 id="date">Date d'inscription: <span>{creationDate}</span></h2>
+        <h2 id="date">Date d'inscription: <span>{dateFormat(creationDate, 'dd/mm/yyyy, HH:MM')}</span></h2>
         {/* <NavLink to="/change-mdp">
           <Button className="button">
             <Icon type="unlock" /> Modifier mon Mot de passe
