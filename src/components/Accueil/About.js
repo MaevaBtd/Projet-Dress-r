@@ -10,7 +10,7 @@ import './About.scss';
 // == Code
 const About = () => (
   <div id="about">
-    <h2>Gestion de garde-robe</h2>
+    <h2 id="about-link">Gestion de garde-robe</h2>
     <Carousel autoplay>
       <div>
         <h3><img src="src/data/assets/outfit.jpg" alt=""/></h3>
