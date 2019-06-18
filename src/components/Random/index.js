@@ -31,7 +31,7 @@ class Random extends React.Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log('submit');
+    // console.log('submit');
     const {
       loadingDice,
       fetchRandom,
@@ -62,7 +62,7 @@ class Random extends React.Component {
     const { closeModal, requestAddOutfit } = this.props;
     closeModal();
     requestAddOutfit();
-    console.log('render func addoutfit');
+    // console.log('render func addoutfit');
   };
 
   handleChange = (evt) => {
@@ -143,7 +143,6 @@ class Random extends React.Component {
             onChange={this.handleChange}
           />
           <div id="randomCloths">
-            {console.log('render:', receivedCloths)}
             {receivedCloths.map(cloth => (
               <div key={cloth.id} className="randomCloth">
                 <h3>Type de vêtement: {cloth.type_name} </h3>

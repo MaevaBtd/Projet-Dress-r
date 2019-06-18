@@ -39,8 +39,8 @@ class FormAddOutfit extends React.Component {
       pants,
       shoes,
     } = this.props;
-    console.log('submit', head, coat, top, pants, shoes);
-    addAllCloth([...head, ...coat, ...top, ...pants, ...shoes]);
+    // console.log('submit', head, coat, top, pants, shoes);
+    addAllCloth([head, coat, top, pants, shoes]);
     modalShow();
   }
 
@@ -48,42 +48,41 @@ class FormAddOutfit extends React.Component {
     const { closeModalOutfit } = this.props;
     // console.log('modal fermée1');
     closeModalOutfit();
-    this.forceUpdate();
-    // deleteErrorMessage();
   };
 
-  handleOk = (evt) => {
-    const { requestAddOutfit, loadingAddOutfit } = this.props;
+  handleOk = () => {
+    const { requestAddOutfit, closeModalOutfit } = this.props;
     requestAddOutfit();
-    // loadingAddOutfit();
+    closeModalOutfit();
+    // console.log('render:', flashValidMessage);
   };
 
   onHeadChange = (evt) => {
-    console.log('change tête', evt.target.value);
+    // console.log('change tête', evt.target.value);
     const { changeHead } = this.props;
     changeHead(evt.target.value);
   }
 
   onCoatChange = (evt) => {
-    console.log('change coat');
+    // console.log('change coat');
     const { changeCoat } = this.props;
     changeCoat(evt.target.value);
   }
 
   onTopChange = (evt) => {
-    console.log('change top');
+    // console.log('change top');
     const { changeTop } = this.props;
     changeTop(evt.target.value);
   }
 
   onPantsChange = (evt) => {
-    console.log('change Pants');
+    // console.log('change Pants');
     const { changePants } = this.props;
     changePants(evt.target.value);
   }
 
   onShoesChange = (evt) => {
-    console.log('change Shoes');
+    // console.log('change Shoes');
     const { changeShoes } = this.props;
     changeShoes(evt.target.value);
   }
@@ -102,7 +101,6 @@ class FormAddOutfit extends React.Component {
       clothsList,
       showModal,
       redirectAddOutfit,
-      // loadingOutfit
     } = this.props;
     if (!isAuthenticated) return <Redirect to="/" />;
     if (redirectAddOutfit) return <Redirect to="/user-page" />;
@@ -234,11 +232,11 @@ FormAddOutfit.propTypes = {
   fetchUserCloth: PropTypes.func.isRequired,
   addAllCloth: PropTypes.func.isRequired,
   modalShow: PropTypes.func.isRequired,
-  head: PropTypes.array.isRequired,
-  coat: PropTypes.array.isRequired,
-  top: PropTypes.array.isRequired,
-  pants: PropTypes.array.isRequired,
-  shoes: PropTypes.array.isRequired,
+  // head: PropTypes.number.isRequired,
+  // coat: PropTypes.number.isRequired,
+  // top: PropTypes.number.isRequired,
+  // pants: PropTypes.number.isRequired,
+  // shoes: PropTypes.number.isRequired,
   closeModalOutfit: PropTypes.func.isRequired,
   requestAddOutfit: PropTypes.func.isRequired,
   changeHead: PropTypes.func.isRequired,
@@ -249,8 +247,7 @@ FormAddOutfit.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   clothsList: PropTypes.array.isRequired,
   showModal: PropTypes.bool.isRequired,
-  redirectAddOutfit: PropTypes.bool.isRequired,
-  loadingOutfit: PropTypes.bool.isRequired,
+  // redirectAddOutfit: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
 };
 

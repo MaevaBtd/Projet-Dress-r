@@ -1,13 +1,13 @@
 export const initialState = {
-  head: [],
-  coat: [],
-  top: [],
-  pants: [],
-  shoes: [],
+  head: '',
+  coat: '',
+  top: '',
+  pants: '',
+  shoes: '',
   allCloths: [],
   showModal: false,
   redirectAddOutfit: false,
-  loadingOutfit: true,
+  flashValidMessage: '',
 };
 
 // == Action Type
@@ -20,37 +20,38 @@ const MODAL_SHOW = 'MODAL_SHOW';
 export const CLOSE_MODALE = 'CLOSE_MODALE';
 export const REDIRECT_ADD_OUTFIT = 'REDIRECT_ADD_OUTFIT';
 const STOP_REDIRECT = 'STOP_REDIRECT';
-const LOADING_ADD_OUTFIT = 'LOADING_ADD_OUTFIT';
-const STOP_LOADING_OUTFIT = ' STOP_LOADING_OUTFIT';
+const VALIDATION_MESSAGE = 'VALIDATION_MESSAGE';
+export const SHOW_VALIDATION = 'SHOW_VALIDATION';
+
 
 // Reducer
 const addOutfitReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case CHANGE_HEAD:
-      console.log('status', action.head);
+      // console.log('status', action.head);
       return {
         ...state,
-        head: [action.head],
+        head: action.head,
       };
     case CHANGE_COAT:
       return {
         ...state,
-        coat: [action.coat],
+        coat: action.coat,
       };
     case CHANGE_TOP:
       return {
         ...state,
-        top: [action.top],
+        top: action.top,
       };
     case CHANGE_PANTS:
       return {
         ...state,
-        pants: [action.pants],
+        pants: action.pants,
       };
     case CHANGE_SHOES:
       return {
         ...state,
-        shoes: [action.shoes],
+        shoes: action.shoes,
       };
     case MODAL_SHOW:
       return {
@@ -58,7 +59,13 @@ const addOutfitReducer = (state = initialState, action = {}) => {
       };
     case CLOSE_MODALE:
       return {
-        ...initialState,
+        ...state,
+        // head: [],
+        // coat: [],
+        // top: [],
+        // pants: [],
+        // shoes: [],
+        showModal: false,
       };
     case REDIRECT_ADD_OUTFIT:
       return {
@@ -70,17 +77,12 @@ const addOutfitReducer = (state = initialState, action = {}) => {
         ...state,
         redirectAddOutfit: false,
       };
-    case LOADING_ADD_OUTFIT:
+    case VALIDATION_MESSAGE:
+      // console.log('message validationnnnnn :', action.message);
       return {
         ...state,
-        loadingOutfit: true,
+        flashValidMessage: action.message,
       };
-    case STOP_LOADING_OUTFIT:
-      return {
-        ...state,
-        loadingOutfit: false,
-      };
-
     default:
       return state;
   }
@@ -119,11 +121,13 @@ export const redirectOutfit = () => ({
 export const stopRedirect = () => ({
   type: STOP_REDIRECT,
 });
-export const loadingAddOutfit = () => ({
-  type: LOADING_ADD_OUTFIT,
+export const validationMessage = message => ({
+  type: VALIDATION_MESSAGE,
+  message,
 });
-export const stopLoadingOutfit = () => ({
-  type: STOP_LOADING_OUTFIT,
+export const showValidation = message => ({
+  type: SHOW_VALIDATION,
+  message,
 });
 
 export default addOutfitReducer;

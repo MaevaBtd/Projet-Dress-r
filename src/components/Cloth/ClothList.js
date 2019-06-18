@@ -21,33 +21,33 @@ class ClothList extends React.Component {
     fetchTypes();
   }
 
-  handleStyleChange = (value) => {
-    // Je recup la prop venant du container
-    const { onStyleChange } = this.props;
-    console.log('change cloth style');
-    onStyleChange(value);
-  }
+  // handleStyleChange = (value) => {
+  //   // Je recup la prop venant du container
+  //   const { onStyleChange } = this.props;
+  //   console.log('change cloth style');
+  //   onStyleChange(value);
+  // }
 
-  handleTypeChange = (evt) => {
-    const { onChangePart } = this.props;
-    console.log('change cloth part');
-    onChangePart(evt.target.value);
-  }
+  // handleTypeChange = (evt) => {
+  //   const { onChangePart } = this.props;
+  //   console.log('change cloth part');
+  //   onChangePart(evt.target.value);
+  // }
 
   render() {
-    const { Option } = Select;
+    // const { Option } = Select;
     const {
       clothsList,
       isAuthenticated,
-      categories,
-      types,
+      // categories,
+      // types,
     } = this.props;
     if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="clothlist">
         <Form>
           <h1 id="title-cloth-list">Liste de vos vêtements</h1>
-          <Form.Item>
+          {/* <Form.Item>
             <div className="category-add-cloth">
               <Select
                 placeholder="Catégorie (sport, soirée, décontracté...)"
@@ -69,7 +69,7 @@ class ClothList extends React.Component {
                 ))}
               </Select>
             </div>
-          </Form.Item>
+          </Form.Item> */}
         </Form>
         <div id="cloth-list">
           {
@@ -95,8 +95,8 @@ ClothList.propTypes = {
   fetchTypes: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   types: PropTypes.array.isRequired,
-  onStyleChange: PropTypes.func.isRequired,
-  onChangePart: PropTypes.func.isRequired,
+  // onStyleChange: PropTypes.func.isRequired,
+  // onChangePart: PropTypes.func.isRequired,
 };
 
 

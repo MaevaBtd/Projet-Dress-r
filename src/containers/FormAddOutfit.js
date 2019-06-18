@@ -16,7 +16,6 @@ import {
   closeModalOutfit,
   redirectOutfit,
   stopRedirect,
-  loadingAddOutfit,
 } from '../store/addOutfitReducer';
 import { addAllCloth, changeOutfitName, deleteStateCloth } from '../store/randomReducer';
 
@@ -33,7 +32,7 @@ const mapStateToProps = state => ({
   pants: state.addOutfitReducer.pants,
   shoes: state.addOutfitReducer.shoes,
   redirectAddOutfit: state.addOutfitReducer.redirectAddOutfit,
-  loadingOutfit: state.addOutfitReducer.loadingOutfit,
+  flashValidMessage: state.addOutfitReducer.flashValidMessage,
 });
 
 // == DispatchToProps
@@ -45,27 +44,27 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchUserCloth());
   },
   changeHead: (head) => {
-    console.log('change head containers', head);
+    // console.log('change head containers', head);
     dispatch(changeHead(head));
   },
   changeCoat: (coat) => {
-    console.log('change coat containers', coat);
+    // console.log('change coat containers', coat);
     dispatch(changeCoat(coat));
   },
   changeTop: (top) => {
-    console.log('change top containers', top);
+    // console.log('change top containers', top);
     dispatch(changeTop(top));
   },
   changePants: (pants) => {
-    console.log('change pants containers', pants);
+    // console.log('change pants containers', pants);
     dispatch(changePants(pants));
   },
   changeShoes: (shoes) => {
-    console.log('change shoes containers', shoes);
+    // console.log('change shoes containers', shoes);
     dispatch(changeShoes(shoes));
   },
   addAllCloth: (clothsArray) => {
-    console.log('dispatchtab', clothsArray);
+    // console.log('dispatchtab', clothsArray);
     dispatch(addAllCloth(clothsArray));
   },
   modalShow: () => {
@@ -78,7 +77,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeOutfitName(value));
   },
   deleteStateCloth: () => {
-    console.log('delete');
+    // console.log('delete');
     dispatch(deleteStateCloth());
   },
   requestAddOutfit: () => {
@@ -90,11 +89,6 @@ const mapDispatchToProps = dispatch => ({
   stopRedirect: () => {
     dispatch(stopRedirect());
   },
-  loadingAddOutfit: () => {
-    console.log('startloading');
-    dispatch(loadingAddOutfit());
-  },
-
 });
 
 
