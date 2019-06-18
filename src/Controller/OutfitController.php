@@ -4,8 +4,6 @@ namespace App\Controller;
 
 
 use App\Entity\Outfit;
-use App\Form\OutfitType;
-
 use App\Repository\UserRepository;
 use App\Repository\ClothRepository;
 use App\Repository\OutfitRepository;

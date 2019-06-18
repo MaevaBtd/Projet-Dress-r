@@ -12,22 +12,24 @@ import {
   Col,
   Spin,
   Switch,
+  message,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { Redirect } from 'react-router-dom';
 
 // == Import: local
 import './FormAddCloth.scss';
+
 const IconFont = Icon.createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_1243774_rzn5op8nr7l.js',
 });
+
 
 // == Code
 class FormAddCloth extends React.Component {
   componentDidMount() {
     const { fetchStyles } = this.props;
     fetchStyles();
-
   }
 
   handleSubmit = (evt) => {
@@ -35,6 +37,12 @@ class FormAddCloth extends React.Component {
     const { addClothRequest, loading } = this.props;
     addClothRequest();
     loading();
+  }
+
+  handlePictureSelected = (evt) => {
+    const { selectedPicture } = this.props;
+    selectedPicture(evt.target.files[0]);
+    console.log(evt.target.files[0]);
   }
 
   handleChange = (evt) => {
@@ -110,11 +118,10 @@ class FormAddCloth extends React.Component {
               </div>
             </Form.Item>
             <Form.Item>
-              <Upload name="logo" action="/upload.do" listType="picture">
-                <Button>
-                  <Icon type="upload" /> Cliquez pour uploader une photo
-                </Button>
-              </Upload>
+              <h2>Ajoutez une photo de votre vêtement:</h2>
+              <Button>
+                <input type="file" onChange={this.handlePictureSelected} placeholder="Cliquez pour uploader une photo" />
+              </Button>
             </Form.Item>
             {onePart}
             <Form.Item>

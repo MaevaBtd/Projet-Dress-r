@@ -36,10 +36,10 @@ const userReducer = (state = initialState, action = {}) => {
         nbCloths: action.user.nbCloths,
       };
     case RECEIVED_CLOTH:
-      console.log('cloths :', action.cloths[0].cloths);
+      console.log('cloths :', [...action.cloths[0].cloths]);
       return {
         ...state,
-        clothsList: action.cloths[0].cloths,
+        clothsList: [...action.cloths[0].cloths],
       };
     case RECEIVED_OUTFITS:
       console.log(action.outfits);
