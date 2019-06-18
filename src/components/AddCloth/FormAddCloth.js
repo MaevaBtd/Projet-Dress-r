@@ -4,18 +4,14 @@ import {
   Form,
   Input,
   Select,
-  Radio,
   Button,
-  Upload,
   Icon,
-  Row,
-  Col,
   Spin,
   Switch,
-  message,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // == Import: local
 import './FormAddCloth.scss';
@@ -71,7 +67,13 @@ class FormAddCloth extends React.Component {
 
   render() {
     const { Option } = Select;
-    const { categories, isAuthenticated, loadingAddCloth, errorAddCloth, redirectAddCloth, type } = this.props;
+    const {
+      categories,
+      isAuthenticated,
+      loadingAddCloth,
+      redirectAddCloth,
+      type,
+    } = this.props;
     let onePart;
 
     if (!isAuthenticated) return <Redirect to="/" />;
@@ -89,7 +91,7 @@ class FormAddCloth extends React.Component {
           />
         </Form.Item>
       );
-    } 
+    }
 
     return (
       <Spin spinning={loadingAddCloth}>
@@ -131,7 +133,7 @@ class FormAddCloth extends React.Component {
             </Form.Item>
             {onePart}
             <Form.Item>
-              <Button id="button-add-cloth" type="primary" htmlType="submit" >
+              <Button id="button-add-cloth" type="primary" htmlType="submit">
                 Valider
               </Button>
             </Form.Item>
@@ -141,6 +143,21 @@ class FormAddCloth extends React.Component {
     );
   }
 }
+
+FormAddCloth.propTypes = {
+  fetchStyles: PropTypes.func.isRequired,
+  addClothRequest: PropTypes.func.isRequired,
+  loading: PropTypes.func.isRequired,
+  selectedPicture: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onStyleChange: PropTypes.func.isRequired,
+  onChangePart: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  loadingAddCloth: PropTypes.bool.isRequired,
+  redirectAddCloth: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
+};
 
 // == Export
 export default FormAddCloth;

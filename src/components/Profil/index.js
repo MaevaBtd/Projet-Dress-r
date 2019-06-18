@@ -1,10 +1,10 @@
 // == Import: Yarn
 import React from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
-import {
-  Button,
-  Icon,
-} from 'antd';
+import { Redirect } from 'react-router-dom';
+// import {
+//   Button,
+//   Icon,
+// } from 'antd';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
 
@@ -19,7 +19,12 @@ class Profil extends React.Component {
   }
 
   render() {
-    const { user, email, creationDate, isAuthenticated } = this.props;
+    const {
+      user,
+      email,
+      creationDate,
+      isAuthenticated,
+    } = this.props;
     if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="profil">
@@ -50,6 +55,7 @@ Profil.propTypes = {
   user: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   creationDate: PropTypes.string.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 // == Export

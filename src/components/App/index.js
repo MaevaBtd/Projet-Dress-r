@@ -1,7 +1,6 @@
 // == Import : npm
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 // == Import : local
 import './app.scss';

@@ -84,6 +84,7 @@ const addClothReducer = (state = initialState, action = {}) => {
     case SELECTED_PICTURE:
       console.log('addpic');
       return {
+        ...state,
         image: action.picture,
       };
     default:

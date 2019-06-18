@@ -11,10 +11,11 @@ import {
   Input,
 } from 'antd';
 import 'antd/dist/antd.css';
+import PropTypes from 'prop-types';
 
 // == Import: local
 import './Random.scss';
-import Cloth from '../Cloth';
+// import Cloth from '../Cloth';
 
 // Import dice icon from iconfont.cn
 const IconFont = Icon.createFromIconfontCN({
@@ -31,7 +32,12 @@ class Random extends React.Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
     console.log('submit');
-    const { loadingDice, fetchRandom, styles, deleteErrorMessage } = this.props;
+    const {
+      loadingDice,
+      fetchRandom,
+      styles,
+      deleteErrorMessage,
+    } = this.props;
     loadingDice();
     // console.log(styles);
     fetchRandom(styles);
@@ -52,7 +58,7 @@ class Random extends React.Component {
     deleteErrorMessage();
   };
 
-  handleOk = (evt) => {
+  handleOk = () => {
     const { closeModal, requestAddOutfit } = this.props;
     closeModal();
     requestAddOutfit();
@@ -71,14 +77,23 @@ class Random extends React.Component {
 
   render() {
     const { Option } = Select;
-    const { isAuthenticated, categories, loadingRandom, errorRandom, modalShow, receivedCloths, styles } = this.props;
+    const {
+      isAuthenticated,
+      categories,
+      loadingRandom,
+      errorRandom,
+      modalShow,
+      receivedCloths,
+    } = this.props;
     if (!isAuthenticated) return <Redirect to="/" />;
     // console.log(receivedCloths);
     return (
       <div id="random">
         <h1>Tenue aléatoire</h1>
         <div>{errorRandom}</div>
-        <h2>Choisissez la catégorie de la tenue souhaitée et cliquez sur le dé pour la générer aléatoirement parmis les vêtements de votre garde-robe</h2>
+        <h2>Choisissez la catégorie de la tenue souhaitée et
+        cliquez sur le dé pour la générer aléatoirement parmis les vêtements de votre garde-robe
+        </h2>
         <Form className="random-form">
           <Spin spinning={loadingRandom} size="large">
             <Form.Item>
@@ -145,6 +160,24 @@ class Random extends React.Component {
   }
 }
 
+Random.propTypes = {
+  fetchStyles: PropTypes.func.isRequired,
+  modalShow: PropTypes.bool.isRequired,
+  requestAddOutfit: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  loadingDice: PropTypes.func.isRequired,
+  fetchRandom: PropTypes.func.isRequired,
+  styles: PropTypes.array.isRequired,
+  deleteErrorMessage: PropTypes.func.isRequired,
+  onStyleChange: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  receivedCloths: PropTypes.array.isRequired,
+  receivedClothId: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  loadingRandom: PropTypes.bool.isRequired,
+  errorRandom: PropTypes.string.isRequired,
+};
 
 // == Export
 export default Random;

@@ -1,7 +1,7 @@
 // == Import: Yarn
 import React from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
-import { Button, Icon } from 'antd';
+import { Icon } from 'antd';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
 
@@ -18,9 +18,22 @@ class AddCloth extends React.Component {
     stopRedirect();
   }
 
+  componentWillUnmount() {
+    const { cleanErrorMessage } = this.props;
+    cleanErrorMessage();
+  }
+
   render() {
-    const { addTypeHead, addTypeBot, addTypeTop, addTypeShoes, addTypeVest, isAuthenticated, errorAddCloth } = this.props;
-    
+    const {
+      addTypeHead,
+      addTypeBot,
+      addTypeTop,
+      addTypeShoes,
+      addTypeVest,
+      isAuthenticated,
+      errorAddCloth,
+    } = this.props;
+
     if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="addcloth">
@@ -47,6 +60,10 @@ AddCloth.propTypes = {
   addTypeShoes: PropTypes.func.isRequired,
   addTypeTop: PropTypes.func.isRequired,
   addTypeVest: PropTypes.func.isRequired,
+  stopRedirect: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorAddCloth: PropTypes.string.isRequired,
+  cleanErrorMessage: PropTypes.func.isRequired,
 };
 
 // == Export

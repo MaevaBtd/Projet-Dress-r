@@ -89,13 +89,14 @@ class ClothController extends AbstractController
         // $data = json_decode($request->getContent(), true);
         // var_dump($data);exit;
 
-        // $doto = ($request->headers->get('payload'));
-        // var_dump($doto);exit;
-        var_dump($request->request->all());
-        var_dump($request->headers->all());
-        var_dump($request->headers->get('Content-Disposition'));
-        var_dump(file_get_contents('php://input'));
-        exit;
+        $data = $request->request->all();
+        
+        // var_dump($data['type']);
+        // var_dump($data['styles']);exit;
+        // var_dump($data['name']);
+        // var_dump($data['onePart']);
+
+        // var_dump(json_decode($request->getContent(), true));
         // var_dump($HTTP_RAW_POST_DATA);exit;
         // var_dump($data);exit;
 
@@ -143,14 +144,14 @@ class ClothController extends AbstractController
             $styles = $data['styles'];
 
             if (!empty($styles)) {
-                foreach($styles as $style) {
+                // foreach($styles as $style) {
                     $styleCloth = $stylerepository->findOneBy([
-                        'name' => $style,
+                        'name' => $styles,
                     ]);
                     if (!empty($styleCloth)) {
                         $newCloth->addStyle($styleCloth);
                     }
-                }
+                // }
             }
 
             // We dont want a cloth without any style assigned
@@ -160,22 +161,44 @@ class ClothController extends AbstractController
             }
             
             // TODO ADD A FILE
-            
+            // $uniqueFile = $request->files;
+            $file = $request->files->get('image'); //Symfony\Component\HttpFoundation\File\UploadedFile
+            // $file = $request->files->get('image');
+            $imageJson = $file->getClientOriginalName();
+            // var_dump($fileName);
+
             // $imageJson = $data['image'];
-            // // $newCloth->setImage($imageJson);
-            // // $file = $newCloth->getImage();
-            // // if (!is_null($file)) {
-            //     //     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
-            //     //     try {
-            //     //         $file->move(
-            //     //             $this->getParameter('image_directory'),
-            //     //             $fileName
-            //     //         );
-            //     //     } catch (FileException $e) {
-            //     //         dump($e);
-            //     //     }
-            //     //     $newCloth->setImage($fileName);
-            //     // }
+            $newCloth->setImage($imageJson);
+
+            // $imageJson c'est genre : çuhipçyubpn.jpeg
+            // des qu'il rencontre un "." select le reste
+
+            
+            // var_dump($extension);exit;
+
+            // $file = $newCloth->getImage();
+            if (!is_null($file)) {
+
+                    $parseFile = explode(".", $imageJson);
+                    $extension = end($parseFile);
+
+                    $fileName = $this->generateUniqueFileName().'.'.$extension;
+                    // var_dump($fileName);exit;
+                    // ici, filename c'est un truc du genre "azepoazieiopnqsd.png"
+                    try {
+                        $file->move(
+                            $this->getParameter('image_directory'),
+                            $fileName
+                        );
+                    } catch (FileException $e) {
+                        dump($e);
+                    }
+                    // var_dump($this->getParameter('image_directory').$fileName);exit;
+                    $newCloth->setImage($this->getParameter('image_directory').'/'.$fileName);
+                    // $newCloth->setImage($fileName);
+                    // var_dump($newCloth->setImage($fileName));exit;
+                    
+                }           
             // 
             // Validate the values directly in entities without a form
             // Many constraints are handle directly in the front

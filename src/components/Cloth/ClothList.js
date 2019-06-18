@@ -36,7 +36,12 @@ class ClothList extends React.Component {
 
   render() {
     const { Option } = Select;
-    const { clothsList, isAuthenticated, categories, types } = this.props;
+    const {
+      clothsList,
+      isAuthenticated,
+      categories,
+      types,
+    } = this.props;
     if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="clothlist">
@@ -46,7 +51,7 @@ class ClothList extends React.Component {
             <div className="category-add-cloth">
               <Select
                 placeholder="Catégorie (sport, soirée, décontracté...)"
-                //onChange={this.handleStyleChange}
+                // onChange={this.handleStyleChange}
               >
                 {categories.map(category => (
                   <Option key={category.id} value={category.id}>{category.name}</Option>
@@ -86,6 +91,12 @@ ClothList.propTypes = {
   fetchUserCloth: PropTypes.func.isRequired,
   clothsList: PropTypes.array.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  fetchStyles: PropTypes.func.isRequired,
+  fetchTypes: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  types: PropTypes.array.isRequired,
+  onStyleChange: PropTypes.func.isRequired,
+  onChangePart: PropTypes.func.isRequired,
 };
 
 

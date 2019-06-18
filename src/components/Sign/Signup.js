@@ -91,10 +91,13 @@ Signup.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   onPwdChange: PropTypes.func.isRequired,
   userSignupRequest: PropTypes.func.isRequired,
+  loadingChange: PropTypes.func.isRequired,
   // data : la valeur du champ
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
 // == Export

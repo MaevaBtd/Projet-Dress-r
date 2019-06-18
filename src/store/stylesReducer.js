@@ -30,6 +30,7 @@ const CLOSE_MODALE = 'CLOSE_MODALE';
 const RECEIVED_RANDOM = 'RECEIVED_RANDOM';
 const DELETE_ERROR_MESSAGE = 'DELETE_ERROR_MESSAGE';
 export const REQUEST_ADD_OUTFIT = 'REQUEST_ADD_OUTFIT';
+const CLEAN_ERROR_MESSAGE = 'CLEAN_ERROR_MESSAGE';
 
 // Reducer
 const stylesReducer = (state = initialState, action = {}) => {
@@ -103,6 +104,12 @@ const stylesReducer = (state = initialState, action = {}) => {
         ...state,
         receivedCloths: [...action.cloths],
       };
+    case CLEAN_ERROR_MESSAGE:
+      return {
+        ...state,
+        errorAddCloth: '',
+        errorRandom: '',
+      };
     default:
       // console.log('fail ( add cloth reducer)');
       return state;
@@ -173,6 +180,9 @@ export const deleteErrorMessage = () => ({
 export const requestAddOutfit = cloths => ({
   type: REQUEST_ADD_OUTFIT,
   cloths,
+});
+export const cleanErrorMessage = () => ({
+  type: CLEAN_ERROR_MESSAGE,
 });
 
 export default stylesReducer;

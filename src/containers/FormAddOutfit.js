@@ -13,7 +13,10 @@ import {
   changeTop,
   changeCoat,
   modalShow,
-  closeModal,
+  closeModalOutfit,
+  redirectOutfit,
+  stopRedirect,
+  loadingAddOutfit,
 } from '../store/addOutfitReducer';
 import { addAllCloth, changeOutfitName, deleteStateCloth } from '../store/randomReducer';
 
@@ -29,6 +32,8 @@ const mapStateToProps = state => ({
   top: state.addOutfitReducer.top,
   pants: state.addOutfitReducer.pants,
   shoes: state.addOutfitReducer.shoes,
+  redirectAddOutfit: state.addOutfitReducer.redirectAddOutfit,
+  loadingOutfit: state.addOutfitReducer.loadingOutfit,
 });
 
 // == DispatchToProps
@@ -66,8 +71,8 @@ const mapDispatchToProps = dispatch => ({
   modalShow: () => {
     dispatch(modalShow());
   },
-  closeModal: () => {
-    dispatch(closeModal());
+  closeModalOutfit: () => {
+    dispatch(closeModalOutfit());
   },
   onInputChange: (value) => {
     dispatch(changeOutfitName(value));
@@ -79,6 +84,17 @@ const mapDispatchToProps = dispatch => ({
   requestAddOutfit: () => {
     dispatch(requestAddOutfit());
   },
+  redirectOutfit: () => {
+    dispatch(redirectOutfit());
+  },
+  stopRedirect: () => {
+    dispatch(stopRedirect());
+  },
+  loadingAddOutfit: () => {
+    console.log('startloading');
+    dispatch(loadingAddOutfit());
+  },
+
 });
 
 

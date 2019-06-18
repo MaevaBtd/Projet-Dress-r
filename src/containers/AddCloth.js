@@ -6,7 +6,7 @@ import AddCloth from 'src/components/AddCloth';
 
 // action creators
 import { addHead, addBot, addTop, addShoes, addVest } from '../store/addCloth_reducer';
-import { notRedirectAddCloth } from '../store/stylesReducer';
+import { notRedirectAddCloth, cleanErrorMessage } from '../store/stylesReducer';
 
 // == StateToProps
 const mapStateToProps = state => ({
@@ -38,6 +38,9 @@ const mapDispatchToProps = dispatch => ({
   },
   stopRedirect: () => {
     dispatch(notRedirectAddCloth());
+  },
+  cleanErrorMessage: () => {
+    dispatch(cleanErrorMessage());
   },
 });
 
