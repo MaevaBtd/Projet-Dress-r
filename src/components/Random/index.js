@@ -121,12 +121,14 @@ class Random extends React.Component {
           onCancel={this.handleCancel}
           footer={[
             <Button
+              id="confirm-modal"
               key="back"
               onClick={this.handleCancel}
             >
               Annuler
             </Button>,
             <Button
+              id="cancel-modal"
               key="submit"
               type="primary"
               onClick={this.handleOk}
@@ -145,8 +147,8 @@ class Random extends React.Component {
           <div id="randomCloths">
             {receivedCloths.map(cloth => (
               <div key={cloth.id} className="randomCloth">
-                <h3>Type de vêtement: {cloth.type_name} </h3>
-                <h3>Nom du vêtement: {cloth.name}</h3>
+                <h3 className="modal-txt">Type de vêtement: {cloth.type_name} </h3>
+                <h3 className="modal-txt">Nom du vêtement: {cloth.name}</h3>
                 <img src={cloth.image} alt="" width="60px" />
               </div>
             ))
