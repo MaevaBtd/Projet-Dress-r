@@ -122,8 +122,9 @@ class FormAddCloth extends React.Component {
             </Form.Item>
             <Form.Item>
               <h2>Ajoutez une photo de votre vêtement:</h2>
-              <Button>
+              <Button id="button-add-picture">
                 <input
+                  id="input-button-add-picture"
                   type="file"
                   name="image"
                   accept=".jpg, .png, .jpeg"
