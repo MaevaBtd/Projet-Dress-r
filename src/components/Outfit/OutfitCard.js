@@ -1,6 +1,6 @@
 // == Import: Yarn
 import React from 'react';
-import { Button, Icon } from 'antd';
+import { Icon } from 'antd';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
 
@@ -8,16 +8,19 @@ import PropTypes from 'prop-types';
 import './OutfitCard.scss';
 
 // == Code
-const OutfitCard = ({ id, name, cloths, onRemoveOutfit }) => (
+const OutfitCard = ({ name, cloths, onRemoveOutfit }) => (
   <div id="outfitcard">
     <div>
       <p> Nom de la tenue: <span className="dyna"> {name}</span></p>
       <p>Liste des vêtements:</p>
       <ul className="dyna">
         {cloths.map(cloth => (
-          <li key={cloth.id}
+          <li
+            key={cloth.id}
             {...cloth}
-            >{cloth.name}</li>
+          >
+            {cloth.name}
+          </li>
         ))}
       </ul>
     </div>

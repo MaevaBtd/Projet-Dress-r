@@ -13,7 +13,9 @@ import {
   changeTop,
   changeCoat,
   modalShow,
-  closeModal,
+  closeModalOutfit,
+  redirectOutfit,
+  stopRedirect,
 } from '../store/addOutfitReducer';
 import { addAllCloth, changeOutfitName, deleteStateCloth } from '../store/randomReducer';
 
@@ -29,6 +31,8 @@ const mapStateToProps = state => ({
   top: state.addOutfitReducer.top,
   pants: state.addOutfitReducer.pants,
   shoes: state.addOutfitReducer.shoes,
+  redirectAddOutfit: state.addOutfitReducer.redirectAddOutfit,
+  flashValidMessage: state.addOutfitReducer.flashValidMessage,
 });
 
 // == DispatchToProps
@@ -40,44 +44,50 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchUserCloth());
   },
   changeHead: (head) => {
-    console.log('change head containers', head);
+    // console.log('change head containers', head);
     dispatch(changeHead(head));
   },
   changeCoat: (coat) => {
-    console.log('change coat containers', coat);
+    // console.log('change coat containers', coat);
     dispatch(changeCoat(coat));
   },
   changeTop: (top) => {
-    console.log('change top containers', top);
+    // console.log('change top containers', top);
     dispatch(changeTop(top));
   },
   changePants: (pants) => {
-    console.log('change pants containers', pants);
+    // console.log('change pants containers', pants);
     dispatch(changePants(pants));
   },
   changeShoes: (shoes) => {
-    console.log('change shoes containers', shoes);
+    // console.log('change shoes containers', shoes);
     dispatch(changeShoes(shoes));
   },
   addAllCloth: (clothsArray) => {
-    console.log('dispatchtab', clothsArray);
+    // console.log('dispatchtab', clothsArray);
     dispatch(addAllCloth(clothsArray));
   },
   modalShow: () => {
     dispatch(modalShow());
   },
-  closeModal: () => {
-    dispatch(closeModal());
+  closeModalOutfit: () => {
+    dispatch(closeModalOutfit());
   },
   onInputChange: (value) => {
     dispatch(changeOutfitName(value));
   },
   deleteStateCloth: () => {
-    console.log('delete');
+    // console.log('delete');
     dispatch(deleteStateCloth());
   },
   requestAddOutfit: () => {
     dispatch(requestAddOutfit());
+  },
+  redirectOutfit: () => {
+    dispatch(redirectOutfit());
+  },
+  stopRedirect: () => {
+    dispatch(stopRedirect());
   },
 });
 
