@@ -86,9 +86,21 @@ class ClothController extends AbstractController
         $newCloth = new Cloth();
 
         // json decode for axios request
-        $data = json_decode($request->getContent(), true);
-        var_dump($data);exit;
-        // retrieve user and user->id via token
+        // $data = json_decode($request->getContent(), true);
+        // var_dump($data);exit;
+
+        $data = $request->request->all();
+        
+        // var_dump($data['type']);
+        // var_dump($data['styles']);exit;
+        // var_dump($data['name']);
+        // var_dump($data['onePart']);
+
+        // var_dump(json_decode($request->getContent(), true));
+        // var_dump($HTTP_RAW_POST_DATA);exit;
+        // var_dump($data);exit;
+
+        // // retrieve user and user->id via token
         $userToken = $this->getUser();
         $userId = $userToken->getId();
 
@@ -132,14 +144,14 @@ class ClothController extends AbstractController
             $styles = $data['styles'];
 
             if (!empty($styles)) {
-                foreach($styles as $style) {
+                // foreach($styles as $style) {
                     $styleCloth = $stylerepository->findOneBy([
-                        'name' => $style,
+                        'name' => $styles,
                     ]);
                     if (!empty($styleCloth)) {
                         $newCloth->addStyle($styleCloth);
                     }
-                }
+                // }
             }
 
             // We dont want a cloth without any style assigned
@@ -149,23 +161,45 @@ class ClothController extends AbstractController
             }
             
             // TODO ADD A FILE
-            
+            // $uniqueFile = $request->files;
+            $file = $request->files->get('image'); //Symfony\Component\HttpFoundation\File\UploadedFile
+            // $file = $request->files->get('image');
+            $imageJson = $file->getClientOriginalName();
+            // var_dump($fileName);
+
             // $imageJson = $data['image'];
-            // $newCloth->setImage($imageJson);
-            // $file = $newCloth->getImage();
-            // if (!is_null($file)) {
-                //     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtenstion();
-                //     try {
-                //         $file->move(
-                //             $this->getParameter('image_directory'),
-                //             $fileName
-                //         );
-                //     } catch (FileException $e) {
-                //         dump($e);
-                //     }
-                //     $newCloth->setImage($fileName);
-                // }
+            $newCloth->setImage($imageJson);
+
+            // $imageJson c'est genre : çuhipçyubpn.jpeg
+            // des qu'il rencontre un "." select le reste
+
             
+            // var_dump($extension);exit;
+
+            // $file = $newCloth->getImage();
+            if (!is_null($file)) {
+
+                    $parseFile = explode(".", $imageJson);
+                    $extension = end($parseFile);
+
+                    $fileName = $this->generateUniqueFileName().'.'.$extension;
+                    // var_dump($fileName);exit;
+                    // ici, filename c'est un truc du genre "azepoazieiopnqsd.png"
+                    try {
+                        $file->move(
+                            $this->getParameter('image_directory'),
+                            $fileName
+                        );
+                    } catch (FileException $e) {
+                        dump($e);
+                    }
+                    // var_dump($this->getParameter('image_directory').$fileName);exit;
+                    $newCloth->setImage($this->getParameter('image_directory').'/'.$fileName);
+                    // $newCloth->setImage($fileName);
+                    // var_dump($newCloth->setImage($fileName));exit;
+                    
+                }           
+            // 
             // Validate the values directly in entities without a form
             // Many constraints are handle directly in the front
             $errors = $validator->validate($newCloth);
@@ -272,26 +306,31 @@ class ClothController extends AbstractController
         if(!empty($heads)) {
             $oneHead = $heads[0];
             $random[] = $oneHead;
+            $jsonHead = $serializer->serialize($oneHead, 'json');
         }
 
         if(!empty($jackets)) {
             $oneJacket = $jackets[0];
             $random[] = $oneJacket;
+            $jsonJacket = $serializer->serialize($oneJacket, 'json');
         }
 
         if(!empty($tops)) {
             $oneTop = $tops[0];
             $random[] = $oneTop;
+            $jsonTop = $serializer->serialize($oneTop, 'json');
         }
 
         if(!empty($bottoms)) {
             $oneBottom = $bottoms[0];
             $random[] = $oneBottom;
+            $jsonBottom = $serializer->serialize($oneBottom, 'json');
         }
 
         if(!empty($shoes)) {
             $oneShoe = $shoes[0];
             $random[] = $oneShoe; 
+            $jsonShoes = $serializer->serialize($oneShoe, 'json');
         }
 
         if (empty($random)) {
@@ -307,7 +346,15 @@ class ClothController extends AbstractController
             $json = $serializer->serialize($random, 'json');
 
             // HTTP RESPONSE CODE 200
-            return new JsonResponse($json,Response::HTTP_OK);
+            // return new JsonResponse(array(
+            //     'head' => $jsonHead,
+            //     'jacket' => $jsonJacket,
+            //     'top' => $jsonTop,
+            //     'bottom' => $jsonBottom,
+            //     'shoes' => $jsonShoes
+            // ),Response::HTTP_OK);
+
+            return JsonResponse::fromJsonString($json,Response::HTTP_OK);
         }
 
     }

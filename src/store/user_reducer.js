@@ -36,25 +36,25 @@ const userReducer = (state = initialState, action = {}) => {
         nbCloths: action.user.nbCloths,
       };
     case RECEIVED_CLOTH:
-      console.log('cloths :', [...action.cloths[0].cloths]);
+      // console.log('cloths :', [...action.cloths[0].cloths]);
       return {
         ...state,
         clothsList: [...action.cloths[0].cloths],
       };
     case RECEIVED_OUTFITS:
-      console.log(action.outfits);
+      // console.log(action.outfits);
       return {
         ...state,
         outfitsList: action.outfits,
       };
     case DELETE_OUTFIT_FRONT:
-      console.log(action.id);
+      // console.log(action.id);
       return {
         ...state,
         outfitsList: state.outfitsList.filter(outfit => outfit.id !== action.id),
       };
     case DELETE_CLOTH_FRONT:
-      console.log(`le vêtement à l'id ${action.id} a bien été supprimé en front`);
+      // console.log(`le vêtement à l'id ${action.id} a bien été supprimé en front`);
       return {
         ...state,
         clothsList: state.clothsList.filter(cloth => cloth.id !== action.id),

@@ -7,7 +7,6 @@ import './Welcome.scss';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
 import logo from 'src/data/assets/logo.png';
-import main from 'src/data/assets/main.jpg';
 
 // == Code
 const Welcome = () => (

@@ -1,6 +1,8 @@
 // == Import: Yarn
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 
 // == Import: local
 import OutfitList from 'src/containers/OutfitList';
@@ -22,6 +24,10 @@ class Wardrobe extends React.Component {
     );
   }
 }
+
+Wardrobe.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+};
 
 // == Export
 export default Wardrobe;

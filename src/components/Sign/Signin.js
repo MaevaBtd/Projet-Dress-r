@@ -57,7 +57,14 @@ class Signin extends React.Component {
   render() {
     // Vars
 
-    const { username, password, confirmPwd, email, loadingNewUser, newUserMessage } = this.props;
+    const {
+      username,
+      password,
+      confirmPwd,
+      email,
+      loadingNewUser,
+      newUserMessage,
+    } = this.props;
 
 
     return (
@@ -123,17 +130,18 @@ class Signin extends React.Component {
 }
 
 Signin.propTypes = {
-  // action : changer la valeur de input dans le state
   onInputChange: PropTypes.func.isRequired,
   onPwdChange: PropTypes.func.isRequired,
   userSigninRequest: PropTypes.func.isRequired,
   onConfirmPwdChange: PropTypes.func.isRequired,
   onEmailChange: PropTypes.func.isRequired,
-  // data : la valeur du champ
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   confirmPwd: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  loading: PropTypes.func.isRequired,
+  loadingNewUser: PropTypes.bool.isRequired,
+  newUserMessage: PropTypes.string.isRequired,
 };
 
 // == Export

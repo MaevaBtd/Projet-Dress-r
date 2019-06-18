@@ -21,32 +21,37 @@ class ClothList extends React.Component {
     fetchTypes();
   }
 
-  handleStyleChange = (value) => {
-    // Je recup la prop venant du container
-    const { onStyleChange } = this.props;
-    console.log('change cloth style');
-    onStyleChange(value);
-  }
+  // handleStyleChange = (value) => {
+  //   // Je recup la prop venant du container
+  //   const { onStyleChange } = this.props;
+  //   console.log('change cloth style');
+  //   onStyleChange(value);
+  // }
 
-  handleTypeChange = (evt) => {
-    const { onChangePart } = this.props;
-    console.log('change cloth part');
-    onChangePart(evt.target.value);
-  }
+  // handleTypeChange = (evt) => {
+  //   const { onChangePart } = this.props;
+  //   console.log('change cloth part');
+  //   onChangePart(evt.target.value);
+  // }
 
   render() {
-    const { Option } = Select;
-    const { clothsList, isAuthenticated, categories, types } = this.props;
+    // const { Option } = Select;
+    const {
+      clothsList,
+      isAuthenticated,
+      // categories,
+      // types,
+    } = this.props;
     if (!isAuthenticated) return <Redirect to="/" />;
     return (
       <div id="clothlist">
         <Form>
           <h1 id="title-cloth-list">Liste de vos vêtements</h1>
-          <Form.Item>
+          {/* <Form.Item>
             <div className="category-add-cloth">
               <Select
                 placeholder="Catégorie (sport, soirée, décontracté...)"
-                //onChange={this.handleStyleChange}
+                // onChange={this.handleStyleChange}
               >
                 {categories.map(category => (
                   <Option key={category.id} value={category.id}>{category.name}</Option>
@@ -64,7 +69,7 @@ class ClothList extends React.Component {
                 ))}
               </Select>
             </div>
-          </Form.Item>
+          </Form.Item> */}
         </Form>
         <div id="cloth-list">
           {
@@ -86,6 +91,12 @@ ClothList.propTypes = {
   fetchUserCloth: PropTypes.func.isRequired,
   clothsList: PropTypes.array.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  fetchStyles: PropTypes.func.isRequired,
+  fetchTypes: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  types: PropTypes.array.isRequired,
+  // onStyleChange: PropTypes.func.isRequired,
+  // onChangePart: PropTypes.func.isRequired,
 };
 
 

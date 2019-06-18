@@ -1,7 +1,17 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 
-import { FETCH_RANDOM, REQUEST_ADD_OUTFIT, loadingDiceDone, errorMessage, receivedRandom } from './stylesReducer';
+import {
+  FETCH_RANDOM,
+  REQUEST_ADD_OUTFIT,
+  loadingDiceDone,
+  errorMessage,
+  receivedRandom,
+} from './stylesReducer';
+import {
+  redirectOutfit,
+  closeModalOutfit,
+} from './addOutfitReducer';
 
 const randomMiddleware = store => next => (action) => {
   const fetchAPI = url => (
@@ -27,6 +37,7 @@ const randomMiddleware = store => next => (action) => {
         });
       break;
     case REQUEST_ADD_OUTFIT:
+      console.log('request tenue $$$$$$$$$$$$');
       axios.post('http://localhost:8001/api/outfit/new', store.getState().randomReducer, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
@@ -34,7 +45,9 @@ const randomMiddleware = store => next => (action) => {
       })
         .then((response) => {
           store.dispatch(errorMessage(response.data.flash));
-          // console.log(response);
+          redirectOutfit();
+          closeModalOutfit();
+          console.log('tenue ajouté $$$$$$$$$$$$');
         })
         .catch((error) => {
           store.dispatch(errorMessage('La tenue n\'a pas pu être créée. Avez vous bien renseigné un nom de tenue ?'));

@@ -3,7 +3,7 @@ import React from 'react';
 
 // == Import: local
 import './Outfit.scss';
-import Cloth from '../Cloth';
+// import Cloth from '../Cloth';
 
 // == Code
 
