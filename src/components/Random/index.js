@@ -76,7 +76,7 @@ class Random extends React.Component {
     return (
       <div id="random">
         <h1>Tenue aléatoire</h1>
-        <div>{errorRandom}</div>
+        <div id="error-random">{errorRandom}</div>
         <h2>Choisissez la catégorie de la tenue souhaitée et cliquez sur le dé pour la générer aléatoirement parmis les vêtements de votre garde-robe</h2>
         <Form className="random-form">
           <Spin spinning={loadingRandom} size="large">
