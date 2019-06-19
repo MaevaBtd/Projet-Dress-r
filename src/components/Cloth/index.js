@@ -6,6 +6,7 @@ import {
 } from 'antd';
 import 'antd/dist/antd.css';
 import PropTypes from 'prop-types';
+import ImageZoom from 'react-medium-image-zoom';
 
 // == Import: local
 import './Cloth.scss';
@@ -57,7 +58,16 @@ class Cloth extends React.Component {
           </p>
           <p>Type:<span className="dyna">{type.name}</span></p>
         </div>
-        <img src={`../../../public/uploads/images/${image}`} alt="" />
+        <ImageZoom
+          image={{
+            src: `../../../public/uploads/images/${image}`,
+            className: 'img',
+          }}
+          zoomImage={{
+            src: `../../../public/uploads/images/${image}`,
+          }}
+        />
+        {/* <img src={`../../../public/uploads/images/${image}`} alt="" /> */}
         <Icon id="close-button" type="close-circle" theme="filled" onClick={this.handleShowRemoveCloth} />
       </div>
     );
