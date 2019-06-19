@@ -13,16 +13,13 @@ const About = () => (
     <h2 id="about-link">Gestion de garde-robe</h2>
     <Carousel autoplay>
       <div>
-        <h3><img src="src/data/assets/outfit.jpg" alt="" /></h3>
+        <h3><img src="src/data/assets/babouch-carousel.png" alt="" /></h3>
       </div>
       <div>
-        <h3><img src="src/data/assets/main.jpg" alt="" /></h3>
+        <h3><img src="src/data/assets/random-carousel.png" alt="" /></h3>
       </div>
       <div>
-        <h3><img src="src/data/assets/cloth.jpg" alt="" /></h3>
-      </div>
-      <div>
-        <h3><img src="src/data/assets/random.jpg" alt="" /></h3>
+        <h3><img src="src/data/assets/triple-carousel.png" alt="" /></h3>
       </div>
     </Carousel>
     <FontAwesomeIcon size="2x" className="icon" icon={faTshirt} />
