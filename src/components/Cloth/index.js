@@ -27,14 +27,15 @@ class Cloth extends React.Component {
   }
 
   handleRemoveCloth = () => {
-    const { onShowModal, onRemoveCloth } = this.props;
+    const { onShowModal, onRemoveCloth, id } = this.props;
     onShowModal();
-    onRemoveCloth();
+    onRemoveCloth(id);
   }
 
 
   render() {
     const {
+      id,
       name,
       image,
       styles,
@@ -45,7 +46,7 @@ class Cloth extends React.Component {
     return (
       <div id="clothcard">
         <div id="clothcard-content">
-          <p>Nom du vêtement: <span className="dyna">{name}</span></p>
+          <p>Nom du vêtement: <span className="dyna">{id}</span></p>
           <p>Catégorie:{styles.map(style => (
             <span className="dyna" key={style.id}> {style.name} </span>
           ))}
@@ -86,7 +87,7 @@ class Cloth extends React.Component {
             </Button>,
           ]}
         >
-          <h1>{name}</h1>
+          <h1>{id}</h1>
           <div>Etes vous sur de vouloir supprimer ce vêtement? </div>
           <h2>Attention ce vêtement sera aussi supprimé des tenues auquelles vous l'avez attribué</h2>
         </Modal>

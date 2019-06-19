@@ -58,11 +58,12 @@ class Random extends React.Component {
   }
 
   handleCancel = () => {
-    const { closeModal, deleteErrorMessage, cleanStyleState } = this.props;
+    const { closeModal, deleteErrorMessage, cleanStyleState, cleanState } = this.props;
     // console.log('modal fermée1');
     closeModal();
     deleteErrorMessage();
     cleanStyleState();
+    cleanState();
   };
 
   handleOk = () => {

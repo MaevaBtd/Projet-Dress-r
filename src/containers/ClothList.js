@@ -16,13 +16,13 @@ const mapStateToProps = state => ({
 });
 
 // container
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   fetchUserCloth: () => {
     dispatch(fetchUserCloth());
   },
-  onRemoveCloth: () => {
-    console.log('les props des vêtement:', ownProps);
-    dispatch(removeCloth(ownProps.id));
+  onRemoveCloth: (id) => {
+    // console.log('les props des vêtement:', ownProps);
+    dispatch(removeCloth(id));
   },
   fetchStyles: () => {
     dispatch(fetchStyles());
