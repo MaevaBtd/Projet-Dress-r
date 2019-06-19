@@ -37,7 +37,7 @@ const randomMiddleware = store => next => (action) => {
           store.dispatch(receivedRandom(response.data));
         })
         .catch((error) => {
-          // console.log(error);
+          console.log(error);
           store.dispatch(errorMessage(error.data.flash));
           store.dispatch(loadingDiceDone());
         });

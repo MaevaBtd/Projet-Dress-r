@@ -29,6 +29,12 @@ class Random extends React.Component {
     fetchStyles();
   }
 
+  componentWillUnmount() {
+    const { cleanState, cleanStyleState } = this.props;
+    cleanState();
+    cleanStyleState();
+  }
+
   handleSubmit = (evt) => {
     evt.preventDefault();
     // console.log('submit');
@@ -52,10 +58,11 @@ class Random extends React.Component {
   }
 
   handleCancel = () => {
-    const { closeModal, deleteErrorMessage } = this.props;
+    const { closeModal, deleteErrorMessage, cleanStyleState } = this.props;
     // console.log('modal fermée1');
     closeModal();
     deleteErrorMessage();
+    cleanStyleState();
   };
 
   handleOk = () => {

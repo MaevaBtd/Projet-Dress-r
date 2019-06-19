@@ -7,6 +7,8 @@ export const initialState = {
   nbRandom: '',
   clothsList: [],
   outfitsList: [],
+  showModalDelete: false,
+  showModalOutfit: false,
 };
 
 // Action Type
@@ -20,6 +22,8 @@ export const REMOVE_CLOTH = 'REMOVE_CLOTH';
 export const REMOVE_OUTFIT = 'REMOVE_OUTFIT';
 const DELETE_OUTFIT_FRONT = 'DELETE_OUTFIT_FRONT';
 const DELETE_CLOTH_FRONT = 'DELETE_CLOTH_FRONT';
+const SHOW_MODAL_DELETE = 'SHOW_MODAL_DELETE';
+const SHOW_MODAL_OUTFIT = 'SHOW_MODAL_OUTFIT';
 
 // Reducer
 const userReducer = (state = initialState, action = {}) => {
@@ -58,6 +62,16 @@ const userReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         clothsList: state.clothsList.filter(cloth => cloth.id !== action.id),
+      };
+    case SHOW_MODAL_DELETE:
+      return {
+        ...state,
+        showModalDelete: !state.showModalDelete,
+      };
+    case SHOW_MODAL_OUTFIT:
+      return {
+        ...state,
+        showModalOutfit: !state.showModalOutfit,
       };
     default:
       return state;
@@ -101,6 +115,12 @@ export const deleteOutfitFront = id => ({
 export const deleteClothFront = id => ({
   type: DELETE_CLOTH_FRONT,
   id,
+});
+export const showModalDelete = () => ({
+  type: SHOW_MODAL_DELETE,
+});
+export const showModalOutfit = () => ({
+  type: SHOW_MODAL_OUTFIT,
 });
 
 export default userReducer;
