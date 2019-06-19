@@ -3,9 +3,17 @@ import { connect } from 'react-redux';
 
 // == Import: local
 import Random from 'src/components/Random';
-import { fetchStyles, loadingDice, fetchRandom, closeModal, deleteErrorMessage, requestAddOutfit } from 'src/store/stylesReducer';
+import {
+  fetchStyles,
+  loadingDice,
+  fetchRandom,
+  closeModal,
+  deleteErrorMessage,
+  requestAddOutfit,
+  cleanStyleState,
+} from 'src/store/stylesReducer';
 import { onStyleChange } from 'src/store/addCloth_reducer';
-import { changeOutfitName, receivedClothId } from 'src/store/randomReducer';
+import { changeOutfitName, receivedClothId, cleanState } from 'src/store/randomReducer';
 
 // == StateToProps
 const mapStateToProps = state => ({
@@ -51,6 +59,12 @@ const mapDispatchToProps = dispatch => ({
   },
   receivedClothId: (clothId) => {
     dispatch(receivedClothId(clothId));
+  },
+  cleanState: () => {
+    dispatch(cleanState());
+  },
+  cleanStyleState: () => {
+    dispatch(cleanStyleState());
   },
 });
 
