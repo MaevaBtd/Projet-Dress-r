@@ -175,36 +175,24 @@ class ClothController extends AbstractController
             }
             // There is no errors, we can upload the file, persist, and flush
             else {
-                // $uniqueFile = $request->files;
+                // Retrieve file upload
                 $file = $request->files->get('image'); //Symfony\Component\HttpFoundation\File\UploadedFile
-                // $file = $request->files->get('image');
-                // $imageJson = $file->getClientOriginalName();
 
-                // // $imageJson = $data['image'];
-                // $newCloth->setImage($imageJson);
-
-                // $imageJson c'est genre : çuhipçyubpn.jpeg
-                // des qu'il rencontre un "." select le reste
-
-                // $file = $newCloth->getImage();
                 if (!is_null($file)) {
 
+                    // $imageJson looks like : çuhipçyubpn.jpeg
                     $imageJson = $file->getClientOriginalName();
 
-                    // $imageJson = $data['image'];
                     $newCloth->setImage($imageJson);
 
-                    // $imageJson c'est genre : çuhipçyubpn.jpeg
-                    // des qu'il rencontre un "." select le reste
-
-                    // $file = $newCloth->getImage();
-
+                    // PHP Way to get the extension
+                    // But we also can use getClientOriginalExtension like in Symfony\Component\HttpFoundation\File\UploadedFile
                     $parseFile = explode(".", $imageJson);
                     $extension = end($parseFile);
 
                     $fileName = $this->generateUniqueFileName().'.'.$extension;
-                    // var_dump($fileName);exit;
-                    // ici, filename c'est un truc du genre "azepoazieiopnqsd.png"
+
+                    // FileName looks like "az9p6a7i3io0n7sd.png"
                     try {
                         $file->move(
                             $this->getParameter('image_directory'),
@@ -214,10 +202,11 @@ class ClothController extends AbstractController
                         dump($e);
                     }
 
-                    // $newCloth->setImage($this->getParameter('image_directory').'/'.$fileName); // <- la version live
+                    // Set the path in database
+                    // $newCloth->setImage($this->getParameter('image_directory').'/'.$fileName);
+
+                    // Set only the filename in database
                     $newCloth->setImage($fileName);
-                    // var_dump($newCloth->setImage($fileName));exit;
-                    // var_dump($newCloth->getImage());exit;
                 }           
                 
                 $manager->persist($newCloth);
@@ -225,39 +214,6 @@ class ClothController extends AbstractController
 
                 // HTTP RESPONSE CODE 200
                 return new JsonResponse(array('flash' => 'Le vêtement a été ajouté !',Response::HTTP_OK));
-
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                // Validate the values directly in entities without a form
-                // Many constraints are handle directly in the front
-                // $errors = $validator->validate($newCloth);
-            
-                
-                // if (count($errors) > 0) {
-                //     // Initialize a stockage variable for errors messages
-                //     $errorsString = [];
-
-                //     // Retrieve the display message for each error
-                //     foreach ($errors as $error) {
-                //         $errorsString[] = $error->getMessage();
-                //     }
-                    
-                //     // Convert it into json
-                //     $json = $serializer->serialize($errorsString, 'json');
-
-                //     // HTTP RESPONSE Code 409
-                //     return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
-                    
-                // }
-                // // There is no errors, we can persist and flush
-                // else {
-                    // $manager->persist($newCloth);
-                    // $manager->flush();
-
-                    // // HTTP RESPONSE CODE 200
-                    // return new JsonResponse(array('flash' => 'Le vêtement a été ajouté !',Response::HTTP_OK));
-                // }
             }
         }
     }
@@ -322,8 +278,6 @@ class ClothController extends AbstractController
         $bottoms = $repository->findBottomByIdAndStyleId($id,$userId);
         $shoes = $repository->findShoesByIdAndStyleId($id,$userId);
 
-        // SOIT Je recupere tout ( select all ) -> je shuffle en php -> je prends le premier
-        // SOIT random via SQL ( peur de ca, car ca creer des id temporaires a chaque entrée et apres ca en choisit une, donc il y a de l'ecriture)
         shuffle($heads);
         shuffle($jackets);
         shuffle($tops);
@@ -336,31 +290,26 @@ class ClothController extends AbstractController
         if(!empty($heads)) {
             $oneHead = $heads[0];
             $random[] = $oneHead;
-            $jsonHead = $serializer->serialize($oneHead, 'json');
         }
 
         if(!empty($jackets)) {
             $oneJacket = $jackets[0];
             $random[] = $oneJacket;
-            $jsonJacket = $serializer->serialize($oneJacket, 'json');
         }
 
         if(!empty($tops)) {
             $oneTop = $tops[0];
             $random[] = $oneTop;
-            $jsonTop = $serializer->serialize($oneTop, 'json');
         }
 
         if(!empty($bottoms)) {
             $oneBottom = $bottoms[0];
             $random[] = $oneBottom;
-            $jsonBottom = $serializer->serialize($oneBottom, 'json');
         }
 
         if(!empty($shoes)) {
             $oneShoe = $shoes[0];
-            $random[] = $oneShoe; 
-            $jsonShoes = $serializer->serialize($oneShoe, 'json');
+            $random[] = $oneShoe;
         }
 
         if (empty($random)) {
@@ -374,15 +323,6 @@ class ClothController extends AbstractController
             $entityManager->flush();
             
             $json = $serializer->serialize($random, 'json');
-
-            // HTTP RESPONSE CODE 200
-            // return new JsonResponse(array(
-            //     'head' => $jsonHead,
-            //     'jacket' => $jsonJacket,
-            //     'top' => $jsonTop,
-            //     'bottom' => $jsonBottom,
-            //     'shoes' => $jsonShoes
-            // ),Response::HTTP_OK);
 
             return JsonResponse::fromJsonString($json,Response::HTTP_OK);
         }
