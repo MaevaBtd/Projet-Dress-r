@@ -6,6 +6,8 @@ export const initialState = {
 // Action type
 const CHANGE_OUTFIT_NAME = 'CHANGE_OUTFIT_NAME';
 const RECEIVED_CLOTH_ID = 'RECEIVED_CLOTH_ID';
+const ADD_ALL_CLOTH = 'ADD_ALL_CLOTH';
+const DELETE_STATE_CLOTH = 'DELETE_STATE_CLOTH';
 
 // Reducer
 const randomReducer = (state = initialState, action = {}) => {
@@ -19,6 +21,17 @@ const randomReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         cloths: [...action.clothsId],
+      };
+    case ADD_ALL_CLOTH:
+      console.log();
+      return {
+        ...state,
+        cloths: action.clothsArray,
+      };
+    case DELETE_STATE_CLOTH:
+      return {
+        ...state,
+        cloths: [],
       };
     default:
       // console.log('fail ( add cloth reducer)');
@@ -34,6 +47,13 @@ export const changeOutfitName = name => ({
 export const receivedClothId = clothsId => ({
   type: RECEIVED_CLOTH_ID,
   clothsId,
+});
+export const addAllCloth = clothsArray => ({
+  type: ADD_ALL_CLOTH,
+  clothsArray,
+});
+export const deleteStateCloth = () => ({
+  type: DELETE_STATE_CLOTH,
 });
 
 export default randomReducer;

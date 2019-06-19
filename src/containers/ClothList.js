@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(fetchStyles());
   },
   fetchTypes: () => {
-    console.log('types fetched');
+    // console.log('types fetched');
     dispatch(fetchTypes());
   },
 });

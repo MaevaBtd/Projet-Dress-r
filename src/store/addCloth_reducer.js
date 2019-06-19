@@ -3,6 +3,7 @@ export const initialState = {
   name: '',
   styles: [],
   onePart: false,
+  image: null,
 };
 
 // == Action Type
@@ -22,37 +23,39 @@ const ON_STYLE_CHANGE = 'ON_STYLE_CHANGE';
 const ON_CHANGE_PART = 'ON_CHANGE_PART';
 // on submit
 export const ADD_CLOTH_REQUEST = 'ADD_CLOTH_REQUEST';
+const SELECTED_PICTURE = 'SELECTED_PICTURE';
+
 
 // Reducer
 const addClothReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    // Chance type status
+    // Change type status
     case ADD_TYPE_HEAD:
-      console.log('type tête ajouté');
+      // console.log('type tête ajouté');
       return {
         ...state,
         type: 'tête',
       };
     case ADD_TYPE_TOP:
-      console.log('type haut ajouté');
+      // console.log('type haut ajouté');
       return {
         ...state,
         type: 'haut',
       };
     case ADD_TYPE_VEST:
-      console.log('type veste ajouté');
+      // console.log('type veste ajouté');
       return {
         ...state,
         type: 'veste',
       };
     case ADD_TYPE_BOT:
-      console.log('type bas ajouté');
+      // console.log('type bas ajouté');
       return {
         ...state,
         type: 'bas',
       };
     case ADD_TYPE_SHOES:
-      console.log('type tête ajouté');
+      // console.log('type tête ajouté');
       return {
         ...state,
         type: 'chaussures',
@@ -67,7 +70,6 @@ const addClothReducer = (state = initialState, action = {}) => {
 
     // Fetch styles
     case ON_STYLE_CHANGE:
-      console.log(state.styles);
       return {
         ...state,
         styles: [action.value],
@@ -78,6 +80,12 @@ const addClothReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         onePart: action.value,
+      };
+    case SELECTED_PICTURE:
+      console.log('addpic');
+      return {
+        ...state,
+        image: action.picture,
       };
     default:
       // console.log('fail ( add cloth reducer)');
@@ -130,6 +138,10 @@ export const onChangePart = value => ({
 // submit
 export const addClothRequest = () => ({
   type: ADD_CLOTH_REQUEST,
+});
+export const selectedPicture = picture => ({
+  type: SELECTED_PICTURE,
+  picture,
 });
 
 

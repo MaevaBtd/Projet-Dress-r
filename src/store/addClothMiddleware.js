@@ -34,19 +34,36 @@ const addClothMiddleware = store => next => (action) => {
         });
       break;
     case ADD_CLOTH_REQUEST:
-      axios.post('http://localhost:8001/api/cloth/new', store.getState().addClothReducer, {
+      console.log(image);
+      // const { image } = store.getState().imageReducer;
+      const { image, name, type, styles, onePart } = store.getState().addClothReducer;
+
+      const formdata = new FormData();
+
+      formdata.append('image', image);
+      formdata.append('type', type);
+      formdata.append('name', name);
+      formdata.append('styles', styles);
+      formdata.append('onePart', onePart);
+      axios({
+        url: 'http://localhost:8001/api/cloth/new',
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
         },
+        data: formdata,
       })
         .then((response) => {
-          console.log(response.data.flash);
+          console.log('envoi add cloth:', response);
+          // console.log(response.data.flash);
           store.dispatch(loadingAddClothDone(response.data.flash));
           store.dispatch(redirectAddCloth());
         })
         .catch((error) => {
-          console.log(error.flash);
+          console.log('envoi add cloth:', store.getState().addClothReducer);
+          // console.log(error, 'erreur');
           store.dispatch(loadingAddClothDone('ERREUR: Votre vêtement n\'a pas été ajouté'));
+          store.dispatch(redirectAddCloth());
         });
 
       break;

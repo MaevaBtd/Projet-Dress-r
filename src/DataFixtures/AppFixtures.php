@@ -86,20 +86,21 @@ class AppFixtures extends Fixture
         $user->setNbRandom(0);
 
         
+
         foreach($styles as $style){
-        
+          
             $newStyle = new Style();
             $newStyle->setName($style);
             $manager->persist($newStyle);
-
         }
+      
         foreach($types as $type){
         
             $newType = new Type();
             $newType->setName($type);
-            $manager->persist($newType);
-                
+            $manager->persist($newType);  
         }
+      
         $manager->persist($roleAdmin);
         $manager->persist($roleUser);
         

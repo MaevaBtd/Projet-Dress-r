@@ -1,7 +1,7 @@
 @import 'src/styles/vars';
 
 #random {
-  background-image: url('../../data/assets/bckMain.png');
+  background-image: url('../../data/assets/bckMain2.png');
   background-size: 100%;
   height: 55em;
   h1 {
@@ -26,5 +26,69 @@
     width: 35%;
     padding-bottom: 2em;
   }
+  #error-random {
+    padding-bottom: 2em;
+    color: #d18901;
+    font-family: $main-font;
+    font-size: 1.3em;
+  }
   
 }
+.ant-modal-header {
+  background: $brownish;
+  border-bottom: none;
+}
+.ant-modal-title {
+  font-family: $main-font;
+  color: #d18901;
+}
+.ant-modal-body {
+  background: $main-color;
+}
+.ant-modal-footer {
+  background: $main-color;
+  border-top: none;
+}
+.ant-input {
+  margin-bottom: 1em;
+}
+.modal-txt {
+  font-family: $main-font;
+}
+.ant-modal-confirm-title {
+  font-family: $main-font;
+}
+#confirm-modal {
+  height: 2em;
+  margin: 0.5em 1em 0;
+  background-color: $main-color;
+  border-color: $main-color;
+  font-family: $main-font;
+  font-size: 1em;
+  text-decoration: none;
+  color: $brownish;
+  position: static;
+
+  &:hover {
+    background-color: $brownish;
+    color: $main-color;
+  }
+}
+#cancel-modal {
+  height: 2.5em;
+  padding-top: 0.4em;
+  background-color: $brownish;
+  border-color: $brownish;
+  color: $main-color;
+  font-family: $main-font;
+  font-size: 1em;
+  text-decoration: none;
+  margin: .5em auto;
+  position: static;
+
+  &:hover {
+    background-color: #d18901;
+    color: $brownish;
+  }
+}
+

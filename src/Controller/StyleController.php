@@ -5,7 +5,6 @@ namespace App\Controller;
 
 
 use App\Repository\ClothRepository;
-
 use App\Repository\StyleRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

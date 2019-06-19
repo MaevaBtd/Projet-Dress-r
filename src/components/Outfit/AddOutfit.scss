@@ -1,7 +1,7 @@
 @import 'src/styles/vars';
 
 #add-outfit {
-  background-image: url('../../data/assets/bckMain.png');
+  background-image: url('../../data/assets/bckMain2.png');
   background-size: 100%;
   h1 {
     font-family: $main-font;
@@ -17,4 +17,22 @@
   .radio-add-cloth {
     margin: auto;
   }
+  .ant-radio-inner {
+    background-color: $main-color;
+
+  }
+  .ant-radio-checked .ant-radio-inner {
+    border-color: transparent;
+  }
+  
+  .ant-radio:hover .ant-radio-inner, .ant-radio-input:focus + .ant-radio-inner {
+    border-color: #d18901;
+    background-color: #d18901;
+    
+  }
+  .ant-radio-inner::after {
+    background-color: $brownish;
+  }
+  
+  
 }

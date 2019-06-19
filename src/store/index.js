@@ -9,6 +9,8 @@ import signMiddleware from './signMiddleware';
 import randomMiddleware from './randomMiddleware';
 import stylesReducer from './stylesReducer';
 import randomReducer from './randomReducer';
+import addOutfitReducer from './addOutfitReducer';
+import imageReducer from './imageReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import auth from './auth';
 import addClothMiddleware from './addClothMiddleware';
@@ -16,9 +18,23 @@ import addClothMiddleware from './addClothMiddleware';
 
 /* eslint-disable no-underscore-dangle */
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-const middlewares = applyMiddleware(signMiddleware, ajaxMiddleware, addClothMiddleware, randomMiddleware);
+const middlewares = applyMiddleware(
+  signMiddleware,
+  ajaxMiddleware,
+  addClothMiddleware,
+  randomMiddleware,
+);
 const enhancers = (devTools, middlewares);
-const reducer = combineReducers({ signReducer, auth, userReducer, addClothReducer, stylesReducer, randomReducer });
+const reducer = combineReducers({
+  signReducer,
+  auth,
+  userReducer,
+  addClothReducer,
+  stylesReducer,
+  randomReducer,
+  addOutfitReducer,
+  imageReducer,
+});
 
 const store = createStore(reducer, enhancers);
 

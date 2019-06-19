@@ -4,30 +4,28 @@ import {
   Form,
   Input,
   Select,
-  Radio,
   Button,
-  Upload,
   Icon,
-  Row,
-  Col,
   Spin,
   Switch,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // == Import: local
 import './FormAddCloth.scss';
+
 const IconFont = Icon.createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_1243774_rzn5op8nr7l.js',
 });
+
 
 // == Code
 class FormAddCloth extends React.Component {
   componentDidMount() {
     const { fetchStyles } = this.props;
     fetchStyles();
-
   }
 
   handleSubmit = (evt) => {
@@ -35,6 +33,14 @@ class FormAddCloth extends React.Component {
     const { addClothRequest, loading } = this.props;
     addClothRequest();
     loading();
+  }
+
+  handlePictureSelected = (evt) => {
+    const { selectedPicture } = this.props;
+
+    const image = evt.target.files[0];
+    selectedPicture(image);
+    console.log(image);
   }
 
   handleChange = (evt) => {
@@ -53,15 +59,21 @@ class FormAddCloth extends React.Component {
     onStyleChange(value);
   }
 
-  handleChangePart = (evt) => {
+  handleChangePart = (checked) => {
     const { onChangePart } = this.props;
-    console.log('change bool', evt.target.value);
-    onChangePart(evt.target.value);
+    console.log('change bool', checked);
+    onChangePart(checked);
   }
 
   render() {
     const { Option } = Select;
-    const { categories, isAuthenticated, loadingAddCloth, errorAddCloth, redirectAddCloth, type } = this.props;
+    const {
+      categories,
+      isAuthenticated,
+      loadingAddCloth,
+      redirectAddCloth,
+      type,
+    } = this.props;
     let onePart;
 
     if (!isAuthenticated) return <Redirect to="/" />;
@@ -75,12 +87,11 @@ class FormAddCloth extends React.Component {
             id="switch"
             checkedChildren={<IconFont style={{ fontSize: '1.5em' }} type="diceDress-" />}
             unCheckedChildren={<IconFont style={{ fontSize: '1.5em' }} type="dicetshirt" />}
-            defaultunchecked
             onChange={this.handleChangePart}
           />
         </Form.Item>
       );
-    } 
+    }
 
     return (
       <Spin spinning={loadingAddCloth}>
@@ -110,15 +121,20 @@ class FormAddCloth extends React.Component {
               </div>
             </Form.Item>
             <Form.Item>
-              <Upload name="logo" action="/upload.do" listType="picture">
-                <Button>
-                  <Icon type="upload" /> Cliquez pour uploader une photo
-                </Button>
-              </Upload>
+              <h2>Ajoutez une photo de votre vêtement:</h2>
+              <Button id="button-add-picture">
+                <input
+                  id="input-button-add-picture"
+                  type="file"
+                  name="image"
+                  accept=".jpg, .png, .jpeg"
+                  onChange={this.handlePictureSelected}
+                />
+              </Button>
             </Form.Item>
             {onePart}
             <Form.Item>
-              <Button id="button-add-cloth" type="primary" htmlType="submit" >
+              <Button id="button-add-cloth" type="primary" htmlType="submit">
                 Valider
               </Button>
             </Form.Item>
@@ -128,6 +144,21 @@ class FormAddCloth extends React.Component {
     );
   }
 }
+
+FormAddCloth.propTypes = {
+  fetchStyles: PropTypes.func.isRequired,
+  addClothRequest: PropTypes.func.isRequired,
+  loading: PropTypes.func.isRequired,
+  selectedPicture: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onStyleChange: PropTypes.func.isRequired,
+  onChangePart: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  loadingAddCloth: PropTypes.bool.isRequired,
+  redirectAddCloth: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
+};
 
 // == Export
 export default FormAddCloth;

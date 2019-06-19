@@ -1,6 +1,7 @@
 // == Import: Yarn
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // == Import: local
 import './Accueil.scss';
@@ -20,9 +21,13 @@ class Accueil extends React.Component {
         <Welcome />
         <About />
       </div>
-    )
+    );
   }
 }
+
+Accueil.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+};
 
 // == Export
 export default Accueil;
