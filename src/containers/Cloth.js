@@ -12,10 +12,10 @@ const mapStateToProps = state => ({
 });
 
 // container
-const mapDispatchToProps = dispatch => ({
-  onRemoveCloth: (id) => {
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onRemoveCloth: () => {
     // console.log('les props des vêtement:', ownProps.id);
-    dispatch(removeCloth(id));
+    dispatch(removeCloth(ownProps.id));
   },
   onShowModal: () => {
     dispatch(showModalDelete());
