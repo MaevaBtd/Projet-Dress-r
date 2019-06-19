@@ -23,10 +23,10 @@ class FormAddOutfit extends React.Component {
     fetchUserCloth();
   }
 
-  // componentWillUnmount() {
-  //   const { stopRedirect } = this.props;
-  //   stopRedirect();
-  // }
+  componentWillUnmount() {
+    const { stopRedirect } = this.props;
+    stopRedirect();
+  }
 
   handleSubmit = (evt) => {
     evt.preventDefault();

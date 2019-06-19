@@ -74,8 +74,15 @@ const addOutfitReducer = (state = initialState, action = {}) => {
       };
     case STOP_REDIRECT:
       return {
-        ...state,
+        head: '',
+        coat: '',
+        top: '',
+        pants: '',
+        shoes: '',
+        allCloths: [],
+        showModal: false,
         redirectAddOutfit: false,
+        flashValidMessage: '',
       };
     case VALIDATION_MESSAGE:
       // console.log('message validationnnnnn :', action.message);

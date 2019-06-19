@@ -87,18 +87,8 @@ class ClothController extends AbstractController
 
         // json decode for axios request
         // $data = json_decode($request->getContent(), true);
-        // var_dump($data);exit;
 
         $data = $request->request->all();
-        
-        // var_dump($data['type']);
-        // var_dump($data['styles']);exit;
-        // var_dump($data['name']);
-        // var_dump($data['onePart']);
-
-        // var_dump(json_decode($request->getContent(), true));
-        // var_dump($HTTP_RAW_POST_DATA);exit;
-        // var_dump($data);exit;
 
         // // retrieve user and user->id via token
         $userToken = $this->getUser();
@@ -144,6 +134,8 @@ class ClothController extends AbstractController
             $styles = $data['styles'];
 
             if (!empty($styles)) {
+                // foreach available when the front can add more styles to the form
+
                 // foreach($styles as $style) {
                     $styleCloth = $stylerepository->findOneBy([
                         'name' => $styles,
@@ -160,50 +152,10 @@ class ClothController extends AbstractController
                 return new JsonResponse(array('flash' => 'Un vêtement doit au moins avoir un style .',Response::HTTP_BAD_REQUEST));
             }
             
-            // TODO ADD A FILE
-            // $uniqueFile = $request->files;
-            $file = $request->files->get('image'); //Symfony\Component\HttpFoundation\File\UploadedFile
-            // $file = $request->files->get('image');
-            $imageJson = $file->getClientOriginalName();
-            // var_dump($fileName);
+            $errors = $validator->validate($newCloth);
 
-            // $imageJson = $data['image'];
-            $newCloth->setImage($imageJson);
-
-            // $imageJson c'est genre : çuhipçyubpn.jpeg
-            // des qu'il rencontre un "." select le reste
-
-            
-            // var_dump($extension);exit;
-
-            // $file = $newCloth->getImage();
-            if (!is_null($file)) {
-
-                    $parseFile = explode(".", $imageJson);
-                    $extension = end($parseFile);
-
-                    $fileName = $this->generateUniqueFileName().'.'.$extension;
-                    // var_dump($fileName);exit;
-                    // ici, filename c'est un truc du genre "azepoazieiopnqsd.png"
-                    try {
-                        $file->move(
-                            $this->getParameter('image_directory'),
-                            $fileName
-                        );
-                    } catch (FileException $e) {
-                        dump($e);
-                    }
-                    // var_dump($this->getParameter('image_directory').$fileName);exit;
-                    $newCloth->setImage($this->getParameter('image_directory').'/'.$fileName);
-                    // $newCloth->setImage($fileName);
-                    // var_dump($newCloth->setImage($fileName));exit;
-                    
-                }           
-            // 
             // Validate the values directly in entities without a form
             // Many constraints are handle directly in the front
-            $errors = $validator->validate($newCloth);
-          
              
             if (count($errors) > 0) {
                 // Initialize a stockage variable for errors messages
@@ -221,13 +173,75 @@ class ClothController extends AbstractController
                 return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
                 
             }
-            // There is no errors, we can persist and flush
+            // There is no errors, we can upload the file, persist, and flush
             else {
-                $manager->persist($newCloth);
-                $manager->flush();
+            // $uniqueFile = $request->files;
+            $file = $request->files->get('image'); //Symfony\Component\HttpFoundation\File\UploadedFile
+            // $file = $request->files->get('image');
+            $imageJson = $file->getClientOriginalName();
 
-                // HTTP RESPONSE CODE 200
-                return new JsonResponse(array('flash' => 'Le vêtement a été ajouté !',Response::HTTP_OK));
+            // $imageJson = $data['image'];
+            $newCloth->setImage($imageJson);
+
+            // $imageJson c'est genre : çuhipçyubpn.jpeg
+            // des qu'il rencontre un "." select le reste
+
+            // $file = $newCloth->getImage();
+            if (!is_null($file)) {
+
+                $parseFile = explode(".", $imageJson);
+                $extension = end($parseFile);
+
+                $fileName = $this->generateUniqueFileName().'.'.$extension;
+                // var_dump($fileName);exit;
+                // ici, filename c'est un truc du genre "azepoazieiopnqsd.png"
+                try {
+                    $file->move(
+                        $this->getParameter('image_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    dump($e);
+                }
+
+                // $newCloth->setImage($this->getParameter('image_directory').'/'.$fileName); // <- la version live
+                $newCloth->setImage($fileName);
+                // var_dump($newCloth->setImage($fileName));exit;
+                // var_dump($newCloth->getImage());exit;
+            }           
+            
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // Validate the values directly in entities without a form
+            // Many constraints are handle directly in the front
+            // $errors = $validator->validate($newCloth);
+          
+             
+            // if (count($errors) > 0) {
+            //     // Initialize a stockage variable for errors messages
+            //     $errorsString = [];
+
+            //     // Retrieve the display message for each error
+            //     foreach ($errors as $error) {
+            //         $errorsString[] = $error->getMessage();
+            //     }
+                
+            //     // Convert it into json
+            //     $json = $serializer->serialize($errorsString, 'json');
+
+            //     // HTTP RESPONSE Code 409
+            //     return new JsonResponse(array('flash' => $json),Response::HTTP_CONFLICT);
+                
+            // }
+            // // There is no errors, we can persist and flush
+            // else {
+            //     $manager->persist($newCloth);
+            //     $manager->flush();
+
+            //     // HTTP RESPONSE CODE 200
+            //     return new JsonResponse(array('flash' => 'Le vêtement a été ajouté !',Response::HTTP_OK));
+            // }
             }
         }
     }
