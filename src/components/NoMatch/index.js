@@ -8,6 +8,7 @@ import './NoMatch.scss';
 const NoMatch = () => (
   <div id="notfound">
     <h1> Error 404 : Page not found</h1>
+    <img src="src/data/assets/sims.png" alt="" />
   </div>
 );
 
