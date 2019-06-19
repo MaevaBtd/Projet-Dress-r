@@ -58,11 +58,12 @@ class Random extends React.Component {
   }
 
   handleCancel = () => {
-    const { closeModal, deleteErrorMessage, cleanStyleState } = this.props;
+    const { closeModal, deleteErrorMessage, cleanStyleState, cleanState } = this.props;
     // console.log('modal fermée1');
     closeModal();
     deleteErrorMessage();
     cleanStyleState();
+    cleanState();
   };
 
   handleOk = () => {
@@ -96,9 +97,10 @@ class Random extends React.Component {
     // console.log(receivedCloths);
     return (
       <div id="random">
-        <h1>Tenue aléatoire</h1>
+        <h1>Dress'Me</h1>
 
         <div id="error-random">{errorRandom}</div>
+        <h2>Bienvenue sur l'application Dress'Me !</h2>
         <h2>Choisissez la catégorie de la tenue souhaitée et cliquez sur le dé pour la générer aléatoirement parmis les vêtements de votre garde-robe</h2>
 
         <Form className="random-form">

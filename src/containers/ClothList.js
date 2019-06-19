@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(fetchUserCloth());
   },
   onRemoveCloth: () => {
-    console.log('les props des vêtement:', ownProps);
+    // console.log('les props des vêtement:', ownProps);
     dispatch(removeCloth(ownProps.id));
   },
   fetchStyles: () => {
