@@ -7027,6 +7027,11 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-medium-image-zoom@^3.0.16:
+  version "3.0.16"
+  resolved "https://registry.yarnpkg.com/react-medium-image-zoom/-/react-medium-image-zoom-3.0.16.tgz#3d9436c1ef669401550920ab9429c0679b0c5853"
+  integrity sha512-l4z+2Ij0SeCJtBQhXykECowWJL+6OJkCycv6tHELiepIL4GYrYWl8NZZH12qED/9qL0XoNrH99+AyPcTfabUiQ==
+
 react-overlays@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-1.2.0.tgz#205368eeb0a5fb0b7f9b717fa7a12d518500abdb"
