@@ -10,11 +10,17 @@
     font-size: 1.5em;
     font-family: $main-font;
   }
-}
-.icon-footer {
+  .icon-footer {
   color: $main-color;
   margin: 1em;
   text-align: right;
   font-size: 2em;
 
-}
+  }
+
+  #legal-mentions {
+    display: block;
+    color: $main-color;
+    font-family: $main-font;
+  }
+} 
