@@ -19,7 +19,7 @@ class Cloth extends React.Component {
       type,
       onRemoveCloth,
     } = this.props;
-    const imageCloth = image.split('/');
+    // const imageCloth = image.split('/');
 
     return (
       <a id="clothcard">
@@ -31,7 +31,7 @@ class Cloth extends React.Component {
           </p>
           <p>Type:<span className="dyna">{type.name}</span></p>
         </div>
-        <img src={`../../../public/uploads/images/${imageCloth[9]}`} alt="" />
+        <img src={`../../../public/uploads/images/${image}`} alt="" />
         <Icon id="close-button" type="close-circle" theme="filled" onClick={onRemoveCloth} />
       </a>
     )
