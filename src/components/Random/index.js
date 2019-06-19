@@ -149,7 +149,7 @@ class Random extends React.Component {
               <div key={cloth.id} className="randomCloth">
                 <h3 className="modal-txt">Type de vêtement: {cloth.type_name} </h3>
                 <h3 className="modal-txt">Nom du vêtement: {cloth.name}</h3>
-                <img src={cloth.image} alt="" width="60px" />
+                <img src={`../../../public/uploads/images/${cloth.image}`} alt="" width="60px" />
               </div>
             ))
             }
