@@ -300,12 +300,36 @@ class ClothController extends AbstractController
         if(!empty($tops)) {
             $oneTop = $tops[0];
             $random[] = $oneTop;
+
+            $topRepo = $repository->findOneBy([
+                'id' => $oneTop['id'],
+            ]);
+            $noPants = $topRepo->getWithoutPants();
         }
 
+        // le $oneTop retrieve l'objet du vetement, donc on peut directement appeler dessus
+        // var_dump($oneJacket['id']);exit;
+        
+
         if(!empty($bottoms)) {
-            $oneBottom = $bottoms[0];
-            $random[] = $oneBottom;
+        // Ici on regarde si le WithoutPants est a false, si c'est le cas, c'est qu'il a besoin 
+        // d'un pantalon, donc on if , et dans le if on ajoute le pantalon
+        // si c'est true, on rentre pas dans le if, on ressort pas le pantalon
+            if( (isset($noPants)) && ($noPants == true)) {
+                $oneBottom = $bottoms[0];
+                $random[] = $oneBottom;
+            }
+
+            if ( (!isset($noPants))) {
+                $oneBottom = $bottoms[0];
+                $random[] = $oneBottom;
+            }
         }
+
+        // if(!empty($bottoms)) {
+        //     $oneBottom = $bottoms[0];
+        //     $random[] = $oneBottom;
+        // }
 
         if(!empty($shoes)) {
             $oneShoe = $shoes[0];

@@ -76,7 +76,7 @@ class ClothRepository extends ServiceEntityRepository
         ->getQuery()->getResult();
     }
    
-    public function findJacketByIdAndStyleId($styleId,$userId){
+    public function findTopByIdAndStyleId($styleId,$userId){
 
         return $this->createQueryBuilder('c')
         ->select('c.id','c.name','c.image')
@@ -92,7 +92,7 @@ class ClothRepository extends ServiceEntityRepository
         
         ->getQuery()->getResult();
     }
-    public function findTopByIdAndStyleId($styleId,$userId){
+    public function findJacketByIdAndStyleId($styleId,$userId){
 
         return $this->createQueryBuilder('c')
         ->select('c.id','c.name','c.image')
@@ -108,6 +108,7 @@ class ClothRepository extends ServiceEntityRepository
         
         ->getQuery()->getResult();
     }
+   
    
     public function findBottomByIdAndStyleId($styleId, $userId){
 
