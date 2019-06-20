@@ -16,10 +16,10 @@ const About = () => (
         <h3><img src="src/data/assets/babouch-carousel.png" alt="" /></h3>
       </div>
       <div>
-        <h3><img src="src/data/assets/random-carousel.png" alt="" /></h3>
+        <h3><img src="src/data/assets/dressme.png" alt="" /></h3>
       </div>
       <div>
-        <h3><img src="src/data/assets/triple-carousel.png" alt="" /></h3>
+        <h3><img src="src/data/assets/triplev3.png" alt="" /></h3>
       </div>
     </Carousel>
     <FontAwesomeIcon size="2x" className="icon" icon={faTshirt} />
