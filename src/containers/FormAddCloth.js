@@ -29,8 +29,9 @@ const mapDispatchToProps = dispatch => ({
   onStyleChange: (value) => {
     dispatch(onStyleChange(value));
   },
-  onChangePart: (value) => {
-    dispatch(onChangePart(value));
+  onChangePart: () => {
+    // console.log('change bool container');
+    dispatch(onChangePart());
   },
   addClothRequest: () => {
     dispatch(addClothRequest());
@@ -39,7 +40,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadingAddCloth());
   },
   selectedPicture: (picture) => {
-    console.log('container pic');
+    // console.log('container pic');
     dispatch(selectedPicture(picture));
   },
 });

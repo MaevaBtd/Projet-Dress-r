@@ -40,7 +40,7 @@ class FormAddCloth extends React.Component {
 
     const image = evt.target.files[0];
     selectedPicture(image);
-    console.log(image);
+    // console.log(image);
   }
 
   handleChange = (evt) => {
@@ -59,10 +59,10 @@ class FormAddCloth extends React.Component {
     onStyleChange(value);
   }
 
-  handleChangePart = (checked) => {
+  handleChangePart = () => {
     const { onChangePart } = this.props;
-    console.log('change bool', checked);
-    onChangePart(checked);
+    // console.log('change bool');
+    onChangePart();
   }
 
   render() {

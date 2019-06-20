@@ -2,7 +2,7 @@ export const initialState = {
   type: '',
   name: '',
   styles: [],
-  onePart: false,
+  onePart: true,
   image: null,
 };
 
@@ -77,9 +77,10 @@ const addClothReducer = (state = initialState, action = {}) => {
 
     // One Part cloth ?
     case ON_CHANGE_PART:
+      console.log(state.onePart);
       return {
         ...state,
-        onePart: action.value,
+        onePart: !state.onePart,
       };
     case SELECTED_PICTURE:
       console.log('addpic');
@@ -130,9 +131,8 @@ export const onStyleChange = value => ({
 });
 
 // One part cloth?
-export const onChangePart = value => ({
+export const onChangePart = () => ({
   type: ON_CHANGE_PART,
-  value,
 });
 
 // submit
