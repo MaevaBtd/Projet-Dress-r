@@ -111,6 +111,7 @@ class ClothController extends AbstractController
 
             // retrieves datas et set them
             $withoutPantsJson = $data['onePart'];
+            // var_dump($withoutPantsJson);exit;
             
             $newCloth->setWithoutPants($withoutPantsJson);
             $newCloth->setName($nameJson);
