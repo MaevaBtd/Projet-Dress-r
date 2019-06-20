@@ -8,14 +8,14 @@ $carousel-off: 1880px;
   height: auto;
   border-top: 5px solid #c5c8b3;
   @media screen and (min-width: $carousel-off) {
-  height: 70em;
+  height: 85em;
   
   }
   h2 {
     color: #f9c86b;
     font-family: $main-font;
     font-size: 2em;
-    padding-top: 2em;
+    padding-top: 1em;
   }
 }
 .icon {
