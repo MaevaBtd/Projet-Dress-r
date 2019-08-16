@@ -31,7 +31,7 @@ Enfin l'appli serait capable de générer des ensembles de manière "aléatoire"
 ## Techno envisagées
 
 - HTML 5
-- CSS3 ( Semantic UI )
+- CSS3 ( antDesign )
 - JS ( React )
 - PHP7 ( Symfony )
 - MySQL
