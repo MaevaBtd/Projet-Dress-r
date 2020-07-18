@@ -56,7 +56,7 @@
     "dateformat": "^3.0.3",
     "hoist-non-react-statics": "^3.3.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
